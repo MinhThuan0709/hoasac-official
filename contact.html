@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ & Đặt Lịch - HOA SAC Concierge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Noise Texture -->
+    <div class="noise-overlay"></div>
+
+    <div class="preloader">
+        <div class="preloader-content">
+            <h1 class="brand-name">HOA SAC</h1>
+            <div class="loading-line"></div>
+        </div>
+    </div>
+
+    <div class="custom-cursor"></div>
+
+    <!-- HEADER (SYNCED) -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">HOA SAC.</a>
+
+            <div class="hamburger-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Stories</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Về Hoa Sắc</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="/cart" class="cart-btn">Giỏ hàng (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        
+        <!-- HERO -->
+        <section class="contact-hero">
+            <h1 class="big-title">The<br>Concierge.</h1>
+            <p class="intro-sub">Kết nối với chúng tôi để được tư vấn riêng hoặc đặt lịch ghé thăm Atelier.</p>
+        </section>
+
+        <!-- SPLIT CONTENT -->
+        <section class="contact-split">
+            
+            <!-- LEFT: FORM -->
+            <div class="contact-form-wrapper">
+                <form class="luxury-form" id="booking-form">
+                    <div class="form-group">
+                        <input type="text" id="name" required placeholder=" ">
+                        <label for="name">Tên của bạn</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email">Email liên hệ</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="subject">
+                            <option value="advisory">Tư vấn phong cách (Private Advisory)</option>
+                            <option value="appointment">Đặt lịch ghé thăm (Atelier Visit)</option>
+                            <option value="press">Hợp tác & Báo chí (Press)</option>
+                            <option value="other">Khác</option>
+                        </select>
+                        <label for="subject" class="static-label">Nhu cầu</label>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" rows="1" required placeholder=" "></textarea>
+                        <label for="message">Lời nhắn</label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>Gửi Yêu Cầu</span>
+                        <div class="btn-line"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- RIGHT: INFO & IMAGE -->
+            <div class="contact-info-wrapper">
+                <div class="info-card">
+                    <h3>Hoa Sac Atelier</h3>
+                    <p class="address">123 Đường Đồng Khởi, Quận 1<br>Thành phố Hồ Chí Minh, Việt Nam</p>
+                    <p class="hours">Thứ Hai - Chủ Nhật<br>10:00 AM - 09:00 PM</p>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:hello@hoasac.vn">hello@hoasac.vn</a>
+                        <a href="tel:+84909000000">+84 909 000 000</a>
+                    </div>
+                </div>
+
+                <div class="atelier-image parallax-img">
+                    <img src="assets/images/contact/atelier.jpg" alt="Hoa Sac Interior">
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- SOUNDSCAPE CONTROLLER -->
+    <div class="sound-controller" id="sound-toggle">
+        <div class="equalizer">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <span class="sound-label">Sound Off</span>
+    </div>
+
+    <audio id="bg-audio" loop>
+        <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FOOTER (SYNCED) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <h3 class="footer-logo">HOA SAC.</h3>
+                <p class="brand-desc">Định hình phong cách cho tương lai.</p>
+                <div class="social-links">
+                    <a href="#">IG</a><a href="#">FB</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Khám Phá</h4>
+                <ul>
+                    <li><a href="/products/new-arrivals">Hàng Mới Về</a></li>
+                    <li><a href="/collections">Bộ Sưu Tập</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>Bản Tin</h4>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email..." required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> HOA SAC Fashion. All rights reserved.</p>
+        </div>
+    </footer> 
+
+    <!-- CUSTOM SUCCESS MODAL -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Merci.</h3>
+            <p>Yêu cầu của quý khách đã được gửi tới bộ phận Concierge.</p>
+            <p>Chúng tôi sẽ liên hệ lại trong vòng 24 giờ để xác nhận lịch hẹn.</p>
+            <div class="modal-signature">Hoa Sac</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

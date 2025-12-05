@@ -1,0 +1,23 @@
+[
+    { "id": 1, "name": "Structured Wool Coat", "price": 890, "category": "outerwear", "image": "coat.jpg", "department": "women", "hover_video": "look-01.mp4", "cross_sell": [3, 4] },
+    { "id": 2, "name": "Silk Charmeuse Gown", "price": 1200, "category": "dresses", "image": "dress-silk.jpg", "department": "women", "hover_video": "look-02.mp4", "cross_sell": [1] },
+    { "id": 3, "name": "Oversized Silk Blouse", "price": 450, "category": "tops", "image": "top.jpg", "department": "women", "hover_video": "look-03.mp4", "cross_sell": [4, 6] },
+    { "id": 4, "name": "Pleated Wool Trousers", "price": 550, "category": "bottoms", "image": "pants.jpg", "department": "women", "hover_video": "look-04.mp4", "cross_sell": [3, 1] },
+    { "id": 5, "name": "Midnight Velvet Dress", "price": 980, "category": "dresses", "image": "dress-black.jpg", "department": "women", "cross_sell": [7] },
+    { "id": 6, "name": "Asymmetric Silk Skirt", "price": 420, "category": "bottoms", "image": "skirt.jpg", "department": "women", "cross_sell": [3, 12] },
+    { "id": 7, "name": "Classic Trench", "price": 1100, "category": "outerwear", "image": "coat.jpg", "department": "women", "cross_sell": [8, 11] },
+    { "id": 8, "name": "Crisp Linen Shirt", "price": 350, "category": "tops", "image": "top.jpg", "department": "women", "cross_sell": [11, 6] },
+    { "id": 9, "name": "Cashmere Wrap Coat", "price": 1500, "category": "outerwear", "image": "coat.jpg", "department": "women", "cross_sell": [10] },
+    { "id": 10, "name": "Slip Dress Noir", "price": 600, "category": "dresses", "image": "dress-black.jpg", "department": "women", "cross_sell": [9] },
+    { "id": 11, "name": "High-Waist Palazzo", "price": 480, "category": "bottoms", "image": "pants.jpg", "department": "women", "cross_sell": [12, 8] },
+    { "id": 12, "name": "Sheer Organza Top", "price": 390, "category": "tops", "image": "top.jpg", "department": "women", "cross_sell": [6, 4] },
+    
+    { "id": 101, "name": "Italian Wool Suit", "price": 2500, "category": "suits", "image": "suit-01.jpg", "department": "men", "hover_video": "look-01.mp4", "cross_sell": [102] },
+    { "id": 102, "name": "Classic Oxford Shirt", "price": 350, "category": "shirts", "image": "shirt-01.jpg", "department": "men", "hover_video": "look-02.mp4", "cross_sell": [104, 106] },
+    { "id": 103, "name": "Leather Biker Jacket", "price": 1800, "category": "outerwear", "image": "jacket-01.jpg", "department": "men", "cross_sell": [108, 105] },
+    { "id": 104, "name": "Tailored Trousers", "price": 650, "category": "bottoms", "image": "pants-01.jpg", "department": "men", "cross_sell": [102, 106] },
+    { "id": 105, "name": "Cashmere Sweater", "price": 750, "category": "tops", "image": "sweater-01.jpg", "department": "men", "cross_sell": [104, 103] },
+    { "id": 106, "name": "Double Breasted Blazer", "price": 1200, "category": "suits", "image": "suit-02.jpg", "department": "men", "cross_sell": [104, 107] },
+    { "id": 107, "name": "Linen Summer Shirt", "price": 280, "category": "shirts", "image": "shirt-02.jpg", "department": "men", "cross_sell": [108] },
+    { "id": 108, "name": "Straight Leg Jeans", "price": 450, "category": "bottoms", "image": "pants-02.jpg", "department": "men", "cross_sell": [103, 107] }
+]

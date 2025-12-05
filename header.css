@@ -1,0 +1,213 @@
+/* --- HEADER STYLES --- */
+
+/* Cố định Header trên cùng */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đảm bảo luôn nằm trên cùng */
+    background-color: rgba(255, 255, 255, 0.95); /* Màu trắng mờ sang trọng */
+    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ phía sau */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Logo */
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #000;
+    z-index: 1001; /* Luôn nổi lên trên menu mobile */
+}
+
+/* Desktop Navigation */
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 5px 0;
+}
+
+/* Hiệu ứng gạch chân khi hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.header-actions {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-btn {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Hamburger Icon (Mặc định ẩn trên Desktop) */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 6px auto;
+    background-color: #000;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    /* Ẩn giỏ hàng trên header mobile cho gọn */
+    .header-actions {
+        display: none;
+    }
+
+    /* Hiện nút Hamburger */
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Biến đổi Menu thành Overlay toàn màn hình */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: 0; /* Bắt đầu từ ngoài màn hình bên trái (-100%) */
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+    }
+
+    /* Khi menu được kích hoạt (thêm class 'active') */
+    .main-nav.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .nav-link {
+        font-size: 24px; /* Chữ to hơn trên điện thoại */
+        font-weight: 300;
+    }
+
+    /* Hiệu ứng Hamburger biến thành dấu X */
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+        background-color: #000;
+    }
+
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0; /* Ẩn thanh giữa */
+    }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+        background-color: #000;
+    }
+}
+
+/* --- HEADER STYLES --- */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Ban đầu trong suốt để lộ ảnh nền */
+    background-color: transparent; 
+    transition: all 0.4s ease; /* Chuyển động mượt mà trong 0.4s */
+    padding: 20px 0; /* Padding ban đầu lớn cho thoáng */
+}
+
+/* Container giữ nội dung ở giữa */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%; /* Padding 2 bên */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- TRẠNG THÁI KHI CUỘN (JS sẽ thêm class này) --- */
+.site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95); /* Màu trắng mờ */
+    backdrop-filter: blur(10px); /* Kính mờ */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Bóng đổ nhẹ */
+    padding: 10px 0; /* Thu gọn chiều cao header lại một chút */
+}
+
+/* --- MÀU SẮC CHỮ & ICON --- */
+
+/* Mặc định (khi ở trên cùng): Chữ Trắng */
+.logo, .nav-link, .cart-btn {
+    color: #fff; 
+    transition: color 0.4s ease;
+}
+
+/* Hamburger bar mặc định màu trắng */
+.bar {
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Khi cuộn xuống (.scrolled): Chuyển tất cả sang màu Đen */
+.site-header.scrolled .logo,
+.site-header.scrolled .nav-link,
+.site-header.scrolled .cart-btn {
+    color: #000;
+}
+
+.site-header.scrolled .bar {
+    background-color: #000;
+}
+
+/* Riêng phần Mobile Menu Overlay vẫn giữ nguyên logic cũ */
+/* ... (Bạn giữ nguyên phần CSS Mobile từ @media trở xuống ở bài trước) ... */
+

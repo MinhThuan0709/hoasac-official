@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bộ Sưu Tập - HOA SAC Runway</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Noise Texture -->
+    <div class="noise-overlay"></div>
+
+    <div class="preloader">
+        <div class="preloader-content">
+            <h1 class="brand-name">HOA SAC</h1>
+            <div class="loading-line"></div>
+        </div>
+    </div>
+
+    <div class="custom-cursor"></div>
+
+    <!-- HEADER (SYNCED WITH INDEX) -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">HOA SAC.</a>
+
+            <div class="hamburger-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Stories</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Về Hoa Sắc</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="/cart" class="cart-btn">Giỏ hàng (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="collections-page">
+        <!-- Fog Background Effect -->
+        <div class="fog-background">
+            <div class="fog-blob blob-1"></div>
+            <div class="fog-blob blob-2"></div>
+            <div class="fog-blob blob-3"></div> 
+        </div>
+
+        <!-- INTRO SECTION -->
+        <section class="collection-intro">
+            <span class="season-tag">FW 2025</span>
+            <h2>THE SILENT MUSE</h2>
+            <p class="intro-desc">
+                Khi sự ồn ào của phố thị lùi lại phía sau, chỉ còn bản ngã đối thoại cùng trang phục. 
+                Một BST tôn vinh những đường cắt sắc sảo trên nền vải lụa tơ tằm Bảo Lộc.
+            </p>
+            <div class="scroll-indicator">
+                <span>Runway Start</span>
+                <div class="arrow">→</div>
+            </div>
+        </section>
+
+        <!-- HORIZONTAL SCROLL CONTAINER -->
+        <div class="scroll-container">
+            <div class="sticky-wrapper">
+                
+                <div class="horizontal-track">
+                    
+                    <!-- Look 01: THEME DARK -->
+                    <div class="runway-item" data-theme="dark">
+                        <h2 class="giant-text">VELVET</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-01.jpg" alt="Look 01">
+                            <video muted loop playsinline>
+                                <source src="assets/videos/look-01.mp4" type="video/mp4">
+                            </video>
+                            <!-- Hotspot -->
+                            <div class="hotspot" style="top: 40%; left: 60%;">
+                                <div class="hotspot-dot"></div>
+                                <div class="hotspot-card">
+                                    <h4>Áo Khoác Nhung</h4>
+                                    <p>Dựng form 3D thủ công</p>
+                                    <span class="price">$890</span>
+                                </div>
+                            </div>
+                        </div>
+                       <div class="runway-info">
+                            <div class="info-top">
+                                <span class="look-number">Look 01</span>
+                                <span class="material">Nhung The & Lụa</span>
+                            </div>
+                            <h3>Velvet Night</h3>
+                            <p class="look-desc">Áo khoác nhung đen tuyền với kỹ thuật dựng phom 3D, kết hợp cùng chân váy lụa rủ tự nhiên.</p>
+                        </div>
+                    </div>
+
+                    <!-- Look 02: THEME LIGHT -->
+                    <div class="runway-item" data-theme="light">
+                        <h2 class="giant-text">FLUID</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-02.jpg" alt="Look 02">
+                            <video muted loop playsinline>
+                                <source src="assets/videos/look-02.mp4" type="video/mp4">
+                            </video>
+                             <div class="hotspot" style="top: 30%; left: 40%;">
+                                <div class="hotspot-dot"></div>
+                                <div class="hotspot-card">
+                                    <h4>Đầm Organza</h4>
+                                    <p>Xếp ly thủ công 200 giờ</p>
+                                    <span class="price">$1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="runway-info">
+                            <div class="info-top">
+                                <span class="look-number">Look 02</span>
+                                <span class="material">100% Organza</span>
+                            </div>
+                            <h3>Fluid Motion</h3>
+                            <p class="look-desc">Thiết kế lấy cảm hứng từ dòng chảy của nước. Kỹ thuật xếp nếp thủ công tạo độ phồng nhẹ.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quote Interlude (Theme Light) -->
+                    <div class="runway-item text-card" data-theme="light">
+                        <div class="quote-content">
+                            <blockquote>"Sự tối giản thực sự không phải là loại bỏ chi tiết, mà là chắt lọc tinh hoa."</blockquote>
+                            <cite>— Creative Director, HOA SAC</cite>
+                        </div>
+                    </div>
+
+                    <!-- Look 03: THEME GREY -->
+                    <div class="runway-item" data-theme="grey">
+                        <h2 class="giant-text">URBAN</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-03.jpg" alt="Look 03">
+                            <video muted loop playsinline>
+                                <source src="assets/videos/look-03.mp4" type="video/mp4">
+                            </video>
+                             <div class="hotspot" style="top: 50%; left: 50%;">
+                                <div class="hotspot-dot"></div>
+                                <div class="hotspot-card">
+                                    <h4>Blazer Boxy</h4>
+                                    <p>Len cừu nhập khẩu Ý</p>
+                                    <span class="price">$650</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="runway-info">
+                                <div class="info-top">
+                                    <span class="look-number">Look 03</span>
+                                    <span class="material">Wool & Linen</span>
+                                </div>
+                                <h3>Urban Concrete</h3>
+                                <p class="look-desc">Blazer dáng hộp (Boxy) với tông màu xám xi măng, biểu tượng cho người phụ nữ hiện đại.</p>
+                        </div>
+                    </div>
+
+                    <!-- Look 04: THEME LIGHT -->
+                    <div class="runway-item" data-theme="light">
+                        <h2 class="giant-text">MUSE</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-04.jpg" alt="Look 04">
+                            <video muted loop playsinline>
+                                <source src="assets/videos/look-04.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="runway-info">
+                            <span class="look-number">Look 04</span>
+                            <h3>Winter Muse</h3>
+                        </div>
+                    </div>
+
+                    <!-- Visual Break (Video Art) -->
+                    <div class="runway-item" data-theme="dark" style="width: 50vw;">
+                        <div class="runway-img" style="height: 70vh; border-radius: 0;">
+                            <video autoplay muted loop playsinline style="opacity: 1;">
+                                <source src="assets/videos/look-01.mp4" type="video/mp4">
+                            </video>
+                            <h2 class="giant-text" style="left: 10%; font-size: 8vw; opacity: 1; color: #fff; z-index: 2;">BREAK THE<br>SILENCE</h2>
+                        </div>
+                    </div>
+
+                    <!-- Look 05: THEME DARK (Avant Garde) -->
+                    <div class="runway-item" data-theme="dark">
+                        <h2 class="giant-text">BLOOM</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-05.jpg" alt="Look 05">
+                            <div class="hotspot" style="top: 35%; left: 55%;">
+                                <div class="hotspot-dot"></div>
+                                <div class="hotspot-card">
+                                    <h4>Dạ Hội Đen</h4>
+                                    <p>Đính kết thủ công</p>
+                                    <span class="price">$2,100</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="runway-info">
+                            <div class="info-top">
+                                <span class="look-number">Look 05</span>
+                                <span class="material">Silk & Crystals</span>
+                            </div>
+                            <h3>Midnight Bloom</h3>
+                            <p class="look-desc">Vẻ đẹp của đóa hoa nở trong bóng đêm. Sự kết hợp táo bạo giữa cấu trúc corset và tùng váy bồng bềnh.</p>
+                        </div>
+                    </div>
+
+                    <!-- Look 06: THEME GREY (Architectural) -->
+                    <div class="runway-item" data-theme="grey">
+                        <h2 class="giant-text">STRUCT</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-06.jpg" alt="Look 06">
+                        </div>
+                        <div class="runway-info">
+                            <div class="info-top">
+                                <span class="look-number">Look 06</span>
+                                <span class="material">Technical Fabric</span>
+                            </div>
+                            <h3>Neo Structure</h3>
+                            <p class="look-desc">Kiến trúc hiện đại được tái hiện trên trang phục. Những đường cắt gãy gọn, dứt khoát.</p>
+                        </div>
+                    </div>
+
+                    <!-- Look 07: THEME LIGHT (Finale) -->
+                    <div class="runway-item" data-theme="light">
+                        <h2 class="giant-text">FINALE</h2>
+                        <div class="runway-img">
+                            <img src="assets/images/collections/look-07.jpg" alt="Look 07">
+                        </div>
+                        <div class="runway-info">
+                            <div class="info-top">
+                                <span class="look-number">Look 07</span>
+                                <span class="material">Pure Silk</span>
+                            </div>
+                            <h3>Ethereal End</h3>
+                            <p class="look-desc">Kết màn bằng sự tinh khôi tuyệt đối. Nhẹ nhàng, bay bổng và vĩnh cửu.</p>
+                        </div>
+                    </div>
+
+                   <!-- End Card -->
+                   <div class="runway-item end-card final-call" data-theme="dark">
+                        <div class="end-content">
+                            <span class="subtitle">Chiến dịch Thu Đông 2025</span>
+                            <h2>Sẵn sàng để sở hữu?</h2>
+                            <div class="btn-group">
+                                <a href="#" class="btn-primary">Đặt Trước (Pre-order)</a>
+                                <a href="#" class="btn-secondary">Xem Phim Thời Trang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="runway-progress">
+            <div class="progress-bar"></div>
+            <span class="progress-number">0%</span>
+        </div>
+    </main>
+
+    <!-- SOUNDSCAPE CONTROLLER -->
+    <div class="sound-controller" id="sound-toggle">
+        <div class="equalizer">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <span class="sound-label">Sound Off</span>
+    </div>
+
+    <!-- BACKGROUND AUDIO (Local) -->
+    <audio id="bg-audio" loop>
+        <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MAGNETIC NAVIGATION TIMELINE -->
+    <div class="nav-timeline">
+        <div class="nav-item active" data-look="1"><span class="nav-label">01</span></div>
+        <div class="nav-item" data-look="2"><span class="nav-label">02</span></div>
+        <div class="nav-item" data-look="3"><span class="nav-label">03</span></div>
+        <div class="nav-item" data-look="4"><span class="nav-label">04</span></div>
+        <div class="nav-item" data-look="5"><span class="nav-label">05</span></div>
+        <div class="nav-item" data-look="6"><span class="nav-label">06</span></div>
+        <div class="nav-item" data-look="7"><span class="nav-label">07</span></div>
+        <div class="nav-item" data-look="8"><span class="nav-label">End</span></div>
+    </div>
+
+    <!-- FOOTER (SYNCED) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <h3 class="footer-logo">HOA SAC.</h3>
+                <p class="brand-desc">Định hình phong cách cho tương lai.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/hoasacfashion">IG</a>
+                    <a href="https://facebook.com/hoasacfashion">FB</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Khám Phá</h4>
+                <ul>
+                    <li><a href="/products/new-arrivals">Hàng Mới Về</a></li>
+                    <li><a href="/collections">Bộ Sưu Tập</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>Bản Tin</h4>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email..." required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> HOA SAC Fashion. All rights reserved.</p>
+        </div>
+    </footer>    
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+
+/* --- FOOTER STYLES --- */
+
+.site-footer {
+    background-color: #0a0a0a; /* Màu đen gần như tuyệt đối */
+    color: #ffffff;
+    padding: 80px 0 20px; /* Trên 80px, Dưới 20px */
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: grid;
+    /* Chia làm 4 cột: Cột đầu rộng gấp đôi các cột sau */
+    grid-template-columns: 2fr 1fr 1fr 1.5fr; 
+    gap: 60px;
+}
+
+/* Typography Footer */
+.footer-logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.brand-desc {
+    color: #888; /* Màu xám cho văn bản phụ */
+    margin-bottom: 30px;
+    line-height: 1.8;
+    max-width: 300px;
+}
+
+.footer-col h4 {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Danh sách liên kết */
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 15px;
+}
+
+.footer-col ul li a {
+    color: #aaa;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #fff; /* Sáng lên khi hover */
+    padding-left: 5px; /* Dịch nhẹ sang phải */
+}
+
+/* Social Links (Viết tắt IG, FB...) */
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid #333;
+    padding: 8px 12px;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* Newsletter Form "Xịn sò" */
+.newsletter-form {
+    display: flex;
+    position: relative;
+    margin-top: 20px;
+    border-bottom: 1px solid #444; /* Chỉ có đường kẻ dưới */
+}
+
+.newsletter-form input {
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+}
+
+.newsletter-form button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    transform: translateX(5px); /* Mũi tên trượt sang phải */
+    color: #d4af37;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 80px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    text-align: center;
+    color: #555;
+    font-size: 12px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+    .footer-container {
+        /* Chuyển thành 2 cột trên Tablet */
+        grid-template-columns: 1fr 1fr; 
+        gap: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        /* Chuyển thành 1 cột trên Mobile */
+        grid-template-columns: 1fr; 
+        gap: 40px;
+    }
+    
+    .footer-logo {
+        margin-bottom: 15px;
+    }
+}

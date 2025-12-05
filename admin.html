@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">zoo
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOA SAC - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #000; --bg: #f4f6f8; --white: #fff; --border: #dfe3e8; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); display: flex; height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 250px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .logo { padding: 20px; font-size: 24px; font-weight: 700; border-bottom: 1px solid var(--border); letter-spacing: 2px; }
+        .menu { padding: 20px; flex: 1; }
+        .menu-item { padding: 12px; cursor: pointer; border-radius: 6px; color: #637381; font-weight: 500; margin-bottom: 5px; }
+        .menu-item.active, .menu-item:hover { background: #f4f6f8; color: var(--primary); }
+        .menu-item span { margin-right: 10px; }
+
+        /* Main Content */
+        .main { flex: 1; padding: 30px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .btn { padding: 10px 20px; background: var(--primary); color: var(--white); border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn:hover { opacity: 0.8; }
+        .btn-outline { background: transparent; border: 1px solid #999; color: #333; }
+
+        /* Table */
+        .card { background: var(--white); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+        th { background: #f9fafb; font-weight: 600; color: #637381; }
+        td img { width: 40px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .status { padding: 4px 8px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status.instock { background: #e6fffa; color: #00ab55; }
+        .status.low { background: #fff7cd; color: #b78103; }
+        
+        /* Actions */
+        .actions { display: flex; gap: 10px; }
+        .btn-icon { width: 30px; height: 30px; border: 1px solid var(--border); background: white; border-radius: 4px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .btn-icon:hover { background: #f4f6f8; }
+
+        /* Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; padding: 30px; border-radius: 8px; width: 500px; max-width: 90%; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; outline: none; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">HOA SAC.</div>
+        <div class="menu">
+            <div class="menu-item active">📦 Sản Phẩm</div>
+            <div class="menu-item">🛒 Đơn Hàng (Demo)</div>
+            <div class="menu-item">⚙️ Cài Đặt</div>
+        </div>
+        <div style="padding: 20px;">
+            <button class="btn-outline" style="width:100%; padding:10px;" onclick="resetData()">Reset Dữ Liệu Gốc</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <h2>Quản Lý Sản Phẩm</h2>
+            <button class="btn" onclick="openModal()">+ Thêm Sản Phẩm Mới</button>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá ($)</th>
+                        <th>Danh Mục</th>
+                        <th>Tồn Kho</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table">
+                    <!-- JS sẽ render vào đây -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL ADD/EDIT PRODUCT -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:20px;">Thông Tin Sản Phẩm</h3>
+            <form id="product-form">
+                <input type="hidden" id="p-id">
+                
+                <div class="form-group">
+                    <label>Tên sản phẩm</label>
+                    <input type="text" id="p-name" required>
+                </div>
+
+                <div style="display:flex; gap:15px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Giá ($)</label>
+                        <input type="number" id="p-price" required>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>Tồn kho</label>
+                        <input type="number" id="p-stock" value="100">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:15px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Phân loại (Department)</label>
+                        <select id="p-dept">
+                            <option value="women">Women</option>
+                            <option value="men">Men</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>Danh mục (Category)</label>
+                        <select id="p-cat">
+                            <option value="outerwear">Outerwear</option>
+                            <option value="dresses">Dresses</option>
+                            <option value="tops">Tops</option>
+                            <option value="bottoms">Bottoms</option>
+                            <option value="suits">Suits</option>
+                            <option value="shirts">Shirts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên file ảnh (VD: coat.jpg)</label>
+                    <input type="text" id="p-image" placeholder="Copy file ảnh vào folder trước" required>
+                    <small style="color:#666;">Lưu ý: Bạn cần copy file ảnh vào thư mục assets/images/products/... thủ công.</small>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline btn" onclick="closeModal()">Hủy</button>
+                    <button type="submit" class="btn">Lưu Sản Phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- ADMIN LOGIC ---
+        let products = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadData();
+            renderTable();
+        });
+
+        async function loadData() {
+            // 1. Thử lấy từ LocalStorage trước
+            const localData = localStorage.getItem('hoasac_products_db');
+            
+            if (localData) {
+                products = JSON.parse(localData);
+            } else {
+                // 2. Nếu chưa có, tải từ JSON gốc và lưu vào Local
+                try {
+                    const res = await fetch('assets/data/products.json');
+                    products = await res.json();
+                    saveToLocal();
+                } catch (err) {
+                    console.error("Lỗi tải data:", err);
+                }
+            }
+        }
+
+        function saveToLocal() {
+            localStorage.setItem('hoasac_products_db', JSON.stringify(products));
+            alert("Đã lưu thay đổi! Hãy reload trang web chính để thấy kết quả.");
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('product-table');
+            tbody.innerHTML = '';
+
+            products.forEach(p => {
+                // Đường dẫn ảnh demo
+                const imgPath = p.department === 'men' 
+                    ? `assets/images/products/men/${p.image}` 
+                    : `assets/images/products/women/${p.image}`;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><img src="${imgPath}" onerror="this.src='assets/images/products/women/coat.jpg'"></td>
+                    <td><b>${p.name}</b><br><span style="font-size:12px; color:#888">ID: ${p.id}</span></td>
+                    <td>$${p.price}</td>
+                    <td style="text-transform:capitalize">${p.department} - ${p.category}</td>
+                    <td><span class="status instock">Còn hàng</span></td>
+                    <td class="actions">
+                        <div class="btn-icon" onclick="editProduct(${p.id})">✏️</div>
+                        <div class="btn-icon" onclick="deleteProduct(${p.id})">🗑️</div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ADD / EDIT
+        const modal = document.getElementById('product-modal');
+        const form = document.getElementById('product-form');
+
+        window.openModal = () => {
+            form.reset();
+            document.getElementById('p-id').value = '';
+            modal.classList.add('active');
+        }
+
+        window.closeModal = () => {
+            modal.classList.remove('active');
+        }
+
+        window.editProduct = (id) => {
+            const p = products.find(x => x.id === id);
+            if(p) {
+                document.getElementById('p-id').value = p.id;
+                document.getElementById('p-name').value = p.name;
+                document.getElementById('p-price').value = p.price;
+                document.getElementById('p-dept').value = p.department;
+                document.getElementById('p-cat').value = p.category;
+                document.getElementById('p-image').value = p.image;
+                modal.classList.add('active');
+            }
+        }
+
+        window.deleteProduct = (id) => {
+            if(confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
+                products = products.filter(x => x.id !== id);
+                saveToLocal();
+                renderTable();
+            }
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const idVal = document.getElementById('p-id').value;
+            
+            const newProd = {
+                id: idVal ? parseInt(idVal) : Date.now(), // Tạo ID mới bằng timestamp nếu là thêm mới
+                name: document.getElementById('p-name').value,
+                price: parseFloat(document.getElementById('p-price').value),
+                department: document.getElementById('p-dept').value,
+                category: document.getElementById('p-cat').value,
+                image: document.getElementById('p-image').value,
+                cross_sell: [] // Mặc định
+            };
+
+            if(idVal) {
+                // Edit
+                const idx = products.findIndex(x => x.id == idVal);
+                if(idx !== -1) products[idx] = { ...products[idx], ...newProd };
+            } else {
+                // Add
+                products.unshift(newProd); // Thêm lên đầu
+            }
+
+            saveToLocal();
+            renderTable();
+            closeModal();
+        });
+
+        window.resetData = () => {
+            if(confirm("Cảnh báo: Hành động này sẽ xóa mọi thay đổi và quay về dữ liệu gốc ban đầu?")) {
+                localStorage.removeItem('hoasac_products_db');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

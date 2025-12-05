@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - HOA SAC</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Noise -->
+    <div class="noise-overlay"></div>
+    <div class="custom-cursor"></div>
+
+    <!-- HEADER (SYNCED) -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">HOA SAC.</a>
+            <div class="hamburger-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Stories</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Về Hoa Sắc</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions"><a href="cart.html" class="cart-btn">Giỏ hàng (0)</a></div>
+        </div>
+    </header>
+
+    <main class="cart-page">
+        <h1 class="page-title">Your Shopping Bag</h1>
+        
+        <div class="cart-container">
+            <!-- LEFT: ITEM LIST -->
+            <div class="cart-items" id="cart-items-container">
+                <!-- Items injected by JS -->
+                <p class="empty-msg">Giỏ hàng đang trống.</p>
+            </div>
+
+            <!-- RIGHT: SUMMARY -->
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Tạm tính</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Vận chuyển</span>
+                    <span>Miễn phí</span>
+                </div>
+                <div class="summary-total">
+                    <span>Tổng cộng</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button class="checkout-btn">Thanh Toán (Checkout)</button>
+                <a href="women.html" class="continue-link">Tiếp tục mua sắm</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col"><h3 class="footer-logo">HOA SAC.</h3></div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        // LOGIC HIỂN THỊ GIỎ HÀNG RIÊNG
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalEl = document.getElementById('total');
+            
+            let cart = JSON.parse(localStorage.getItem('hoasac_cart')) || [];
+
+            function renderCart() {
+                if (cart.length === 0) {
+                    container.innerHTML = '<p class="empty-msg">Giỏ hàng đang trống.</p>';
+                    subtotalEl.innerText = "$0.00";
+                    totalEl.innerText = "$0.00";
+                    return;
+                }
+
+                container.innerHTML = '';
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    total += item.price * item.quantity;
+                    
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div class="cart-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-details">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <span class="cart-price">$${item.price}</span>
+                            <div class="qty-control">
+                                <button onclick="updateQty(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQty(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <span class="remove-item" onclick="removeItem(${index})">&times;</span>
+                    `;
+                    container.appendChild(div);
+                });
+
+                const formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
+                subtotalEl.innerText = formattedTotal;
+                totalEl.innerText = formattedTotal;
+            }
+
+            window.updateQty = function(index, change) {
+                cart[index].quantity += change;
+                if (cart[index].quantity < 1) cart[index].quantity = 1;
+                localStorage.setItem('hoasac_cart', JSON.stringify(cart));
+                renderCart();
+                // Gọi lại hàm global trong main.js để update header badge
+                if(window.location.reload) window.location.reload(); 
+            }
+
+            window.removeItem = function(index) {
+                cart.splice(index, 1);
+                localStorage.setItem('hoasac_cart', JSON.stringify(cart));
+                renderCart();
+                window.location.reload();
+            }
+
+            renderCart();
+        });
+    </script>
+</body>
+</html>
