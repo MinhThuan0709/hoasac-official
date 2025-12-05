@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE VOID - Interactive Story</title>
+    <link rel="stylesheet" href="campaign.css">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <nav class="glass-nav">
+        <a href="index.html" class="back-link">← HOA SAC</a>
+        <div class="camp-logo">THE VOID</div>
+    </nav>
+
+    <div class="thread-container">
+        <div class="thread-line"></div> <div class="thread-glow"></div> <div class="thread-point"></div> </div>
+
+  <div class="scroll-wrapper">
+        
+        <section class="void-section intro">
+            <h1 class="void-title">LIQUID<br>MEMORY</h1>
+            <p class="void-sub">Hành trình đi tìm vẻ đẹp từ hư vô</p>
+        </section>
+
+        <section class="void-section chapter-left">
+            <div class="liquid-card">
+                <div class="video-mask arch-shape">
+                    <video autoplay muted loop playsinline>
+                        <source src="videos/cp1 (4).mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="text-glass">
+                    <span class="chapter-no">01</span>
+                    <h2>Nguyên Bản</h2>
+                    <p>Trước khi có hình hài, vạn vật đều tồn tại ở thể lỏng. Bộ sưu tập bắt đầu từ những ý niệm chưa thành hình, trôi nổi trong tiềm thức. Chúng tôi không cố gắng định hình vải vóc, mà để chúng tự tìm lấy dòng chảy của riêng mình trên cơ thể người mặc.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="void-section chapter-right">
+            <div class="liquid-card">
+                <div class="video-mask circle-shape">
+                    <video autoplay muted loop playsinline>
+                        <source src="videos/cp1 (3).mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="text-glass">
+                    <span class="chapter-no">02</span>
+                    <h2>Sự Phản Chiếu</h2>
+                    <p>Thời trang là tấm gương phản chiếu tâm hồn. Khi bạn khoác lên mình một thiết kế của THE VOID, bạn không đang che đậy cơ thể, mà đang bộc lộ một phần bản ngã sâu kín nhất. Sự tương phản giữa bóng tối và ánh sáng tạo nên chiều sâu cho nhân cách.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="void-section chapter-center">
+            <div class="liquid-card">
+                <div class="video-mask blob-shape">
+                    <video autoplay muted loop playsinline>
+                        <source src="videos/cp1 (2).mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="text-glass">
+                    <span class="chapter-no">03</span>
+                    <h2>Vẻ Đẹp Hỗn Mang</h2>
+                    <p>Trật tự sinh ra từ sự hỗn loạn. Những đường cắt bất đối xứng (Asymmetrical), những nếp gấp ngẫu hứng không tuân theo quy luật nào cả. Chúng tôi tôn vinh sự không hoàn hảo, bởi chính trong những khiếm khuyết đó, vẻ đẹp độc bản mới thực sự thức tỉnh.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="void-section chapter-left">
+            <div class="liquid-card">
+                <div class="video-mask pill-shape">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://videos.pexels.com/video-files/5309381/5309381-hd_1920_1080_25fps.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="text-glass">
+                    <span class="chapter-no">04</span>
+                    <h2>Khoảng Lặng</h2>
+                    <p>Giữa nhịp sống ồn ào, THE VOID là một nốt trầm cần thiết. Sử dụng tông màu đơn sắc (Monochrome) và loại bỏ mọi chi tiết thừa thãi, chúng tôi đưa thiết kế trở về trạng thái thiền định. Tĩnh lặng, nhưng chứa đựng sức mạnh nội tại mãnh liệt.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="void-section chapter-right">
+            <div class="liquid-card">
+                <div class="video-mask organic-shape">
+                    <video autoplay muted loop playsinline>
+                        <source src="videos/cp1 (1).mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="text-glass">
+                    <span class="chapter-no">05</span>
+                    <h2>Sự Tái Sinh</h2>
+                    <p>Kết thúc của hành trình là sự khởi đầu mới. Khi vật chất tan chảy vào hư vô, thứ còn lại duy nhất là phong cách vĩnh cửu. Đây không chỉ là quần áo, đây là lớp da thứ hai của bạn.</p>
+                    
+                    <div class="cta-group">
+                        <a href="collections.html" class="void-btn primary">Sở Hữu Tác Phẩm</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+    </div>
+
+    <div class="camp-cursor"></div>
+
+    <script src="https://unpkg.com/three@0.146.0/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+    <script src="campaign.js"></script>
+
+</body>
+</html>
