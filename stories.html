@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories & Journal - HOA SAC</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- AVANT-GARDE STORIES LAYOUT --- */
+        body { background-color: #fdfbf7; overflow-x: hidden; }
+
+        /* HERO */
+        .journal-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .journal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 15vw;
+            color: #111;
+            z-index: 2;
+            line-height: 0.8;
+            mix-blend-mode: difference;
+            color: #fff;
+        }
+        .journal-bg {
+            position: absolute; width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        /* CONTAINER */
+        .journal-container {
+            padding-bottom: 150px;
+        }
+
+        /* ARTICLE STYLE 1: Full Width Parallax (Ảnh tràn viền) */
+        .story-full {
+            position: relative;
+            width: 100%;
+            height: 120vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 100px;
+        }
+        .story-full img {
+            position: absolute;
+            width: 100%; height: 120%; top: -10%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .story-full .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 600px;
+            background: rgba(0,0,0,0.3); /* Nền mờ nhẹ */
+            padding: 50px;
+            backdrop-filter: blur(5px);
+            opacity: 0; transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        /* ARTICLE STYLE 2: Offset Overlay (Ảnh lệch, chữ đè lên) */
+        .story-offset {
+            display: flex;
+            width: 90%;
+            margin: 0 auto 200px;
+            align-items: center;
+            position: relative;
+        }
+        .story-offset .visual {
+            width: 70%;
+            height: 900px; /* Ảnh siêu cao */
+            position: relative;
+            overflow: hidden;
+        }
+        .story-offset .visual img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .story-offset .content {
+            width: 40%;
+            background: #fff;
+            padding: 80px;
+            position: absolute;
+            right: 0;
+            top: 20%;
+            box-shadow: -20px 20px 60px rgba(0,0,0,0.1);
+            opacity: 0; transform: translateY(50px); transition: all 1s ease;
+        }
+        /* Đảo chiều */
+        .story-offset.reverse { justify-content: flex-end; }
+        .story-offset.reverse .visual { order: 2; }
+        .story-offset.reverse .content { left: 0; right: auto; }
+
+        /* ARTICLE STYLE 3: Grid Collage (Nhiều ảnh nhỏ) */
+        .story-collage {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 20px;
+            width: 90%;
+            margin: 0 auto 200px;
+            align-items: center;
+        }
+        .story-collage .img-small {
+            height: 400px; object-fit: cover; width: 100%;
+            transform: translateY(50px); /* Parallax lệch pha */
+        }
+        .story-collage .img-large {
+            height: 700px; object-fit: cover; width: 100%;
+        }
+        .story-collage .content {
+            grid-column: 2;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        /* COMMON TYPOGRAPHY */
+        .story-num {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            color: #d4af37;
+            line-height: 1;
+            display: block;
+            margin-bottom: -20px;
+            position: relative; z-index: 10;
+        }
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+        .story-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555; /* Hoặc #ddd nếu nền tối */
+            margin-bottom: 40px;
+        }
+        .story-full .story-desc { color: #eee; }
+        
+        .read-more {
+            font-size: 12px; text-transform: uppercase; letter-spacing: 3px;
+            text-decoration: none; color: inherit; border-bottom: 1px solid currentColor;
+            padding-bottom: 5px;
+        }
+
+        /* VISIBLE STATE */
+        .visible .content { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .story-full, .story-offset, .story-collage { display: block; width: 100%; height: auto; margin-bottom: 100px; }
+            .story-offset .visual, .story-offset .content { width: 100%; position: static; height: 500px; }
+            .story-offset .content { height: auto; margin-top: -50px; width: 90%; margin-left: 5%; }
+            .story-collage { display: flex; flex-direction: column; }
+            .story-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="custom-cursor"></div>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">HOA SAC.</a>
+            <div class="hamburger-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="stories.html" class="nav-link">Stories</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Về Hoa Sắc</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions"><a href="/cart" class="cart-btn">Giỏ hàng (0)</a></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="journal-hero">
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2073&auto=format&fit=crop" class="journal-bg parallax-bg" alt="Journal Hero">
+            <h1 class="journal-title">Journal.</h1>
+        </section>
+
+        <div class="journal-container">
+
+            <!-- STYLE 1: OFFSET OVERLAY (LỆCH PHẢI) -->
+            <div class="story-offset">
+                <div class="visual">
+                    <img src="https://images.unsplash.com/photo-1605763240004-7e93b172d754?q=80&w=1974&auto=format&fit=crop" class="parallax-img" alt="Craft">
+                </div>
+                <div class="content">
+                    <span class="story-num">01</span>
+                    <span class="story-meta">Atelier</span>
+                    <h2 class="story-title">Những Đường Kim Ẩn</h2>
+                    <p class="story-desc">Sự sang trọng thầm lặng đến từ những chi tiết không ai nhìn thấy. Khám phá kỹ thuật khâu tay Blind Stitch.</p>
+                    <a href="#" class="read-more">Đọc Tiếp</a>
+                </div>
+            </div>
+
+            <!-- STYLE 2: FULL WIDTH IMMERSIVE (TRÀN VIỀN) -->
+            <div class="story-full">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2076&auto=format&fit=crop" class="parallax-bg" alt="Fabric">
+                <div class="content">
+                    <span class="story-num">02</span>
+                    <h2 class="story-title">Lụa & Gió</h2>
+                    <p class="story-desc">Chất liệu biết thở. Khi thời trang trở thành lớp da thứ hai của con người.</p>
+                    <a href="#" class="read-more" style="color:#fff; border-color:#fff;">Khám Phá</a>
+                </div>
+            </div>
+
+            <!-- STYLE 3: OFFSET OVERLAY (LỆCH TRÁI) -->
+            <div class="story-offset reverse">
+                <div class="visual">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2020&auto=format&fit=crop" class="parallax-img" alt="Muse">
+                </div>
+                <div class="content">
+                    <span class="story-num">03</span>
+                    <span class="story-meta">Campaign</span>
+                    <h2 class="story-title">The Silent Muse</h2>
+                    <p class="story-desc">Bộ ảnh được thực hiện tại Đà Lạt, nơi vẻ đẹp cổ điển đối thoại với thiên nhiên hoang sơ.</p>
+                    <a href="#" class="read-more">Xem Lookbook</a>
+                </div>
+            </div>
+
+            <!-- STYLE 4: COLLAGE (GHÉP NHIỀU ẢNH) -->
+            <div class="story-collage">
+                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop" class="img-small parallax-fast">
+                <div class="content">
+                    <span class="story-num">04</span>
+                    <h2 class="story-title">Di Sản</h2>
+                    <p class="story-desc">Kết hợp kỹ thuật may đo phương Tây với những họa tiết thêu tay truyền thống Á Đông.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=1974&auto=format&fit=crop" class="img-small parallax-slow">
+            </div>
+
+            <!-- STYLE 5: FULL WIDTH DARK -->
+            <div class="story-full" style="height: 100vh;">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" class="parallax-bg" style="filter: brightness(0.4);">
+                <div class="content" style="background: transparent; text-align: left; max-width: 800px;">
+                    <span class="story-num" style="color:#fff;">05</span>
+                    <h2 class="story-title">Tương Lai Bền Vững</h2>
+                    <p class="story-desc">Chúng tôi cam kết giảm thiểu rác thải thời trang bằng quy trình sản xuất theo đơn đặt hàng (Made-to-order).</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container"><div class="footer-col brand-col"><h3 class="footer-logo">HOA SAC.</h3></div></div>
+        <div class="footer-bottom"><p>&copy; <span id="year"></span> HOA SAC Fashion.</p></div>
+    </footer>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        // --- ARTISTIC SCROLL LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Reveal Elements
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.story-offset, .story-full, .story-collage').forEach(el => observer.observe(el));
+
+            // 2. Advanced Parallax (Nhiều tốc độ)
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                
+                // Ảnh nền trôi chậm (Background Parallax)
+                document.querySelectorAll('.parallax-bg').forEach(img => {
+                    const rect = img.parentElement.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        img.style.transform = `translateY(${(scrolled - img.parentElement.offsetTop) * 0.1}px)`;
+                    }
+                });
+
+                // Ảnh con trôi nhanh (Foreground Parallax)
+                document.querySelectorAll('.parallax-img').forEach(img => {
+                    const rect = img.parentElement.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        img.style.transform = `translateY(${(scrolled - img.parentElement.offsetTop) * 0.05}px) scale(1.1)`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
