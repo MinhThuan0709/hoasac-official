@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ Hàng - HOA SAC</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="header.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Noise -->
-    <div class="noise-overlay"></div>
-    <div class="custom-cursor"></div>
+const fs = require('fs');
+const path = require('path');
 
-    <!-- HEADER (SYNCED) -->
-        <header class="site-header">
+const webDir = 'd:/web';
+
+// ===== NEW HEADER BLOCK (identical to index.html) =====
+const NEW_HEADER = `    <header class="site-header">
         <div class="header-container">
             <a href="index.html" class="logo">HOA SAC.</a>
 
@@ -48,8 +38,10 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header>`;
 
+// ===== PREMIUM NAV OVERLAY (identical to index.html) =====
+const OVERLAY = `
     <!-- PREMIUM NAV OVERLAY -->
     <div class="nav-overlay" id="nav-overlay">
         <!-- LEFT PANEL -->
@@ -162,46 +154,10 @@
             </div>
         </div>
 
-    </div>
-    <main class="cart-page">
-        <h1 class="page-title">Your Shopping Bag</h1>
-        
-        <div class="cart-container">
-            <!-- LEFT: ITEM LIST -->
-            <div class="cart-items" id="cart-items-container">
-                <!-- Items injected by JS -->
-                <p class="empty-msg">Giỏ hàng đang trống.</p>
-            </div>
+    </div>`;
 
-            <!-- RIGHT: SUMMARY -->
-            <div class="cart-summary">
-                <h3>Order Summary</h3>
-                <div class="summary-row">
-                    <span>Tạm tính</span>
-                    <span id="subtotal">$0.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Vận chuyển</span>
-                    <span>Miễn phí</span>
-                </div>
-                <div class="summary-total">
-                    <span>Tổng cộng</span>
-                    <span id="total">$0.00</span>
-                </div>
-                <button class="checkout-btn">Thanh Toán (Checkout)</button>
-                <a href="women.html" class="continue-link">Tiếp tục mua sắm</a>
-            </div>
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-col brand-col"><h3 class="footer-logo">HOA SAC.</h3></div>
-        </div>
-    </footer>
-
-    
+// ===== PRELOADER FALLBACK SCRIPT =====
+const PRELOADER_FALLBACK = `
     <!-- Preloader fallback -->
     <script>
         (function() {
@@ -211,78 +167,45 @@
                 document.body.style.overflow = '';
             }, 3500);
         })();
-    </script>
+    </script>`;
 
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="main.js"></script>
-    
-    <script>
-        // LOGIC HIỂN THỊ GIỎ HÀNG RIÊNG
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('cart-items-container');
-            const subtotalEl = document.getElementById('subtotal');
-            const totalEl = document.getElementById('total');
-            
-            let cart = JSON.parse(localStorage.getItem('hoasac_cart')) || [];
+// Pages to update (skip index.html, admin.html, campaign.html)
+const pages = ['women.html','men.html','collections.html','stories.html','about.html','contact.html','cart.html','product-detail.html'];
 
-            function renderCart() {
-                if (cart.length === 0) {
-                    container.innerHTML = '<p class="empty-msg">Giỏ hàng đang trống.</p>';
-                    subtotalEl.innerText = "$0.00";
-                    totalEl.innerText = "$0.00";
-                    return;
-                }
+pages.forEach(page => {
+    const filePath = path.join(webDir, page);
+    if (!fs.existsSync(filePath)) {
+        console.log(`SKIP (not found): ${page}`);
+        return;
+    }
 
-                container.innerHTML = '';
-                let total = 0;
+    let html = fs.readFileSync(filePath, 'utf8');
 
-                cart.forEach((item, index) => {
-                    total += item.price * item.quantity;
-                    
-                    const div = document.createElement('div');
-                    div.className = 'cart-item';
-                    div.innerHTML = `
-                        <div class="cart-img">
-                            <img src="${item.image}" alt="${item.name}">
-                        </div>
-                        <div class="cart-details">
-                            <h4>${item.name}</h4>
-                            <p>Size: ${item.size}</p>
-                            <span class="cart-price">$${item.price}</span>
-                            <div class="qty-control">
-                                <button onclick="updateQty(${index}, -1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button onclick="updateQty(${index}, 1)">+</button>
-                            </div>
-                        </div>
-                        <span class="remove-item" onclick="removeItem(${index})">&times;</span>
-                    `;
-                    container.appendChild(div);
-                });
+    // 1. Replace old header block (from <header to </header>)
+    html = html.replace(/<header class="site-header"[\s\S]*?<\/header>/m, NEW_HEADER);
 
-                const formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
-                subtotalEl.innerText = formattedTotal;
-                totalEl.innerText = formattedTotal;
-            }
+    // 2. Remove any existing nav-overlay div
+    html = html.replace(/\s*<!-- (?:PREMIUM |FULL-SCREEN )?NAV OVERLAY -->[\s\S]*?<\/div>\s*(?=\n\s*<(?:section|main|div|script))/m, '\n');
+    // Fallback remove if above doesn't match
+    html = html.replace(/<div class="nav-overlay"[\s\S]*?<\/div>\s*\n\s*(?=\n?\s*<(?:section|main|div[^>]+id|script))/m, '');
 
-            window.updateQty = function(index, change) {
-                cart[index].quantity += change;
-                if (cart[index].quantity < 1) cart[index].quantity = 1;
-                localStorage.setItem('hoasac_cart', JSON.stringify(cart));
-                renderCart();
-                // Gọi lại hàm global trong main.js để update header badge
-                if(window.location.reload) window.location.reload(); 
-            }
+    // 3. Inject new overlay right after </header>
+    html = html.replace(/<\/header>\s*\n/, '</header>\n' + OVERLAY + '\n');
 
-            window.removeItem = function(index) {
-                cart.splice(index, 1);
-                localStorage.setItem('hoasac_cart', JSON.stringify(cart));
-                renderCart();
-                window.location.reload();
-            }
+    // 4. Ensure preloader fallback script exists before </body>
+    if (!html.includes('Preloader fallback')) {
+        html = html.replace(/<script src=".*?lenis.*?">\s*<\/script>/m, 
+            match => PRELOADER_FALLBACK + '\n\n    ' + match);
+    }
 
-            renderCart();
-        });
-    </script>
-</body>
-</html>
+    // 5. Ensure header.css is linked
+    if (!html.includes('header.css')) {
+        html = html.replace('<link rel="stylesheet" href="style.css">', 
+            '<link rel="stylesheet" href="style.css">\n    <link rel="stylesheet" href="header.css">');
+    }
+
+    fs.writeFileSync(filePath, html, 'utf8');
+    console.log(`UPDATED: ${page}`);
+});
+
+console.log('Done!');

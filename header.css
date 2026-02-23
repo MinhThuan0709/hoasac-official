@@ -1,54 +1,86 @@
-/* --- HEADER STYLES --- */
+﻿/* =============================================
+   HEADER — HOA SAC — Unified across all pages
+   ============================================= */
 
-/* Cố định Header trên cùng */
+/* ---- Base Header ---- */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Đảm bảo luôn nằm trên cùng */
-    background-color: rgba(255, 255, 255, 0.95); /* Màu trắng mờ sang trọng */
-    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ phía sau */
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
+    z-index: 1000;
+    background-color: transparent;
+    transition: background-color 0.4s ease,
+        padding 0.4s ease,
+        box-shadow 0.4s ease;
+    padding: 24px 0;
 }
 
+.site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07);
+    padding: 14px 0;
+}
+
+/* ---- Header Container ---- */
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
+    padding: 0 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Logo */
+/* ---- Logo ---- */
 .logo {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 3px;
-    color: #000;
-    z-index: 1001; /* Luôn nổi lên trên menu mobile */
+    letter-spacing: 4px;
+    color: #fff;
+    text-decoration: none;
+    z-index: 1001;
+    transition: color 0.4s ease;
+    flex-shrink: 0;
 }
 
-/* Desktop Navigation */
+.site-header.scrolled .logo {
+    color: #000;
+}
+
+body.nav-open .logo {
+    color: #000 !important;
+}
+
+/* ---- Center Nav (Desktop) ---- */
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
 .nav-list {
     display: flex;
     list-style: none;
     gap: 40px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
     text-decoration: none;
-    color: #000;
-    font-size: 14px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     position: relative;
-    padding: 5px 0;
+    padding: 4px 0;
+    transition: color 0.3s ease;
 }
 
-/* Hiệu ứng gạch chân khi hover */
+/* Underline slide effect */
 .nav-link::after {
     content: '';
     position: absolute;
@@ -56,158 +88,805 @@
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: #000;
-    transition: width 0.3s ease;
+    background-color: currentColor;
+    transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
-.header-actions {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.cart-btn {
-    text-decoration: none;
+.site-header.scrolled .nav-link {
     color: #000;
 }
 
-/* Hamburger Icon (Mặc định ẩn trên Desktop) */
-.hamburger-menu {
-    display: none;
-    cursor: pointer;
-    z-index: 1001;
+body.nav-open .nav-link {
+    color: #000 !important;
 }
 
-.bar {
-    display: block;
-    width: 25px;
-    height: 2px;
-    margin: 6px auto;
-    background-color: #000;
-    transition: all 0.3s ease-in-out;
-}
-
-/* --- MOBILE RESPONSIVE --- */
-@media (max-width: 768px) {
-    /* Ẩn giỏ hàng trên header mobile cho gọn */
-    .header-actions {
-        display: none;
-    }
-
-    /* Hiện nút Hamburger */
-    .hamburger-menu {
-        display: block;
-    }
-
-    /* Biến đổi Menu thành Overlay toàn màn hình */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        left: 0; /* Bắt đầu từ ngoài màn hình bên trái (-100%) */
-        width: 100%;
-        height: 100vh;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-    }
-
-    /* Khi menu được kích hoạt (thêm class 'active') */
-    .main-nav.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .nav-list {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-
-    .nav-link {
-        font-size: 24px; /* Chữ to hơn trên điện thoại */
-        font-weight: 300;
-    }
-
-    /* Hiệu ứng Hamburger biến thành dấu X */
-    .hamburger-menu.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-        background-color: #000;
-    }
-
-    .hamburger-menu.active .bar:nth-child(2) {
-        opacity: 0; /* Ẩn thanh giữa */
-    }
-
-    .hamburger-menu.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: #000;
-    }
-}
-
-/* --- HEADER STYLES --- */
-
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Ban đầu trong suốt để lộ ảnh nền */
-    background-color: transparent; 
-    transition: all 0.4s ease; /* Chuyển động mượt mà trong 0.4s */
-    padding: 20px 0; /* Padding ban đầu lớn cho thoáng */
-}
-
-/* Container giữ nội dung ở giữa */
-.header-container {
+/* ---- Right Actions Group ---- */
+.header-actions {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 5%; /* Padding 2 bên */
-    max-width: 1400px;
-    margin: 0 auto;
+    gap: 24px;
+    flex-shrink: 0;
 }
 
-/* --- TRẠNG THÁI KHI CUỘN (JS sẽ thêm class này) --- */
-.site-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.95); /* Màu trắng mờ */
-    backdrop-filter: blur(10px); /* Kính mờ */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Bóng đổ nhẹ */
-    padding: 10px 0; /* Thu gọn chiều cao header lại một chút */
+/* ---- Language Toggle ---- */
+.lang-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* --- MÀU SẮC CHỮ & ICON --- */
-
-/* Mặc định (khi ở trên cùng): Chữ Trắng */
-.logo, .nav-link, .cart-btn {
-    color: #fff; 
-    transition: color 0.4s ease;
+.lang-opt {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
+    opacity: 0.4;
+    transition: color 0.3s, opacity 0.3s;
 }
 
-/* Hamburger bar mặc định màu trắng */
-.bar {
-    background-color: #fff;
-    transition: all 0.3s ease-in-out;
+.lang-opt.active {
+    opacity: 1;
 }
 
-/* Khi cuộn xuống (.scrolled): Chuyển tất cả sang màu Đen */
-.site-header.scrolled .logo,
-.site-header.scrolled .nav-link,
+.lang-divider {
+    font-size: 10px;
+    color: #fff;
+    opacity: 0.3;
+    transition: color 0.3s;
+}
+
+.site-header.scrolled .lang-opt,
+.site-header.scrolled .lang-divider {
+    color: #000;
+}
+
+body.nav-open .lang-opt,
+body.nav-open .lang-divider {
+    color: #000 !important;
+}
+
+/* ---- Cart Button ---- */
+.cart-btn {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
 .site-header.scrolled .cart-btn {
     color: #000;
 }
 
+body.nav-open .cart-btn {
+    color: #000 !important;
+}
+
+/* Hide cart text on very small screens */
+@media (max-width: 480px) {
+    .cart-btn {
+        display: none;
+    }
+}
+
+/* ============================================
+   HAMBURGER — Always visible — with animations
+   ============================================ */
+
+.hamburger-menu {
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px;
+    margin-right: -8px;
+    /* optical alignment */
+
+    /* Attract-attention pulse on page load */
+    animation: hamPulse 2.4s ease-in-out 2s 3;
+}
+
+/* Each bar */
+.bar {
+    display: block;
+    width: 26px;
+    height: 1.5px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.38s cubic-bezier(0.23, 1, 0.32, 1),
+        opacity 0.25s ease,
+        width 0.38s cubic-bezier(0.23, 1, 0.32, 1),
+        background-color 0.3s ease;
+    transform-origin: center;
+}
+
+/* Middle bar slightly shorter — editorial style */
+.bar:nth-child(2) {
+    width: 18px;
+    transition: transform 0.38s cubic-bezier(0.23, 1, 0.32, 1),
+        opacity 0.25s ease,
+        width 0.38s cubic-bezier(0.23, 1, 0.32, 1) 0.05s,
+        background-color 0.3s ease;
+}
+
+/* Scrolled state — bars go dark */
 .site-header.scrolled .bar {
     background-color: #000;
 }
 
-/* Riêng phần Mobile Menu Overlay vẫn giữ nguyên logic cũ */
-/* ... (Bạn giữ nguyên phần CSS Mobile từ @media trở xuống ở bài trước) ... */
+/* Hover — middle bar extends to full width */
+.hamburger-menu:hover .bar:nth-child(2) {
+    width: 26px;
+}
 
+/* Hover — subtle lift */
+.hamburger-menu:hover .bar:nth-child(1) {
+    transform: translateY(-1px);
+}
+
+.hamburger-menu:hover .bar:nth-child(3) {
+    transform: translateY(1px);
+}
+
+/* ---- Open state (body.nav-open) → X ---- */
+body.nav-open .bar {
+    background-color: #000 !important;
+}
+
+body.nav-open .bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+    width: 26px;
+}
+
+body.nav-open .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+body.nav-open .bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+    width: 26px;
+}
+
+/* ---- Keyframe: pulse wiggle to grab attention ---- */
+@keyframes hamPulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    15% {
+        transform: scale(1.15) rotate(-4deg);
+    }
+
+    30% {
+        transform: scale(1.15) rotate(4deg);
+    }
+
+    45% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* After page-load attention animation, add a subtle idle glow ring */
+.hamburger-menu::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    transition: border-color 0.3s ease;
+    pointer-events: none;
+}
+
+.hamburger-menu:hover::before {
+    border-color: rgba(255, 255, 255, 0.35);
+    animation: glowRing 1.2s ease-in-out infinite alternate;
+}
+
+.site-header.scrolled .hamburger-menu:hover::before {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+@keyframes glowRing {
+    from {
+        transform: scale(0.95);
+        opacity: 0.6;
+    }
+
+    to {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* =============================================
+   FULL-SCREEN NAV OVERLAY
+   ============================================= */
+
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1002;
+    background-color: #f5f3ef;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+        visibility 0.45s;
+    overflow-y: auto;
+}
+
+.nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-overlay-inner {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 100px 5% 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* ---- Overlay Nav ---- */
+.overlay-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    flex: 1;
+}
+
+/* Nav group */
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(-24px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.nav-overlay.open .nav-group:nth-child(1) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.08s;
+}
+
+.nav-overlay.open .nav-group:nth-child(2) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.16s;
+}
+
+.nav-overlay.open .nav-group:nth-child(3) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.24s;
+}
+
+.nav-overlay.open .nav-group:nth-child(4) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.32s;
+}
+
+/* Category title */
+.nav-group-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #999;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Sub list */
+.nav-sub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.nav-sub-list li {
+    display: flex;
+    align-items: baseline;
+}
+
+.nav-sub-list li::before {
+    content: '- ';
+    color: #c9a96e;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.nav-sub-list a {
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    line-height: 2;
+    transition: color 0.22s ease, padding-left 0.22s ease;
+}
+
+.nav-sub-list a:hover {
+    color: #c9a96e;
+    padding-left: 5px;
+}
+
+/* Solo links */
+.nav-group--solo {
+    gap: 6px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 28px;
+    margin-top: 4px;
+}
+
+.nav-solo-link {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    display: block;
+    line-height: 2.4;
+    transition: color 0.22s ease, letter-spacing 0.3s ease;
+}
+
+.nav-solo-link:hover {
+    color: #c9a96e;
+    letter-spacing: 6px;
+}
+
+/* Overlay Footer */
+.nav-overlay-footer {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 28px;
+    margin-top: 36px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease 0.38s, transform 0.4s ease 0.38s;
+}
+
+.nav-overlay.open .nav-overlay-footer {
+    opacity: 1;
+    transform: none;
+}
+
+.nav-footer-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.22s ease;
+}
+
+.nav-footer-link:hover {
+    color: #000;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+/* On mobile: hide center nav, show only logo + actions */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+
+    .cart-btn {
+        display: none;
+    }
+
+    .lang-toggle {
+        display: none;
+    }
+
+    .nav-overlay-inner {
+        padding-top: 90px;
+    }
+}
+
+/* On tablet: hide cart text */
+@media (max-width: 1024px) {
+    .nav-list {
+        gap: 24px;
+    }
+
+    .nav-link {
+        font-size: 10px;
+    }
+}
+/* =============================================
+   PREMIUM NAV OVERLAY — SPLIT SCREEN
+   ============================================= */
+
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.23,1,0.32,1),
+                visibility 0.5s;
+    overflow: hidden;
+}
+
+.nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ---- LEFT PANEL ---- */
+.ov-left {
+    background: #0d0d0d;
+    color: #f0ebe3;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 52px 40px;
+    overflow-y: auto;
+    transform: translateX(-40px);
+    transition: transform 0.55s cubic-bezier(0.23,1,0.32,1);
+}
+
+.nav-overlay.open .ov-left {
+    transform: translateX(0);
+}
+
+/* Brand in overlay */
+.ov-brand {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: #f0ebe3;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 52px;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.ov-brand:hover { opacity: 1; }
+
+/* ---- Sections ---- */
+.ov-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+}
+
+.ov-section {
+    border-top: 1px solid rgba(240,235,227,0.08);
+    padding: 18px 0;
+    cursor: pointer;
+}
+
+.ov-section:last-child {
+    border-bottom: 1px solid rgba(240,235,227,0.08);
+}
+
+/* Section header row */
+.ov-section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.ov-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #c9a96e;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.ov-icon {
+    width: 18px;
+    height: 18px;
+    color: rgba(240,235,227,0.4);
+    flex-shrink: 0;
+    transition: color 0.3s ease, transform 0.4s ease;
+}
+
+.ov-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(240,235,227,0.55);
+    transition: color 0.3s ease, letter-spacing 0.4s ease;
+}
+
+/* Hover section head */
+.ov-section:hover .ov-label {
+    color: #f0ebe3;
+    letter-spacing: 6px;
+}
+
+.ov-section:hover .ov-icon {
+    color: #c9a96e;
+    transform: rotate(-8deg) scale(1.15);
+}
+
+.ov-section:hover .ov-num {
+    transform: translateY(-2px);
+}
+
+/* ---- Sub items ---- */
+.ov-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.23,1,0.32,1),
+                margin-top 0.3s ease;
+}
+
+.ov-section:hover .ov-items,
+.ov-section.expanded .ov-items {
+    max-height: 300px;
+    margin-top: 14px;
+}
+
+.ov-item {
+    overflow: hidden;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.36s ease, opacity 0.36s ease;
+}
+
+.ov-section:hover .ov-item,
+.ov-section.expanded .ov-item {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Stagger delays for items */
+.ov-section:hover .ov-item:nth-child(1) { transition-delay: 0.04s; }
+.ov-section:hover .ov-item:nth-child(2) { transition-delay: 0.09s; }
+.ov-section:hover .ov-item:nth-child(3) { transition-delay: 0.14s; }
+.ov-section:hover .ov-item:nth-child(4) { transition-delay: 0.19s; }
+.ov-section:hover .ov-item:nth-child(5) { transition-delay: 0.24s; }
+.ov-section:hover .ov-item:nth-child(6) { transition-delay: 0.29s; }
+.ov-section:hover .ov-item:nth-child(7) { transition-delay: 0.33s; }
+
+.ov-item a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: rgba(240,235,227,0.75);
+    text-decoration: none;
+    line-height: 1.5;
+    padding: 4px 0;
+    transition: color 0.22s ease, padding-left 0.22s ease;
+}
+
+.ov-item a::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: #c9a96e;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+}
+
+.ov-item a:hover {
+    color: #f0ebe3;
+    padding-left: 6px;
+}
+
+.ov-item a:hover::before {
+    width: 32px;
+}
+
+/* ---- Quick links ---- */
+.ov-quick {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(240,235,227,0.08);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
+}
+
+.nav-overlay.open .ov-quick {
+    opacity: 1;
+    transform: none;
+}
+
+.ov-quick-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,235,227,0.4);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid rgba(240,235,227,0.1);
+    border-radius: 2px;
+    transition: color 0.25s, border-color 0.25s, background 0.25s;
+}
+
+.ov-quick-link svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.ov-quick-link:hover {
+    color: #f0ebe3;
+    border-color: #c9a96e;
+    background: rgba(201,169,110,0.07);
+}
+
+/* ---- Footer strip ---- */
+.ov-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(240,235,227,0.08);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.45s;
+}
+
+.nav-overlay.open .ov-foot {
+    opacity: 1;
+}
+
+.ov-socials {
+    display: flex;
+    gap: 18px;
+}
+
+.ov-social {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(240,235,227,0.3);
+    text-decoration: none;
+    transition: color 0.25s;
+}
+
+.ov-social:hover {
+    color: #c9a96e;
+}
+
+.ov-clock {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: rgba(240,235,227,0.3);
+    font-variant-numeric: tabular-nums;
+    font-family: 'Courier New', monospace;
+}
+
+/* ---- RIGHT PANEL (Mood Image) ---- */
+.ov-right {
+    position: relative;
+    overflow: hidden;
+    transform: translateX(40px);
+    transition: transform 0.55s cubic-bezier(0.23,1,0.32,1) 0.06s;
+}
+
+.nav-overlay.open .ov-right {
+    transform: translateX(0);
+}
+
+.ov-mood {
+    position: absolute;
+    inset: 0;
+}
+
+.ov-mood img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: opacity 0.55s ease, transform 0.7s ease;
+    filter: brightness(0.82) contrast(1.05);
+}
+
+/* New image fade */
+.ov-mood img.fading {
+    opacity: 0;
+    transform: scale(1.04);
+}
+
+.ov-mood-label {
+    position: absolute;
+    bottom: 36px;
+    left: 32px;
+    right: 32px;
+}
+
+.ov-mood-label span {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    background: rgba(0,0,0,0.35);
+    padding: 8px 16px;
+    border-left: 2px solid #c9a96e;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.4s ease;
+}
+
+/* Decorative grain texture over right panel */
+.ov-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* ---- Mobile: single column ---- */
+@media (max-width: 900px) {
+    .nav-overlay {
+        grid-template-columns: 1fr;
+    }
+    .ov-right { display: none; }
+    .ov-left  { padding: 80px 32px 40px; }
+    .ov-item a { font-size: 20px; }
+}
+
+/* z-index fix: overlay always above header */.nav-overlay.open { z-index: 1002 !important; }

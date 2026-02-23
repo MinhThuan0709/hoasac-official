@@ -1,4 +1,4 @@
-@import url("header.css");
+﻿@import url("header.css");
 @import url("footer.css");
 
 /* Thiết lập chung */
@@ -574,7 +574,7 @@ body, a, button, input {
     left: 0;
     width: 40px; /* Kích thước vòng tròn bao quanh */
     height: 40px;
-    border: 1px solid #fff; /* Viền mỏng tinh tế */
+    border: 1.5px solid #000; /* Viền mỏng tinh tế */
     border-radius: 50%;
     pointer-events: none; /* Bắt buộc để bấm xuyên qua */
     transform: translate(-50%, -50%);
@@ -587,7 +587,7 @@ body, a, button, input {
 
     /* --- PHÉP MÀU NGHỆ THUẬT (QUAN TRỌNG NHẤT) --- */
     /* Giúp con chuột đổi màu nghịch đảo với nền phía sau */
-    mix-blend-mode: difference; 
+    /* mix-blend-mode: difference; */ 
     
     /* Căn giữa chấm tròn bên trong */
     display: flex;
@@ -600,7 +600,7 @@ body, a, button, input {
     content: '';
     width: 6px;
     height: 6px;
-    background-color: #fff; /* Màu trắng (nhưng sẽ bị đảo màu do mix-blend-mode) */
+    background-color: #111;
     border-radius: 50%;
     position: absolute;
 }
@@ -658,7 +658,7 @@ html.lenis, html.lenis body {
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    mix-blend-mode: difference; /* Đổi màu tương phản với nền (Trắng trên đen, Đen trên trắng) */
+    /* mix-blend-mode: difference; */ /* Đổi màu tương phản với nền (Trắng trên đen, Đen trên trắng) */
     color: #fff; 
     font-family: 'Courier New', Courier, monospace; /* Font kỹ thuật số cổ điển */
     font-size: 12px;
@@ -713,7 +713,7 @@ html.lenis, html.lenis body {
     display: flex;
     gap: 10px; /* Khoảng cách các vạch */
     z-index: 1000;
-    mix-blend-mode: difference; /* Tự động tương phản màu nền */
+    /* mix-blend-mode: difference; */ /* Tự động tương phản màu nền */
 }
 
 .nav-item {
@@ -3318,7 +3318,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     align-items: center;
     gap: 40px; /* Kho?ng c�ch r?ng hon */
     z-index: 1000;
-    mix-blend-mode: difference; /* Tuong ph?n v?i n?n */
+    /* mix-blend-mode: difference; */ /* Tuong ph?n v?i n?n */
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.2); /* �u?ng k? m? l�m n?n */
 }
@@ -3404,7 +3404,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    ========================================= */
 
 @media (max-width: 600px) {
-    /* Hero Section: Ch? nh? l?i d? v?a m�n h�nh d?c */
+    /* Hero Section: Ch? nh? l?i d? v?a m�n h�nh d?c */
     .hero-content h1 {
         font-size: 2.5rem !important;
         line-height: 1.2;
@@ -3416,14 +3416,14 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
         padding: 0 20px;
     }
 
-    /* N�t b?m to hon d? d? ch?m */
+    /* N�t b?m to hon d? d? ch?m */
     .btn-primary {
         padding: 15px 50px;
-        width: 80%; /* N�t r?ng ra */
+        width: 80%; /* N�t r?ng ra */
         display: inline-block;
     }
 
-    /* Category Grid: Kho?ng c�ch c�c th? */
+    /* Category Grid: Kho?ng c�ch c�c th? */
     .category-grid {
         gap: 20px !important;
     }
@@ -3432,13 +3432,13 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
         height: 400px !important; /* Gi?m chi?u cao ?nh danh m?c */
     }
 
-    /* ?n c�c hi?u ?ng hover ph?c t?p tr�n mobile */
+    /* ?n c�c hi?u ?ng hover ph?c t?p tr�n mobile */
     .cat-info {
-        border-bottom: 1px solid #eee; /* Lu�n hi?n du?ng k? */
+        border-bottom: 1px solid #eee; /* Lu�n hi?n du?ng k? */
     }
     
     .link-arrow {
-        opacity: 1 !important; /* Lu�n hi?n mui t�n */
+        opacity: 1 !important; /* Lu�n hi?n mui t�n */
         transform: none !important;
     }
 }
@@ -3456,18 +3456,18 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     height: 100%;
     object-fit: cover; /* C?t video v?a khung 3:4 */
     object-position: center top;
-    z-index: 2; /* N?m tr�n ?nh (z-index 1) */
+    z-index: 2; /* N?m tr�n ?nh (z-index 1) */
     opacity: 0; /* ?n m?c d?nh */
     transition: opacity 0.4s ease; /* Hi?n t? t? */
-    pointer-events: none; /* �? kh�ng ch?n click v�o link s?n ph?m */
+    pointer-events: none; /* �? kh�ng ch?n click v�o link s?n ph?m */
 }
 
-/* Khi hover v�o � s?n ph?m */
+/* Khi hover v�o � s?n ph?m */
 .product-item:hover .prod-img video {
     opacity: 1; /* Hi?n video */
 }
 
-/* ?n ?nh di m?t ch�t khi video hi?n d? tr�nh b? nh�y (t�y ch?n) */
+/* ?n ?nh di m?t ch�t khi video hi?n d? tr�nh b? nh�y (t�y ch?n) */
 .product-item:hover .prod-img img {
     opacity: 0; 
 }
@@ -3477,13 +3477,13 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    FIX: INTERACTION BUGS (ZOOM & QUICK VIEW)
    ========================================= */
 
-/* 1. Fix Quick View (+): �ua l�n tr�n c�ng v� cho ph�p click */
+/* 1. Fix Quick View (+): �ua l�n tr�n c�ng v� cho ph�p click */
 .quick-add {
-    z-index: 20 !important; /* Cao hon th? a link (thu?ng l� z-index 1) */
+    z-index: 20 !important; /* Cao hon th? a link (thu?ng l� z-index 1) */
     pointer-events: auto !important; /* B?t bu?c nh?n click */
 }
 
-/* �?m b?o th? a bao quanh ?nh kh�ng che m?t n�t */
+/* �?m b?o th? a bao quanh ?nh kh�ng che m?t n�t */
 .prod-img a {
     display: block;
     width: 100%;
@@ -3491,14 +3491,14 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     z-index: 1;
 }
 
-/* 2. Fix Zoom: �?m b?o nh?n s? ki?n chu?t */
+/* 2. Fix Zoom: �?m b?o nh?n s? ki?n chu?t */
 .zoom-container {
-    z-index: 10; /* N?i l�n tr�n c�c ph?n t? trang tr� */
-    /* �?m b?o kh�ng b? l?p n�o che (nhu overlay m?) */
+    z-index: 10; /* N?i l�n tr�n c�c ph?n t? trang tr� */
+    /* �?m b?o kh�ng b? l?p n�o che (nhu overlay m?) */
     pointer-events: auto !important; 
 }
 
-/* T?t s? ki?n chu?t cho c�c th�nh ph?n trang tr� d� l�n (n?u c�) */
+/* T?t s? ki?n chu?t cho c�c th�nh ph?n trang tr� d� l�n (n?u c�) */
 .video-overlay, .noise-overlay {
     pointer-events: none !important;
 }

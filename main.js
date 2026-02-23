@@ -1,8 +1,80 @@
-/* =========================================
+﻿/* =========================================
    FILE: main.js - FULL RESTORED VERSION
    ========================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    /* --- NAV OVERLAY + HAMBURGER TOGGLE --- */
+    const hamburger = document.getElementById('hamburger');
+    const navOverlay = document.getElementById('nav-overlay');
+
+    function openNav() {
+        navOverlay.classList.add('open');
+        document.body.classList.add('nav-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNav() {
+        navOverlay.classList.remove('open');
+        document.body.classList.remove('nav-open');
+        document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            if (navOverlay.classList.contains('open')) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+    }
+
+    // Close when clicking a link inside overlay
+    if (navOverlay) {
+        navOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeNav);
+        });
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeNav();
+    });
+
+    /* --- EN / VI LANGUAGE TOGGLE --- */
+    const langToggle = document.getElementById('lang-toggle');
+    let currentLang = localStorage.getItem('hoasac_lang') || 'vi';
+
+    function applyLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('hoasac_lang', lang);
+
+        // Update every element with data-vi / data-en
+        document.querySelectorAll('[data-vi][data-en]').forEach(el => {
+            el.textContent = lang === 'en' ? el.dataset.en : el.dataset.vi;
+        });
+
+        // Highlight active lang button
+        if (langToggle) {
+            langToggle.querySelectorAll('.lang-opt').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
+        }
+
+        // Update html lang attribute
+        document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
+    }
+
+    if (langToggle) {
+        langToggle.querySelectorAll('.lang-opt').forEach(opt => {
+            opt.addEventListener('click', () => applyLanguage(opt.dataset.lang));
+        });
+    }
+
+    // Apply saved language on load
+    applyLanguage(currentLang);
+
 
     /* --- 0. PRELOADER LOGIC --- */
     const preloader = document.querySelector('.preloader');
@@ -10,18 +82,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Khóa cuộn trang ngay lập tức khi mới vào
     document.body.style.overflow = 'hidden';
 
-    // Sự kiện: Khi toàn bộ hình ảnh, font chữ đã tải xong
-    window.addEventListener('load', () => {
-        // Đợi thêm 1.5 giây để người xem kịp ngắm Logo (tạo cảm giác thư thái)
-        setTimeout(() => {
-            if(preloader) {
-                preloader.classList.add('hide-loader'); // Kích hoạt CSS trượt lên
-                
-                // Mở khóa cuộn lại bình thường
-                document.body.style.overflow = ''; 
-            }
-        }, 1500); // 1500ms = 1.5 giây
-    });
+    // Ham dismiss preloader dung chung
+    function dismissPreloader() {
+        if (preloader && !preloader.classList.contains('hide-loader')) {
+            preloader.classList.add('hide-loader');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Kich hoat khi trang load xong
+    window.addEventListener('load', () => { setTimeout(dismissPreloader, 1200); });
+
+    // Fallback: Dam bao luon an sau toi da 3 giay du anh/video khong load duoc
+    setTimeout(dismissPreloader, 3000);
 
     /* --- 1. KÍCH HOẠT SMOOTH SCROLL (LENIS - CẤU HÌNH LUXURY) --- */
     // Chỉ chạy trên máy tính
@@ -64,22 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --- 2. HEADER & MENU LOGIC --- */
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navMenu = document.querySelector('.main-nav');
+
     const header = document.querySelector('.site-header');
-
-    // Xử lý Hamburger Menu
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
-    }
 
     // Hiệu ứng đổi màu Header khi cuộn
     if (header) {
@@ -144,6 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chỉ chạy logic này nếu đang ở trang Collections và trên máy tính
     if (stickySection && track && window.innerWidth > 768) {
         let lastScrollTop = 0;
+        let _cachedRunwayItems = null;
+        let _cachedAllImages = null;
+        let _rafTicking = false;
         let isScrolling;
         const body = document.body; 
         let ticking = false;
@@ -178,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // --- NEW CHAMELEON EFFECT (CENTER-BASED DETECTION) ---
             const centerLine = window.innerWidth / 2;
-            const items = document.querySelectorAll('.runway-item');
+            const items = _cachedRunwayItems || (_cachedRunwayItems = document.querySelectorAll('.runway-item'));
             let activeTheme = 'light'; // Mặc định
 
             items.forEach(item => {
@@ -204,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let skew = speed * 0.08; 
             skew = Math.min(Math.max(skew, -5), 5);
 
-            const allImages = document.querySelectorAll('.runway-img img, .runway-img video');
+            const allImages = _cachedAllImages || (_cachedAllImages = document.querySelectorAll('.runway-img img, .runway-img video'));
             allImages.forEach(img => {
                 img.style.transform = `skewX(${skew}deg) scale(1.1)`; 
                 img.style.transition = 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
@@ -507,21 +569,61 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
+
+    /* --- 12. OVERLAY CLOCK + MOOD IMAGE SWAP --- */
+    // Live clock in overlay
+    function updateOverlayClock() {
+        const el = document.getElementById('ov-clock');
+        if (!el) return;
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2,'0');
+        const mm = String(now.getMinutes()).padStart(2,'0');
+        const ss = String(now.getSeconds()).padStart(2,'0');
+        el.textContent = hh + ':' + mm + ':' + ss;
+    }
+    setInterval(updateOverlayClock, 1000);
+    updateOverlayClock();
+
+    // Mood image swap on section hover
+    const ovSections = document.querySelectorAll('.ov-section');
+    const moodImg = document.getElementById('ov-mood-img');
+    const moodText = document.getElementById('ov-mood-text');
+    const moodLabels = { '01': 'New Collection', '02': 'Fabric Stories', '03': 'Silhouette Edit' };
+
+    if (moodImg) {
+        ovSections.forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                const imgSrc = section.dataset.img;
+                const num = section.querySelector('.ov-num');
+                if (imgSrc && imgSrc !== moodImg.src.split('/').slice(-3).join('/')) {
+                    moodImg.classList.add('fading');
+                    setTimeout(() => {
+                        moodImg.src = imgSrc;
+                        moodImg.classList.remove('fading');
+                        if (num && moodText) {
+                            moodText.textContent = moodLabels[num.textContent.trim()] || 'Collection';
+                        }
+                    }, 300);
+                }
+            });
+        });
+    }
+
 });
 /* =========================================
    GLOBAL DATA HANDLER (ADMIN MODE SUPPORT)
    ========================================= */
 
-// H�m n�y s? du?c c�c trang con g?i d? l?y d? li?u m?i nh?t
+// H�m n�y s? du?c c�c trang con g?i d? l?y d? li?u m?i nh?t
 window.getProductsDB = async function() {
-    // 1. Uu ti�n l?y t? LocalStorage (Admin Data)
+    // 1. Uu ti�n l?y t? LocalStorage (Admin Data)
     const localData = localStorage.getItem('hoasac_products_db');
     if (localData) {
-        console.log('�ang s? d?ng d? li?u t? Admin Dashboard');
+        console.log('�ang s? d?ng d? li?u t? Admin Dashboard');
         return JSON.parse(localData);
     }
 
-    // 2. N?u kh�ng c�, l?y t? file JSON g?c
+    // 2. N?u kh�ng c�, l?y t? file JSON g?c
     try {
         const response = await fetch('assets/data/products.json');
         return await response.json();
@@ -530,4 +632,6 @@ window.getProductsDB = async function() {
         return [];
     }
 };
+
+
 
