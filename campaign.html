@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="campaign.css">
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;600&display=swap"
         rel="stylesheet">
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HOA SAC">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-192.png">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="responsive.css">
 </head>
 
 <body>
@@ -133,6 +143,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="campaign.js"></script>
 
+
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 
 </html>

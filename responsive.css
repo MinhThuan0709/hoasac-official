@@ -1,0 +1,707 @@
+/* =============================================
+   RESPONSIVE.CSS — HOA SAC — Mobile Optimization
+   Breakpoints: 1024px (Tablet), 768px (Mobile), 480px (Small)
+   ============================================= */
+
+/* ---- GLOBAL MOBILE FIXES ---- */
+@media (max-width: 1024px) {
+    html {
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .noise-overlay {
+        display: none;
+    }
+
+    /* Tiết kiệm hiệu năng mobile */
+}
+
+/* ==========================================
+   TABLET (max-width: 1024px)
+   ========================================== */
+@media (max-width: 1024px) {
+
+    /* Hero Section */
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    /* Categories Grid */
+    .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .categories-section {
+        padding: 60px 5%;
+    }
+
+    /* Editorial Layout */
+    .editorial-block {
+        flex-direction: column !important;
+    }
+
+    .editorial-text,
+    .editorial-img {
+        width: 100%;
+    }
+
+    .editorial-img {
+        height: 400px;
+    }
+
+    /* Lookbook */
+    .lookbook-item {
+        flex-direction: column !important;
+    }
+
+    .look-image {
+        height: 400px;
+    }
+
+    .look-info {
+        padding: 40px 5%;
+    }
+
+    /* Campaign Page */
+    .campaign-hero-title {
+        font-size: 2.5rem !important;
+    }
+
+    /* Product Grid (collections) */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    /* Nav Overlay Split Screen → Full Screen */
+    .nav-overlay {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ov-right {
+        display: none;
+    }
+
+    .ov-left {
+        padding: 48px 30px 40px;
+    }
+
+    /* Auth Page */
+    .auth-container {
+        flex-direction: column;
+    }
+
+    .auth-visual {
+        height: 280px;
+    }
+
+    .auth-forms {
+        padding: 40px 5%;
+    }
+
+    /* Admin Dashboard */
+    .sidebar {
+        width: 200px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================
+   MOBILE (max-width: 768px)
+   ========================================== */
+@media (max-width: 768px) {
+
+    /* Hero Section */
+    .hero {
+        height: 75vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+        max-width: 90%;
+    }
+
+    .btn-primary {
+        padding: 12px 30px;
+        font-size: 13px;
+    }
+
+    /* Section Headers */
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .section-header .dash {
+        width: 40px;
+    }
+
+    /* Categories */
+    .cat-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .cat-card .cat-image {
+        height: 220px;
+    }
+
+    .cat-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .categories-section {
+        padding: 40px 4%;
+    }
+
+    /* Marquee */
+    .marquee {
+        padding: 20px 0;
+    }
+
+    .marquee-content span {
+        font-size: 11px;
+        margin-right: 30px;
+    }
+
+    /* Editorial */
+    .editorial-section {
+        padding: 40px 4%;
+    }
+
+    .editorial-text h2 {
+        font-size: 1.6rem;
+    }
+
+    .editorial-text p {
+        font-size: 0.9rem;
+    }
+
+    .editorial-img {
+        height: 300px;
+    }
+
+    /* Lookbook */
+    .lookbook-section {
+        padding: 40px 4%;
+    }
+
+    .look-image {
+        height: 350px;
+    }
+
+    .look-info {
+        padding: 30px 4%;
+    }
+
+    .look-info h3 {
+        font-size: 1.3rem;
+    }
+
+    /* Video Section */
+    .video-section {
+        height: 60vh;
+    }
+
+    .video-overlay h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Collection Filter Bar */
+    .filter-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 4%;
+    }
+
+    .filter-btn {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 4%;
+    }
+
+    .product-info h3 {
+        font-size: 0.85rem;
+    }
+
+    .product-price {
+        font-size: 0.85rem;
+    }
+
+    /* Campaign Page */
+    .campaign-hero {
+        height: 60vh;
+    }
+
+    .campaign-hero-title {
+        font-size: 1.8rem !important;
+    }
+
+    .campaign-section {
+        padding: 40px 4%;
+    }
+
+    /* Stories Page */
+    .story-section {
+        padding: 40px 4%;
+    }
+
+    /* Contact Page */
+    .contact-hero {
+        height: 50vh;
+    }
+
+    .contact-container {
+        padding: 40px 5%;
+        flex-direction: column;
+    }
+
+    .contact-info,
+    .contact-form-wrapper {
+        width: 100%;
+    }
+
+    .contact-form-wrapper {
+        padding: 30px;
+    }
+
+    /* Auth Page */
+    .auth-container {
+        min-height: auto;
+        flex-direction: column;
+    }
+
+    .auth-visual {
+        display: none;
+    }
+
+    /* Ẩn hình trên mobile */
+    .auth-forms {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 6%;
+    }
+
+    .auth-title {
+        font-size: 1.6rem;
+    }
+
+    /* Admin Dashboard */
+    .sidebar {
+        display: none;
+    }
+
+    .topbar {
+        padding: 12px 16px;
+    }
+
+    .content {
+        padding: 16px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+
+    table {
+        font-size: 0.75rem;
+    }
+
+    th,
+    td {
+        padding: 8px 10px;
+    }
+
+    /* Popup Suggestion */
+    .fashion-popup {
+        width: 90% !important;
+        right: 5% !important;
+        bottom: 10px !important;
+        left: 5% !important;
+    }
+}
+
+/* ==========================================
+   SMALL MOBILE (max-width: 480px)
+   ========================================== */
+@media (max-width: 480px) {
+
+    /* Hero */
+    .hero {
+        height: 65vh;
+    }
+
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-content p {
+        font-size: 0.85rem;
+    }
+
+    .btn-primary {
+        padding: 10px 24px;
+        font-size: 12px;
+    }
+
+    /* Categories - Single column */
+    .cat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cat-card .cat-image {
+        height: 260px;
+    }
+
+    /* Section spacing */
+    .categories-section,
+    .editorial-section,
+    .lookbook-section {
+        padding: 30px 4%;
+    }
+
+    /* Editorial */
+    .editorial-text h2 {
+        font-size: 1.3rem;
+    }
+
+    .editorial-img {
+        height: 240px;
+    }
+
+    /* Lookbook */
+    .look-image {
+        height: 280px;
+    }
+
+    .look-info {
+        padding: 24px 4%;
+    }
+
+    /* Product Grid - Single column */
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    /* Campaign */
+    .campaign-hero-title {
+        font-size: 1.4rem !important;
+    }
+
+    /* Contact Form */
+    .contact-form-wrapper {
+        padding: 20px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        font-size: 14px;
+    }
+
+    /* Auth */
+    .auth-forms {
+        padding: 40px 5%;
+    }
+
+    .auth-title {
+        font-size: 1.3rem;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    /* Admin */
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start !important;
+    }
+}
+
+/* ==========================================
+   COLLECTIONS PAGE — RUNWAY MOBILE FIX
+   ========================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .giant-text {
+        font-size: 25vw !important;
+    }
+
+    .runway-item {
+        width: 60vw !important;
+    }
+
+    .collection-intro {
+        padding: 80px 5% 40px !important;
+    }
+
+    .collection-intro h2 {
+        font-size: 2.2rem !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /* Intro Section */
+    .collection-intro {
+        padding: 80px 5% 30px !important;
+        text-align: center;
+    }
+
+    .collection-intro h2 {
+        font-size: 1.6rem !important;
+        letter-spacing: 3px !important;
+    }
+
+    .intro-desc {
+        font-size: 13px !important;
+        max-width: 100% !important;
+        text-align: center;
+    }
+
+    .season-tag {
+        font-size: 10px !important;
+    }
+
+    /* Ẩn scroll indicator kiểu chuột (không phù hợp touch) */
+    .scroll-indicator {
+        display: none !important;
+    }
+
+    /* Giant text — nhỏ hơn để không overflow */
+    .giant-text {
+        font-size: 30vw !important;
+        letter-spacing: -2px !important;
+    }
+
+    /* Runway Items — full width vertical */
+    .runway-item {
+        width: 100% !important;
+    }
+
+    .runway-item:nth-child(even) {
+        margin-top: 0 !important;
+    }
+
+    /* Bỏ stagger */
+    .runway-item:nth-child(odd) {
+        margin-top: 0 !important;
+    }
+
+    /* Runway Image */
+    .runway-img {
+        height: 420px !important;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    /* Runway Info */
+    .runway-info {
+        padding: 12px 0 !important;
+    }
+
+    .runway-info h3 {
+        font-size: 1rem !important;
+    }
+
+    .look-desc {
+        font-size: 12px !important;
+        -webkit-line-clamp: 3 !important;
+    }
+
+    .info-top {
+        font-size: 10px !important;
+    }
+
+    /* Hotspots — thu nhỏ trên mobile */
+    .hotspot-card {
+        padding: 10px !important;
+        min-width: 120px !important;
+    }
+
+    .hotspot-card h4 {
+        font-size: 12px !important;
+    }
+
+    .hotspot-card p {
+        font-size: 10px !important;
+    }
+
+    .hotspot-dot {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    /* Quote/Text Card */
+    .text-card {
+        width: 100% !important;
+        padding: 30px 5% !important;
+    }
+
+    .text-card blockquote {
+        font-size: 1.2rem !important;
+    }
+
+    /* Runway Progress Bar — không fixed để tránh đè footer */
+    .runway-progress {
+        position: relative !important;
+        bottom: auto !important;
+        margin: 20px 5%;
+    }
+
+    /* Fog background — giảm hiệu ứng */
+    .fog-blob {
+        opacity: 0.3 !important;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .collection-intro h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .intro-desc {
+        font-size: 12px !important;
+    }
+
+    .giant-text {
+        font-size: 35vw !important;
+    }
+
+    .runway-img {
+        height: 350px !important;
+    }
+
+    .runway-info h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .text-card blockquote {
+        font-size: 1rem !important;
+    }
+
+    .hotspot {
+        display: none !important;
+    }
+
+    /* Ẩn hotspot trên màn quá nhỏ */
+}
+
+/* ==========================================
+   TOUCH DEVICE ENHANCEMENTS
+   ========================================== */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Tăng kích thước nút bấm cho ngón tay */
+    .btn-primary,
+    .btn-underline,
+    .filter-btn,
+    .auth-btn,
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Loại bỏ hover effects không cần thiết */
+    .nav-link::after {
+        display: none;
+    }
+
+    .cat-card:hover .cat-image img {
+        transform: none;
+    }
+
+    .lookbook-item:hover .look-image img {
+        transform: none;
+    }
+
+    /* Ẩn custom cursor trên touch devices */
+    .custom-cursor {
+        display: none !important;
+    }
+
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select {
+        cursor: auto !important;
+    }
+}
+
+/* ==========================================
+   PWA STANDALONE MODE (Khi cài vào Home Screen)
+   ========================================== */
+@media (display-mode: standalone) {
+
+    /* Loại bỏ padding top vì không còn address bar */
+    .site-header {
+        padding-top: 12px;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}
+
+/* ==========================================
+   LANDSCAPE MOBILE
+   ========================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        height: 100vh;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .contact-hero {
+        height: 100vh;
+    }
+}

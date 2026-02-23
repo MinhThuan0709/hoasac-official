@@ -1,279 +1,933 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">zoo
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOA SAC - Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #000; --bg: #f4f6f8; --white: #fff; --border: #dfe3e8; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); display: flex; height: 100vh; }
-        
-        /* Sidebar */
-        .sidebar { width: 250px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-        .logo { padding: 20px; font-size: 24px; font-weight: 700; border-bottom: 1px solid var(--border); letter-spacing: 2px; }
-        .menu { padding: 20px; flex: 1; }
-        .menu-item { padding: 12px; cursor: pointer; border-radius: 6px; color: #637381; font-weight: 500; margin-bottom: 5px; }
-        .menu-item.active, .menu-item:hover { background: #f4f6f8; color: var(--primary); }
-        .menu-item span { margin-right: 10px; }
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232735;
+            --border: #2e3344;
+            --text: #e4e6eb;
+            --text2: #8b8ea0;
+            --accent: #c9a96e;
+            --accent2: #b08d4f;
+            --green: #34d399;
+            --red: #f87171;
+            --orange: #fbbf24;
+            --blue: #60a5fa;
+        }
 
-        /* Main Content */
-        .main { flex: 1; padding: 30px; overflow-y: auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .btn { padding: 10px 20px; background: var(--primary); color: var(--white); border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .btn:hover { opacity: 0.8; }
-        .btn-outline { background: transparent; border: 1px solid #999; color: #333; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* Table */
-        .card { background: var(--white); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
-        th { background: #f9fafb; font-weight: 600; color: #637381; }
-        td img { width: 40px; height: 50px; object-fit: cover; border-radius: 4px; }
-        .status { padding: 4px 8px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .status.instock { background: #e6fffa; color: #00ab55; }
-        .status.low { background: #fff7cd; color: #b78103; }
-        
-        /* Actions */
-        .actions { display: flex; gap: 10px; }
-        .btn-icon { width: 30px; height: 30px; border: 1px solid var(--border); background: white; border-radius: 4px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        .btn-icon:hover { background: #f4f6f8; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-        /* Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal.active { display: flex; }
-        .modal-content { background: white; padding: 30px; border-radius: 8px; width: 500px; max-width: 90%; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; outline: none; }
-        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        /* ---- AUTH GUARD ---- */
+        .auth-wall {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-wall h1 {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+        }
+
+        .auth-wall p {
+            color: var(--text2);
+            font-size: 0.9rem;
+        }
+
+        .auth-wall a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* ---- SIDEBAR ---- */
+        .sidebar {
+            width: 240px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-logo {
+            padding: 24px 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+        }
+
+        .sidebar-logo span {
+            font-size: 0.65rem;
+            color: var(--text2);
+            display: block;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .sidebar-menu {
+            padding: 16px 12px;
+            flex: 1;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text2);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .menu-item:hover {
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .menu-item.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .menu-item .badge {
+            margin-left: auto;
+            background: var(--red);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            font-size: 0.85rem;
+        }
+
+        .admin-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .admin-role {
+            font-size: 0.7rem;
+            color: var(--text2);
+        }
+
+        .btn-logout {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        /* ---- MAIN ---- */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            padding: 18px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface);
+        }
+
+        .topbar h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .topbar-time {
+            font-size: 0.8rem;
+            color: var(--text2);
+        }
+
+        .content {
+            flex: 1;
+            padding: 24px 30px;
+            overflow-y: auto;
+        }
+
+        /* ---- TAB PANELS ---- */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ---- STATS ---- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .stat-value.gold {
+            color: var(--accent);
+        }
+
+        .stat-value.green {
+            color: var(--green);
+        }
+
+        .stat-value.blue {
+            color: var(--blue);
+        }
+
+        .stat-value.orange {
+            color: var(--orange);
+        }
+
+        /* ---- TABLE ---- */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+        }
+
+        th {
+            color: var(--text2);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.72rem;
+        }
+
+        tr:hover {
+            background: var(--surface2);
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background: rgba(96, 165, 250, 0.15);
+            color: var(--blue);
+        }
+
+        .status-processing {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--orange);
+        }
+
+        .status-resolved {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--green);
+        }
+
+        .status-customer {
+            background: rgba(201, 169, 110, 0.15);
+            color: var(--accent);
+        }
+
+        .status-admin {
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--red);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent2);
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            border-radius: 4px;
+        }
+
+        .btn-outline-sm {
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            border-radius: 4px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            cursor: pointer;
+        }
+
+        .btn-outline-sm:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-back {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--text2);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HOA SAC">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-192.png">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="responsive.css">
 </head>
+
 <body>
 
-    <div class="sidebar">
-        <div class="logo">HOA SAC.</div>
-        <div class="menu">
-            <div class="menu-item active">📦 Sản Phẩm</div>
-            <div class="menu-item">🛒 Đơn Hàng (Demo)</div>
-            <div class="menu-item">⚙️ Cài Đặt</div>
+    <!-- AUTH WALL -->
+    <div class="auth-wall" id="auth-wall">
+        <h1>HOA SAC.</h1>
+        <p>Khu vực dành riêng cho Quản Trị Viên.</p>
+        <p>Vui lòng <a href="auth.html">Đăng nhập</a> bằng tài khoản Admin.</p>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-logo">HOA SAC.<span>Admin Console</span></div>
+        <div class="sidebar-menu">
+            <div class="menu-item active" data-tab="overview">📊 Tổng Quan</div>
+            <div class="menu-item" data-tab="consultations">📋 Lịch Hẹn <span class="badge" id="badge-consult">0</span>
+            </div>
+            <div class="menu-item" data-tab="users">👥 Hội Viên</div>
+            <div class="menu-item" data-tab="products">📦 Sản Phẩm</div>
         </div>
-        <div style="padding: 20px;">
-            <button class="btn-outline" style="width:100%; padding:10px;" onclick="resetData()">Reset Dữ Liệu Gốc</button>
+        <div class="sidebar-footer">
+            <div class="admin-info">
+                <div class="admin-avatar" id="admin-avatar">A</div>
+                <div>
+                    <div class="admin-name" id="admin-name">Admin</div>
+                    <div class="admin-role">Quản trị viên</div>
+                </div>
+            </div>
+            <button class="btn-logout" id="btn-logout">Đăng Xuất</button>
+            <a href="index.html" class="btn-back" style="display:block; text-align:center; margin-top:8px;">← Về Trang
+                Chủ</a>
         </div>
     </div>
 
+    <!-- MAIN -->
     <div class="main">
-        <div class="header">
-            <h2>Quản Lý Sản Phẩm</h2>
-            <button class="btn" onclick="openModal()">+ Thêm Sản Phẩm Mới</button>
+        <div class="topbar">
+            <h2 id="page-title">Tổng Quan</h2>
+            <div class="topbar-time" id="live-clock"></div>
         </div>
 
-        <div class="card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ảnh</th>
-                        <th>Tên Sản Phẩm</th>
-                        <th>Giá ($)</th>
-                        <th>Danh Mục</th>
-                        <th>Tồn Kho</th>
-                        <th>Hành Động</th>
-                    </tr>
-                </thead>
-                <tbody id="product-table">
-                    <!-- JS sẽ render vào đây -->
-                </tbody>
-            </table>
+        <div class="content">
+
+            <!-- TAB: OVERVIEW -->
+            <div class="tab-panel active" id="panel-overview">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Lịch Hẹn Mới</div>
+                        <div class="stat-value gold" id="stat-consult">—</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Hội Viên</div>
+                        <div class="stat-value green" id="stat-users">—</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Sản Phẩm</div>
+                        <div class="stat-value blue" id="stat-products">—</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Trạng thái Cloud</div>
+                        <div class="stat-value orange">🟢</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lịch Hẹn Gần Đây</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Thời Gian</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Nhu Cầu</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="overview-recent"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: CONSULTATIONS -->
+            <div class="tab-panel" id="panel-consultations">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Tất Cả Yêu Cầu Tư Vấn</h3>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <span style="font-size:0.75rem;color:var(--text2)" id="consult-read-count"></span>
+                        </div>
+                    </div>
+                    <div id="consult-loading" class="loading">Đang tải từ Cloud...</div>
+                    <table id="consult-table" style="display:none">
+                        <thead>
+                            <tr>
+                                <th>Thời Gian</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Nhu Cầu</th>
+                                <th>Lời Nhắn</th>
+                                <th>Trạng Thái</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="consult-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: USERS -->
+            <div class="tab-panel" id="panel-users">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Danh Sách Hội Viên</h3>
+                    </div>
+                    <div id="users-loading" class="loading">Đang tải từ Cloud...</div>
+                    <table id="users-table" style="display:none">
+                        <thead>
+                            <tr>
+                                <th>Ngày Gia Nhập</th>
+                                <th>Họ Tên</th>
+                                <th>Email</th>
+                                <th>Vai Trò</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: PRODUCTS -->
+            <div class="tab-panel" id="panel-products">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Kho Sản Phẩm (Local)</h3>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <input type="text" id="product-search" placeholder="Tìm kiếm sản phẩm..."
+                                style="padding:6px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;font-size:0.8rem;width:220px;">
+                            <button class="btn btn-sm" onclick="openProductModal()">+ Thêm Mới</button>
+                        </div>
+                    </div>
+                    <div id="batch-bar"
+                        style="display:none;padding:10px 20px;background:var(--surface2);border-bottom:1px solid var(--border);display:none;align-items:center;gap:12px;">
+                        <span style="font-size:0.8rem;color:var(--accent);" id="selected-count">0 đã chọn</span>
+                        <button class="btn btn-sm" style="background:var(--red);" onclick="batchDelete()">🗑️ Xóa đã
+                            chọn</button>
+                        <button class="btn-outline-sm" onclick="clearSelection()">Bỏ chọn</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:40px;"><input type="checkbox" id="select-all"
+                                        onclick="toggleSelectAll(this)"></th>
+                                <th>Ảnh</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Danh Mục</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- MODAL ADD/EDIT PRODUCT -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <h3 style="margin-bottom:20px;">Thông Tin Sản Phẩm</h3>
+    <!-- PRODUCT MODAL -->
+    <div class="modal-overlay" id="product-modal"
+        style="position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:1000;">
+        <div
+            style="background:var(--surface);padding:28px;border-radius:10px;width:460px;max-width:90%;border:1px solid var(--border);">
+            <h3 style="margin-bottom:18px;font-size:1rem;">Thông Tin Sản Phẩm</h3>
             <form id="product-form">
                 <input type="hidden" id="p-id">
-                
-                <div class="form-group">
-                    <label>Tên sản phẩm</label>
-                    <input type="text" id="p-name" required>
+                <div style="margin-bottom:12px;"><label
+                        style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Tên</label><input
+                        type="text" id="p-name" required
+                        style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                 </div>
-
-                <div style="display:flex; gap:15px;">
-                    <div class="form-group" style="flex:1;">
-                        <label>Giá ($)</label>
-                        <input type="number" id="p-price" required>
+                <div style="display:flex;gap:12px;margin-bottom:12px;">
+                    <div style="flex:1;"><label
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Giá
+                            ($)</label><input type="number" id="p-price" required
+                            style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                     </div>
-                    <div class="form-group" style="flex:1;">
-                        <label>Tồn kho</label>
-                        <input type="number" id="p-stock" value="100">
-                    </div>
-                </div>
-
-                <div style="display:flex; gap:15px;">
-                    <div class="form-group" style="flex:1;">
-                        <label>Phân loại (Department)</label>
-                        <select id="p-dept">
+                    <div style="flex:1;"><label
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Phân
+                            loại</label><select id="p-dept"
+                            style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);">
                             <option value="women">Women</option>
                             <option value="men">Men</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="flex:1;">
-                        <label>Danh mục (Category)</label>
-                        <select id="p-cat">
+                        </select></div>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:12px;">
+                    <div style="flex:1;"><label
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Danh
+                            mục</label><select id="p-cat"
+                            style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);">
                             <option value="outerwear">Outerwear</option>
                             <option value="dresses">Dresses</option>
                             <option value="tops">Tops</option>
                             <option value="bottoms">Bottoms</option>
                             <option value="suits">Suits</option>
                             <option value="shirts">Shirts</option>
-                        </select>
+                        </select></div>
+                    <div style="flex:1;"><label
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">File
+                            ảnh</label><input type="text" id="p-image" required
+                            style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Tên file ảnh (VD: coat.jpg)</label>
-                    <input type="text" id="p-image" placeholder="Copy file ảnh vào folder trước" required>
-                    <small style="color:#666;">Lưu ý: Bạn cần copy file ảnh vào thư mục assets/images/products/... thủ công.</small>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn-outline btn" onclick="closeModal()">Hủy</button>
-                    <button type="submit" class="btn">Lưu Sản Phẩm</button>
+                <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px;">
+                    <button type="button" class="btn-outline-sm" onclick="closeProductModal()">Hủy</button>
+                    <button type="submit" class="btn btn-sm">Lưu</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        // --- ADMIN LOGIC ---
+        // ==========================================
+        // ADMIN DASHBOARD — FIREBASE REST API
+        // ==========================================
+        const FIREBASE_PROJECT = 'hoasac-web';
+        const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
+
+        let currentUser = null;
         let products = [];
 
+        // ---- AUTH GUARD ----
         document.addEventListener('DOMContentLoaded', async () => {
-            await loadData();
-            renderTable();
+            const userStr = sessionStorage.getItem('hoa_sac_active_user');
+            if (!userStr) return; // Giữ auth-wall hiển thị
+
+            currentUser = JSON.parse(userStr);
+            if (currentUser.role !== 'admin') return;
+
+            // Ẩn Auth Wall, hiện Dashboard
+            document.getElementById('auth-wall').style.display = 'none';
+            document.getElementById('admin-avatar').textContent = currentUser.fullname.charAt(0).toUpperCase();
+            document.getElementById('admin-name').textContent = currentUser.fullname;
+
+            // Tải toàn bộ dữ liệu
+            await Promise.all([loadConsultations(), loadUsers(), loadProducts()]);
+            updateStats();
+            startClock();
+            initTabs();
         });
 
-        async function loadData() {
-            // 1. Thử lấy từ LocalStorage trước
-            const localData = localStorage.getItem('hoasac_products_db');
-            
-            if (localData) {
-                products = JSON.parse(localData);
-            } else {
-                // 2. Nếu chưa có, tải từ JSON gốc và lưu vào Local
-                try {
-                    const res = await fetch('assets/data/products.json');
-                    products = await res.json();
-                    saveToLocal();
-                } catch (err) {
-                    console.error("Lỗi tải data:", err);
-                }
-            }
+        // ---- LIVE CLOCK ----
+        function startClock() {
+            const el = document.getElementById('live-clock');
+            setInterval(() => {
+                const now = new Date();
+                el.textContent = now.toLocaleString('vi-VN', { weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            }, 1000);
         }
 
-        function saveToLocal() {
-            localStorage.setItem('hoasac_products_db', JSON.stringify(products));
-            alert("Đã lưu thay đổi! Hãy reload trang web chính để thấy kết quả.");
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById('product-table');
-            tbody.innerHTML = '';
-
-            products.forEach(p => {
-                // Đường dẫn ảnh demo
-                const imgPath = p.department === 'men' 
-                    ? `assets/images/products/men/${p.image}` 
-                    : `assets/images/products/women/${p.image}`;
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><img src="${imgPath}" onerror="this.src='assets/images/products/women/coat.jpg'"></td>
-                    <td><b>${p.name}</b><br><span style="font-size:12px; color:#888">ID: ${p.id}</span></td>
-                    <td>$${p.price}</td>
-                    <td style="text-transform:capitalize">${p.department} - ${p.category}</td>
-                    <td><span class="status instock">Còn hàng</span></td>
-                    <td class="actions">
-                        <div class="btn-icon" onclick="editProduct(${p.id})">✏️</div>
-                        <div class="btn-icon" onclick="deleteProduct(${p.id})">🗑️</div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+        // ---- TAB NAVIGATION ----
+        function initTabs() {
+            const titles = { overview: 'Tổng Quan', consultations: 'Lịch Hẹn & Tư Vấn', users: 'Quản Lý Hội Viên', products: 'Kho Sản Phẩm' };
+            document.querySelectorAll('.menu-item[data-tab]').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+                    item.classList.add('active');
+                    const tab = item.dataset.tab;
+                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    document.getElementById('panel-' + tab).classList.add('active');
+                    document.getElementById('page-title').textContent = titles[tab] || tab;
+                });
             });
         }
 
-        // ADD / EDIT
-        const modal = document.getElementById('product-modal');
-        const form = document.getElementById('product-form');
-
-        window.openModal = () => {
-            form.reset();
-            document.getElementById('p-id').value = '';
-            modal.classList.add('active');
+        // ---- FIRESTORE HELPERS ----
+        function parseField(val) {
+            if (!val) return '';
+            if (val.stringValue !== undefined) return val.stringValue;
+            if (val.integerValue !== undefined) return parseInt(val.integerValue);
+            if (val.doubleValue !== undefined) return val.doubleValue;
+            if (val.timestampValue !== undefined) return val.timestampValue;
+            return JSON.stringify(val);
         }
 
-        window.closeModal = () => {
-            modal.classList.remove('active');
+        function formatDate(isoStr) {
+            try { return new Date(isoStr).toLocaleString('vi-VN'); } catch { return isoStr; }
         }
 
-        window.editProduct = (id) => {
-            const p = products.find(x => x.id === id);
-            if(p) {
-                document.getElementById('p-id').value = p.id;
-                document.getElementById('p-name').value = p.name;
-                document.getElementById('p-price').value = p.price;
-                document.getElementById('p-dept').value = p.department;
-                document.getElementById('p-cat').value = p.category;
-                document.getElementById('p-image').value = p.image;
-                modal.classList.add('active');
+        const subjectLabels = { advisory: 'Tư vấn', appointment: 'Ghé Atelier', press: 'Báo chí', other: 'Khác' };
+
+        // ---- LOAD CONSULTATIONS ----
+        let consultations = [];
+        async function loadConsultations() {
+            try {
+                const res = await fetch(`${FIRESTORE_URL}/consultations`, {
+                    headers: currentUser.token ? { 'Authorization': `Bearer ${currentUser.token}` } : {}
+                });
+                const data = await res.json();
+                consultations = (data.documents || []).map(doc => {
+                    const f = doc.fields || {};
+                    const docId = doc.name ? doc.name.split('/').pop() : '';
+                    return { docId: docId, name: parseField(f.name), email: parseField(f.email), subject: parseField(f.subject), message: parseField(f.message), status: parseField(f.status), date: parseField(f.date) };
+                });
+                renderConsultations();
+            } catch (err) {
+                document.getElementById('consult-loading').textContent = 'Lỗi tải dữ liệu: ' + err.message;
             }
         }
 
-        window.deleteProduct = (id) => {
-            if(confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
-                products = products.filter(x => x.id !== id);
-                saveToLocal();
-                renderTable();
-            }
-        }
+        // Trạng thái đã đọc (lưu local)
+        let readConsultations = JSON.parse(localStorage.getItem('hoasac_read_consults') || '[]');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const idVal = document.getElementById('p-id').value;
-            
-            const newProd = {
-                id: idVal ? parseInt(idVal) : Date.now(), // Tạo ID mới bằng timestamp nếu là thêm mới
-                name: document.getElementById('p-name').value,
-                price: parseFloat(document.getElementById('p-price').value),
-                department: document.getElementById('p-dept').value,
-                category: document.getElementById('p-cat').value,
-                image: document.getElementById('p-image').value,
-                cross_sell: [] // Mặc định
-            };
-
-            if(idVal) {
-                // Edit
-                const idx = products.findIndex(x => x.id == idVal);
-                if(idx !== -1) products[idx] = { ...products[idx], ...newProd };
+        function toggleReadStatus(docId) {
+            if (readConsultations.includes(docId)) {
+                readConsultations = readConsultations.filter(id => id !== docId);
             } else {
-                // Add
-                products.unshift(newProd); // Thêm lên đầu
+                readConsultations.push(docId);
             }
+            localStorage.setItem('hoasac_read_consults', JSON.stringify(readConsultations));
+            renderConsultations();
+            updateStats();
+        }
 
-            saveToLocal();
-            renderTable();
-            closeModal();
+        function renderConsultations() {
+            document.getElementById('consult-loading').style.display = 'none';
+            document.getElementById('consult-table').style.display = 'table';
+            const tbody = document.getElementById('consult-body');
+            tbody.innerHTML = '';
+            consultations.sort((a, b) => new Date(b.date) - new Date(a.date));
+            let unreadCount = 0;
+            consultations.forEach((c, i) => {
+                const isRead = readConsultations.includes(c.docId || i.toString());
+                if (!isRead) unreadCount++;
+                const rowStyle = isRead ? 'opacity:0.5;' : 'font-weight:500;';
+                const readLabel = isRead ? '📖 Đã đọc' : '🔵 Chưa đọc';
+                const readBtnClass = isRead ? 'status-resolved' : 'status-new';
+                tbody.innerHTML += `<tr style="${rowStyle}"><td>${formatDate(c.date)}</td><td><b>${c.name}</b></td><td>${c.email}</td><td>${subjectLabels[c.subject] || c.subject}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.message}</td><td><span class="status-badge ${readBtnClass}">${readLabel}</span></td><td><button class="btn-outline-sm" onclick="toggleReadStatus('${c.docId || i}')">${isRead ? 'Đánh chưa đọc' : 'Đánh đã đọc'}</button></td></tr>`;
+            });
+            document.getElementById('badge-consult').textContent = unreadCount;
+            document.getElementById('consult-read-count').textContent = `${consultations.length - unreadCount}/${consultations.length} đã đọc`;
+
+            // Overview recent (top 5)
+            const recent = document.getElementById('overview-recent');
+            recent.innerHTML = '';
+            consultations.slice(0, 5).forEach((c, i) => {
+                const isRead = readConsultations.includes(c.docId || i.toString());
+                const readBtnClass = isRead ? 'status-resolved' : 'status-new';
+                const readLabel = isRead ? '📖 Đã đọc' : '🔵 Chưa đọc';
+                recent.innerHTML += `<tr><td>${formatDate(c.date)}</td><td>${c.name}</td><td>${c.email}</td><td>${subjectLabels[c.subject] || c.subject}</td><td><span class="status-badge ${readBtnClass}">${readLabel}</span></td></tr>`;
+            });
+        }
+
+        // ---- LOAD USERS ----
+        let usersList = [];
+        async function loadUsers() {
+            try {
+                const res = await fetch(`${FIRESTORE_URL}/users`, {
+                    headers: currentUser.token ? { 'Authorization': `Bearer ${currentUser.token}` } : {}
+                });
+                const data = await res.json();
+                usersList = (data.documents || []).map(doc => {
+                    const f = doc.fields || {};
+                    return { fullname: parseField(f.fullname), email: parseField(f.email) || parseField(f.username), role: parseField(f.role), createdAt: parseField(f.createdAt) };
+                });
+                renderUsers();
+            } catch (err) {
+                document.getElementById('users-loading').textContent = 'Lỗi: ' + err.message;
+            }
+        }
+
+        function renderUsers() {
+            document.getElementById('users-loading').style.display = 'none';
+            document.getElementById('users-table').style.display = 'table';
+            const tbody = document.getElementById('users-body');
+            tbody.innerHTML = '';
+            usersList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            usersList.forEach(u => {
+                const roleClass = u.role === 'admin' ? 'status-admin' : 'status-customer';
+                tbody.innerHTML += `<tr><td>${formatDate(u.createdAt)}</td><td>${u.fullname}</td><td>${u.email}</td><td><span class="status-badge ${roleClass}">${u.role}</span></td></tr>`;
+            });
+        }
+
+        // ---- LOAD PRODUCTS (LOCAL) ----
+        async function loadProducts() {
+            const localData = localStorage.getItem('hoasac_products_db');
+            if (localData) { products = JSON.parse(localData); }
+            else {
+                try { const res = await fetch('assets/data/products.json'); products = await res.json(); }
+                catch (e) { products = []; }
+            }
+            renderProducts();
+        }
+
+        let selectedProducts = new Set();
+
+        function renderProducts(filter = '') {
+            const tbody = document.getElementById('product-body');
+            tbody.innerHTML = '';
+            const filtered = filter ? products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()) || p.category.toLowerCase().includes(filter.toLowerCase()) || p.department.toLowerCase().includes(filter.toLowerCase())) : products;
+            filtered.forEach(p => {
+                const img = p.department === 'men' ? `assets/images/products/men/${p.image}` : `assets/images/products/women/${p.image}`;
+                const checked = selectedProducts.has(p.id) ? 'checked' : '';
+                tbody.innerHTML += `<tr>
+            <td><input type="checkbox" class="product-cb" data-id="${p.id}" ${checked} onchange="toggleProductSelect(${p.id}, this.checked)"></td>
+            <td><img src="${img}" style="width:40px;height:50px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none'"></td>
+            <td><b>${p.name}</b><br><span style="font-size:0.7rem;color:var(--text2)">ID: ${p.id}</span></td>
+            <td>$${p.price}</td>
+            <td style="text-transform:capitalize">${p.department} / ${p.category}</td>
+            <td><button class="btn-outline-sm" onclick="editProduct(${p.id})">✏️</button> <button class="btn-outline-sm" onclick="deleteProduct(${p.id})">🗑️</button></td>
+        </tr>`;
+            });
+            updateBatchBar();
+        }
+
+        function toggleProductSelect(id, isChecked) {
+            if (isChecked) selectedProducts.add(id); else selectedProducts.delete(id);
+            updateBatchBar();
+        }
+
+        window.toggleSelectAll = (el) => {
+            const cbs = document.querySelectorAll('.product-cb');
+            cbs.forEach(cb => { cb.checked = el.checked; toggleProductSelect(parseInt(cb.dataset.id), el.checked); });
+        };
+
+        function updateBatchBar() {
+            const bar = document.getElementById('batch-bar');
+            if (selectedProducts.size > 0) { bar.style.display = 'flex'; document.getElementById('selected-count').textContent = selectedProducts.size + ' đã chọn'; }
+            else { bar.style.display = 'none'; }
+        }
+
+        window.batchDelete = () => {
+            if (!confirm(`Bạn chắc chắn muốn xóa ${selectedProducts.size} sản phẩm?`)) return;
+            products = products.filter(p => !selectedProducts.has(p.id));
+            selectedProducts.clear();
+            document.getElementById('select-all').checked = false;
+            saveProducts(); renderProducts(); updateStats();
+        };
+
+        window.clearSelection = () => {
+            selectedProducts.clear();
+            document.getElementById('select-all').checked = false;
+            renderProducts(document.getElementById('product-search').value);
+        };
+
+        // Search listener
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchEl = document.getElementById('product-search');
+            if (searchEl) searchEl.addEventListener('input', (e) => renderProducts(e.target.value));
         });
 
-        window.resetData = () => {
-            if(confirm("Cảnh báo: Hành động này sẽ xóa mọi thay đổi và quay về dữ liệu gốc ban đầu?")) {
-                localStorage.removeItem('hoasac_products_db');
-                location.reload();
-            }
+        function saveProducts() { localStorage.setItem('hoasac_products_db', JSON.stringify(products)); }
+
+        // ---- STATS ----
+        function updateStats() {
+            document.getElementById('stat-consult').textContent = consultations.length;
+            document.getElementById('stat-users').textContent = usersList.length;
+            document.getElementById('stat-products').textContent = products.length;
+        }
+
+        // ---- PRODUCT MODAL ----
+        window.openProductModal = () => { document.getElementById('product-form').reset(); document.getElementById('p-id').value = ''; document.getElementById('product-modal').style.display = 'flex'; };
+        window.closeProductModal = () => { document.getElementById('product-modal').style.display = 'none'; };
+        window.editProduct = (id) => { const p = products.find(x => x.id === id); if (p) { document.getElementById('p-id').value = p.id; document.getElementById('p-name').value = p.name; document.getElementById('p-price').value = p.price; document.getElementById('p-dept').value = p.department; document.getElementById('p-cat').value = p.category; document.getElementById('p-image').value = p.image; document.getElementById('product-modal').style.display = 'flex'; } };
+        window.deleteProduct = (id) => { if (confirm('Xóa sản phẩm này?')) { products = products.filter(x => x.id !== id); saveProducts(); renderProducts(); updateStats(); } };
+
+        document.getElementById('product-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const idVal = document.getElementById('p-id').value;
+            const obj = { id: idVal ? parseInt(idVal) : Date.now(), name: document.getElementById('p-name').value, price: parseFloat(document.getElementById('p-price').value), department: document.getElementById('p-dept').value, category: document.getElementById('p-cat').value, image: document.getElementById('p-image').value, cross_sell: [] };
+            if (idVal) { const idx = products.findIndex(x => x.id == idVal); if (idx !== -1) products[idx] = { ...products[idx], ...obj }; }
+            else { products.unshift(obj); }
+            saveProducts(); renderProducts(); updateStats(); closeProductModal();
+        });
+
+        // ---- LOGOUT ----
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            sessionStorage.removeItem('hoa_sac_active_user');
+            window.location.href = 'auth.html';
+        });
+    </script>
+
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').catch(() => {});
+            });
         }
     </script>
 </body>
+
 </html>

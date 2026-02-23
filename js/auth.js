@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loginPanel.classList.add('hidden');
         setTimeout(() => registerPanel.classList.remove('hidden'), 300);
 
-        // Đổi hình ảnh Cinematic nghệ thuật bên trái
         authImg.style.opacity = '0';
         authImg.style.transform = 'scale(1.05)';
         setTimeout(() => {
@@ -30,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         registerPanel.classList.add('hidden');
         setTimeout(() => loginPanel.classList.remove('hidden'), 300);
 
-        // Trả hình ảnh Cinematic cũ
         authImg.style.opacity = '0';
         authImg.style.transform = 'scale(1.05)';
         setTimeout(() => {
@@ -42,87 +40,198 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 
-    // --- HỆ THỐNG XÁC THỰC GIẢ LẬP (LOCALSTORAGE LOCAL DATABASE) ---
+    // ==========================================
+    // FIREBASE AUTHENTICATION (REST API)
+    // Mật khẩu được Google mã hoá & bảo vệ
+    // ==========================================
 
-    // Hàm tạo Admin mặc định nếu chưa tồn tại
-    const initDefaultAdmin = () => {
-        let users = JSON.parse(localStorage.getItem('hoa_sac_users')) || [];
-        const adminExists = users.find(u => u.username === 'admin');
-        if (!adminExists) {
-            users.push({
-                fullname: 'Trưởng Cửa Hàng',
-                username: 'admin',
-                password: '123', // Mật khẩu mẫu
-                role: 'admin'
-            });
-            localStorage.setItem('hoa_sac_users', JSON.stringify(users));
-        }
+    const FIREBASE_API_KEY = 'AIzaSyC68_VsWqCIfuAmdY7KpMzhcdWtlPJCpIQ';
+    const FIREBASE_PROJECT = 'hoasac-web';
+    const AUTH_SIGNUP_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
+    const AUTH_LOGIN_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
+    const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
+
+    // Hàm dịch lỗi Firebase sang tiếng Việt
+    function translateError(code) {
+        const errors = {
+            'EMAIL_EXISTS': 'Email này đã được đăng ký trước đó.',
+            'INVALID_EMAIL': 'Địa chỉ email không hợp lệ.',
+            'WEAK_PASSWORD': 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'WEAK_PASSWORD : Password should be at least 6 characters': 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'EMAIL_NOT_FOUND': 'Email này chưa được đăng ký.',
+            'INVALID_PASSWORD': 'Mật khẩu không chính xác.',
+            'INVALID_LOGIN_CREDENTIALS': 'Email hoặc mật khẩu không đúng.',
+            'USER_DISABLED': 'Tài khoản này đã bị vô hiệu hóa.',
+            'TOO_MANY_ATTEMPTS_TRY_LATER': 'Quá nhiều lần thử. Vui lòng đợi và thử lại sau.',
+            'OPERATION_NOT_ALLOWED': 'Phương thức đăng nhập Email chưa được bật. Hãy vào Firebase Console > Authentication > Sign-in method > Bật Email/Password.'
+        };
+        console.error('Firebase Auth Error Code:', code);
+        return errors[code] || `Lỗi: ${code}`;
     }
-    initDefaultAdmin();
 
-    // 1. ĐĂNG KÝ HỘI VIÊN MỚI
+    // 1. ĐĂNG KÝ HỘI VIÊN MỚI (Firebase Auth + Firestore Profile)
     const btnRegister = document.getElementById('btn-register');
     const regError = document.getElementById('reg-error');
 
-    btnRegister.addEventListener('click', () => {
+    btnRegister.addEventListener('click', async () => {
         const name = document.getElementById('reg-name').value.trim();
-        const user = document.getElementById('reg-email').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
 
-        if (!name || !user || !pass) {
+        if (!name || !email || !pass) {
             regError.textContent = 'Vui lòng điền đầy đủ thông tin.';
+            regError.style.color = '#d9534f';
             regError.style.display = 'block';
             return;
         }
 
-        let users = JSON.parse(localStorage.getItem('hoa_sac_users')) || [];
-
-        // Kiểm tra trùng lặp User
-        if (users.find(u => u.username === user)) {
-            regError.textContent = 'Tên đăng nhập này đã tồn tại!';
+        if (pass.length < 6) {
+            regError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự.';
+            regError.style.color = '#d9534f';
             regError.style.display = 'block';
             return;
         }
 
-        users.push({
-            fullname: name,
-            username: user,
-            password: pass,
-            role: 'customer' // Mặc định tất cả người đăng ký mới là Khách
-        });
+        btnRegister.disabled = true;
+        btnRegister.textContent = 'Đang tạo tài khoản...';
 
-        localStorage.setItem('hoa_sac_users', JSON.stringify(users));
-        regError.style.color = '#5cb85c';
-        regError.textContent = 'Gia nhập thành công! Đang chuyển hướng...';
-        regError.style.display = 'block';
+        try {
+            // Bước 1: Tạo tài khoản trên Firebase Authentication
+            const authRes = await fetch(AUTH_SIGNUP_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: pass,
+                    returnSecureToken: true
+                })
+            });
 
-        // Tự động chuyển qua tab Đăng nhập
-        setTimeout(() => { toggleLog.click(); regError.style.display = 'none'; }, 1500);
+            const authData = await authRes.json();
+
+            if (!authRes.ok) {
+                throw new Error(authData.error?.message || 'UNKNOWN_ERROR');
+            }
+
+            // Bước 2: Lưu hồ sơ người dùng lên Firestore (KHÔNG lưu mật khẩu)
+            await fetch(`${FIRESTORE_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authData.idToken}`
+                },
+                body: JSON.stringify({
+                    fields: {
+                        uid: { stringValue: authData.localId },
+                        fullname: { stringValue: name },
+                        email: { stringValue: email },
+                        role: { stringValue: 'customer' },
+                        createdAt: { stringValue: new Date().toISOString() }
+                    }
+                })
+            });
+
+            console.log('Tài khoản Firebase đã tạo:', authData.localId);
+
+            regError.style.color = '#5cb85c';
+            regError.textContent = 'Gia nhập thành công! Đang chuyển hướng...';
+            regError.style.display = 'block';
+
+            setTimeout(() => {
+                btnRegister.disabled = false;
+                btnRegister.textContent = 'Gia Nhập';
+                toggleLog.click();
+                regError.style.display = 'none';
+            }, 1500);
+
+        } catch (err) {
+            regError.style.color = '#d9534f';
+            regError.textContent = translateError(err.message);
+            regError.style.display = 'block';
+            btnRegister.disabled = false;
+            btnRegister.textContent = 'Gia Nhập';
+        }
     });
 
     // 2. ĐĂNG NHẬP VÀ PHÂN QUYỀN
     const btnLogin = document.getElementById('btn-login');
     const logError = document.getElementById('login-error');
 
-    btnLogin.addEventListener('click', () => {
-        const user = document.getElementById('login-email').value.trim();
+    btnLogin.addEventListener('click', async () => {
+        const email = document.getElementById('login-email').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
 
-        if (!user || !pass) {
-            logError.textContent = 'Vui lòng nhập Tên đăng nhập và Mật khẩu.';
+        if (!email || !pass) {
+            logError.textContent = 'Vui lòng nhập Email và Mật khẩu.';
+            logError.style.color = '#d9534f';
             logError.style.display = 'block';
             return;
         }
 
-        let users = JSON.parse(localStorage.getItem('hoa_sac_users')) || [];
-        const foundUser = users.find(u => u.username === user && u.password === pass);
+        btnLogin.disabled = true;
+        btnLogin.textContent = 'Đang xác thực...';
 
-        if (foundUser) {
-            // LƯU PHIÊN ĐĂNG NHẬP VÀO SESSION STORAGE (Đóng trình duyệt là Đăng xuất)
+        try {
+            // Bước 1: Đăng nhập Firebase Authentication
+            const authRes = await fetch(AUTH_LOGIN_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: pass,
+                    returnSecureToken: true
+                })
+            });
+
+            const authData = await authRes.json();
+
+            if (!authRes.ok) {
+                throw new Error(authData.error?.message || 'UNKNOWN_ERROR');
+            }
+
+            // Bước 2: Tìm hồ sơ trên Firestore để lấy role + fullname
+            let role = 'customer';
+            let fullname = authData.email.split('@')[0]; // Fallback tên
+
+            try {
+                const queryRes = await fetch(`${FIRESTORE_URL}:runQuery`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authData.idToken}`
+                    },
+                    body: JSON.stringify({
+                        structuredQuery: {
+                            from: [{ collectionId: 'users' }],
+                            where: {
+                                fieldFilter: {
+                                    field: { fieldPath: 'uid' },
+                                    op: 'EQUAL',
+                                    value: { stringValue: authData.localId }
+                                }
+                            },
+                            limit: 1
+                        }
+                    })
+                });
+                const queryData = await queryRes.json();
+
+                if (queryData[0]?.document?.fields) {
+                    const fields = queryData[0].document.fields;
+                    role = fields.role?.stringValue || 'customer';
+                    fullname = fields.fullname?.stringValue || fullname;
+                }
+            } catch (profileErr) {
+                console.warn('Không tải được hồ sơ, dùng giá trị mặc định:', profileErr);
+            }
+
+            // Bước 3: Lưu phiên đăng nhập vào SessionStorage
             sessionStorage.setItem('hoa_sac_active_user', JSON.stringify({
-                fullname: foundUser.fullname,
-                username: foundUser.username,
-                role: foundUser.role
+                fullname: fullname,
+                username: authData.email,
+                role: role,
+                uid: authData.localId,
+                token: authData.idToken
             }));
 
             logError.style.color = '#5cb85c';
@@ -130,16 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
             logError.style.display = 'block';
 
             setTimeout(() => {
-                if (foundUser.role === 'admin') {
-                    window.location.href = 'admin.html'; // Chuyển trang Quản Trị
+                if (role === 'admin') {
+                    window.location.href = 'admin.html';
                 } else {
-                    window.location.href = 'index.html'; // Chuyến trang Khách truy cập
+                    window.location.href = 'index.html';
                 }
             }, 800);
-        } else {
+
+        } catch (err) {
             logError.style.color = '#d9534f';
-            logError.textContent = 'Thông tin xác thực không chính xác.';
+            logError.textContent = translateError(err.message);
             logError.style.display = 'block';
+            btnLogin.disabled = false;
+            btnLogin.textContent = 'Vào Trong';
         }
     });
 

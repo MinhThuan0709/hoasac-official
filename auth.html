@@ -265,6 +265,16 @@
             }
         }
     </style>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HOA SAC">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-192.png">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="responsive.css">
 </head>
 
 <body>
@@ -295,8 +305,8 @@
                 <div class="error-msg" id="login-error">Tài khoản hoặc mật khẩu không đúng.</div>
 
                 <div class="input-group">
-                    <input type="text" id="login-email" placeholder=" " required>
-                    <label>Email hoặc Tên người dùng</label>
+                    <input type="email" id="login-email" placeholder=" " required>
+                    <label>Email</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="login-pass" placeholder=" " required>
@@ -319,12 +329,12 @@
                     <label>Họ và Tên</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="reg-email" placeholder=" " required>
-                    <label>Tên đăng nhập (Username)</label>
+                    <input type="email" id="reg-email" placeholder=" " required>
+                    <label>Email (địa chỉ thực)</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="reg-pass" placeholder=" " required>
-                    <label>Mật khẩu</label>
+                    <input type="password" id="reg-pass" placeholder=" " required minlength="6">
+                    <label>Mật khẩu (tối thiểu 6 ký tự)</label>
                 </div>
 
                 <button class="auth-btn" id="btn-register">Gia Nhập</button>
@@ -337,6 +347,15 @@
     <script src="js/auth.js"></script>
     <!-- Script điều khiển Trỏ chuột (Global) -->
     <script src="main.js"></script>
+
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 
 </html>

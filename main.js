@@ -365,40 +365,68 @@ document.addEventListener('DOMContentLoaded', () => {
         storyTexts.forEach(text => storyObserver.observe(text));
     }
 
-    /* --- 8. CONTACT FORM HANDLER (LUXURY MODAL) --- */
+    /* --- 8. CONTACT FORM HANDLER (FIREBASE REST API) --- */
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
+        bookingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = bookingForm.querySelector('.btn-submit span');
             const originalText = btn.innerText;
-            btn.innerText = "Đang xử lý...";
+            btn.innerText = "Đang gửi...";
 
-            // Giả lập gửi dữ liệu
-            setTimeout(() => {
-                // 1. Kích hoạt Modal thay vì Alert
+            // Lấy dữ liệu form
+            const nameVal = document.getElementById('name')?.value || '';
+            const emailVal = document.getElementById('email')?.value || '';
+            const subjectVal = document.getElementById('subject')?.value || '';
+            const messageVal = document.getElementById('message')?.value || '';
+
+            // Chuyển đổi sang định dạng Firestore REST API
+            const firestoreDoc = {
+                fields: {
+                    date: { stringValue: new Date().toISOString() },
+                    name: { stringValue: nameVal },
+                    email: { stringValue: emailVal },
+                    subject: { stringValue: subjectVal },
+                    message: { stringValue: messageVal },
+                    status: { stringValue: 'new' }
+                }
+            };
+
+            const FIREBASE_PROJECT = 'hoasac-web';
+            const API_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents/consultations`;
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(firestoreDoc)
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.error?.message || 'HTTP ' + res.status);
+                }
+
+                const data = await res.json();
+                console.log("Đã gửi lên Firestore thành công:", data.name);
+
+                // Hiện Modal thành công
                 const modal = document.getElementById('success-modal');
                 if (modal) {
                     modal.classList.add('active');
-
-                    // Logic đóng modal
                     const closeBtn = modal.querySelector('.close-modal');
                     if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-
-                    // Đóng khi click ra ngoài
-                    window.onclick = (event) => {
-                        if (event.target == modal) modal.classList.remove('active');
-                    }
+                    window.onclick = (ev) => { if (ev.target == modal) modal.classList.remove('active'); };
                 }
-
-                // 2. Reset Form
                 bookingForm.reset();
-                btn.innerText = "Gửi Thành Công";
+                btn.innerText = "Gửi Thành Công ✓";
+                setTimeout(() => { btn.innerText = originalText; }, 3000);
 
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                }, 3000);
-            }, 1500);
+            } catch (err) {
+                console.error("Lỗi gửi Firestore:", err);
+                btn.innerText = "Lỗi: " + err.message;
+                setTimeout(() => { btn.innerText = originalText; }, 5000);
+            }
         });
     }
 
