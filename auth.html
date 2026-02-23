@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - HOA SAC.</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- AUTHENTICATION CINEMATIC LAYOUT --- */
+        body {
+            background-color: #f6f5f0;
+            overflow: hidden;
+            /* Cố định màn hình */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .auth-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            min-height: 600px;
+            background: #fff;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            display: flex;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* KHU VỰC HÌNH ẢNH NGHỆ THUẬT (TRÁI) */
+        .auth-visual {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+
+        .auth-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: transform 1.5s ease, opacity 1.5s ease;
+        }
+
+        .auth-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 50px;
+            color: #fff;
+        }
+
+        .auth-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .auth-author {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* KHU VỰC FORM (PHẢI) */
+        .auth-forms {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            padding: 60px 80px;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            color: #1a1a1a;
+            position: absolute;
+            top: 40px;
+            left: 80px;
+            text-decoration: none;
+        }
+
+        /* FORM CHUYỂN ĐỔI (LOGIN / REGISTER) */
+        .form-panel {
+            position: absolute;
+            top: 50%;
+            left: 80px;
+            right: 80px;
+            transform: translateY(-50%);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .form-panel.hidden {
+            opacity: 0;
+            pointer-events: none;
+            /* Login ẩn ra trái, Register trượt từ phải vào */
+            transform: translateY(-50%) translateX(40px);
+        }
+
+        #login-form.hidden {
+            transform: translateY(-50%) translateX(-40px);
+        }
+
+        .auth-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .auth-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: #1a1a1a;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-bottom-color: #1a1a1a;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.3s ease all;
+        }
+
+        .input-group input:focus~label,
+        .input-group input:not(:placeholder-shown)~label {
+            top: -15px;
+            font-size: 0.75rem;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 10px;
+        }
+
+        .auth-btn:hover {
+            background: #333;
+        }
+
+        .auth-btn:active {
+            transform: scale(0.98);
+        }
+
+        .auth-link {
+            display: inline-block;
+            margin-top: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: #777;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .auth-link:hover {
+            color: #1a1a1a;
+            border-color: #1a1a1a;
+        }
+
+        /* THÔNG BÁO LỖI */
+        .error-msg {
+            color: #d9534f;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .auth-container {
+                flex-direction: column;
+                height: 100vh;
+                width: 100%;
+            }
+
+            .auth-visual {
+                width: 100%;
+                height: 35vh;
+            }
+
+            .auth-forms {
+                width: 100%;
+                height: 65vh;
+                padding: 40px;
+            }
+
+            .auth-quote {
+                font-size: 1.5rem;
+            }
+
+            .form-panel {
+                left: 40px;
+                right: 40px;
+            }
+
+            .brand-logo {
+                top: 20px;
+                left: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <!-- Noise Canvas -->
+    <div class="noise-overlay"></div>
+
+    <div class="auth-container">
+        <!-- HÌNH ẢNH NGHỆ THUẬT -->
+        <div class="auth-visual">
+            <img src="assets/images/editorial/editorial-main.jpg" id="auth-img" alt="Luxury Fashion">
+            <div class="auth-overlay">
+                <div class="auth-quote" id="auth-quote">"Thời trang là kiến trúc: vấn đề nằm ở tỷ lệ."</div>
+                <div class="auth-author" id="auth-author">Coco Chanel</div>
+            </div>
+        </div>
+
+        <!-- FORM AUTH -->
+        <div class="auth-forms">
+            <a href="index.html" class="brand-logo">HOA SAC.</a>
+
+            <!-- PANEL: LOGIN -->
+            <div class="form-panel" id="login-panel">
+                <h1 class="auth-title">Đăng Nhập</h1>
+                <p class="auth-subtitle">Nhập thông tin tín chỉ của bạn để tiếp tục.</p>
+
+                <div class="error-msg" id="login-error">Tài khoản hoặc mật khẩu không đúng.</div>
+
+                <div class="input-group">
+                    <input type="text" id="login-email" placeholder=" " required>
+                    <label>Email hoặc Tên người dùng</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-pass" placeholder=" " required>
+                    <label>Mật khẩu</label>
+                </div>
+
+                <button class="auth-btn" id="btn-login">Vào Trong</button>
+                <div class="auth-link" id="toggle-register">Chưa có tài khoản? Đăng ký Hội viên.</div>
+            </div>
+
+            <!-- PANEL: REGISTER -->
+            <div class="form-panel hidden" id="register-panel">
+                <h1 class="auth-title">Hội Viên Mới</h1>
+                <p class="auth-subtitle">Trở thành một phần của di sản Quiet Luxury.</p>
+
+                <div class="error-msg" id="reg-error">Vui lòng điền đầy đủ thông tin.</div>
+
+                <div class="input-group">
+                    <input type="text" id="reg-name" placeholder=" " required>
+                    <label>Họ và Tên</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="reg-email" placeholder=" " required>
+                    <label>Tên đăng nhập (Username)</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="reg-pass" placeholder=" " required>
+                    <label>Mật khẩu</label>
+                </div>
+
+                <button class="auth-btn" id="btn-register">Gia Nhập</button>
+                <div class="auth-link" id="toggle-login">Đã là Hội viên? Đăng nhập.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script điều khiển Auth -->
+    <script src="js/auth.js"></script>
+    <!-- Script điều khiển Trỏ chuột (Global) -->
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,43 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* --- AVANT-GARDE STORIES LAYOUT --- */
-        body { background-color: #fdfbf7; overflow-x: hidden; }
+        /* --- AVANT-GARDE STORIES LAYOUT (CINEMATIC) --- */
+        body {
+            background-color: #f6f5f0;
+            overflow-x: hidden;
+            color: #1a1a1a;
+        }
+
+        /* Tone màu kem tĩnh lặng */
+
+        /* TỐI ƯU HEADER TRÁNH CHÌM MÀU KHI CUỘN HOẶC TRÙNG NỀN TRẮNG */
+        .site-header {
+            mix-blend-mode: difference;
+        }
+
+        .site-header.scrolled {
+            background-color: transparent !important;
+            backdrop-filter: none !important;
+            box-shadow: none !important;
+            padding: 24px 0 !important;
+        }
+
+        .site-header.scrolled .logo,
+        .site-header.scrolled .nav-link,
+        .site-header.scrolled .lang-opt,
+        .site-header.scrolled .lang-divider,
+        .site-header.scrolled .cart-btn {
+            color: #fff !important;
+        }
+
+        .site-header.scrolled .bar {
+            background-color: #fff !important;
+        }
 
         /* HERO */
         .journal-hero {
@@ -22,156 +55,376 @@
             justify-content: center;
             position: relative;
         }
+
         .journal-title {
             font-family: 'Playfair Display', serif;
-            font-size: 15vw;
-            color: #111;
+            font-size: 16vw;
+            font-weight: 400;
+            font-style: italic;
+            color: #fff;
             z-index: 2;
             line-height: 0.8;
-            mix-blend-mode: difference;
-            color: #fff;
+            letter-spacing: -5px;
+            text-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            /* Chiều sâu điện ảnh */
         }
+
         .journal-bg {
-            position: absolute; width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.7);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            filter: brightness(0.65) contrast(1.1);
+            transform: scale(1.05);
+            /* Tích hợp Parallax không hở viền */
         }
 
         /* CONTAINER */
         .journal-container {
-            padding-bottom: 150px;
+            padding-bottom: 0;
+            /* Xoá padding khổng lồ để cấu trúc lại Snap */
+            position: relative;
+            z-index: 5;
+            background: #f6f5f0;
+        }
+
+        /* CHUNG CHO SNAP EFFECT */
+        .snap-section {
+            width: 100%;
+            min-height: 100vh;
+            /* Bắt buộc mỗi mục cao ít nhất bằng màn hình */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         /* ARTICLE STYLE 1: Full Width Parallax (Ảnh tràn viền) */
         .story-full {
-            position: relative;
-            width: 100%;
-            height: 120vh;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 100px;
+            margin-bottom: 0;
         }
+
         .story-full img {
             position: absolute;
-            width: 100%; height: 120%; top: -10%;
+            width: 100%;
+            height: 130%;
+            top: -15%;
             object-fit: cover;
-            z-index: 0;
+            z-index: 1;
+            /* Lùi xuống */
+            filter: brightness(0.8);
         }
+
         .story-full .content {
             position: relative;
-            z-index: 2;
+            z-index: 10;
+            /* Đưa lên cao thét */
             text-align: center;
             color: #fff;
-            max-width: 600px;
-            background: rgba(0,0,0,0.3); /* Nền mờ nhẹ */
-            padding: 50px;
-            backdrop-filter: blur(5px);
-            opacity: 0; transform: translateY(50px);
-            transition: all 1s ease;
+            max-width: 700px;
+            padding: 0 40px;
         }
 
         /* ARTICLE STYLE 2: Offset Overlay (Ảnh lệch, chữ đè lên) */
+        .story-offset-wrapper {
+            /* Vỏ bọc ngoài 100vh cho snap */
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
         .story-offset {
             display: flex;
-            width: 90%;
-            margin: 0 auto 200px;
+            width: 85%;
+            margin: 0 auto;
+            /* Xoá margin lớn */
             align-items: center;
             position: relative;
+            z-index: 3;
         }
+
         .story-offset .visual {
-            width: 70%;
-            height: 900px; /* Ảnh siêu cao */
+            width: 65%;
+            height: 85vh;
+            /* Khung ảnh chuẩn Portrait điện ảnh */
             position: relative;
             overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+            /* Bóng đổ mềm */
         }
+
         .story-offset .visual img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 120%;
+            top: -10%;
+            position: absolute;
+            object-fit: cover;
         }
+
         .story-offset .content {
-            width: 40%;
-            background: #fff;
-            padding: 80px;
+            width: 45%;
+            /* Bỏ màu nền trắng lì, dùng nền trong/kính mờ */
+            background: rgba(246, 245, 240, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 80px 100px;
             position: absolute;
             right: 0;
-            top: 20%;
-            box-shadow: -20px 20px 60px rgba(0,0,0,0.1);
-            opacity: 0; transform: translateY(50px); transition: all 1s ease;
+            top: 50%;
+            transform: translateY(-50%);
+            /* Căn giữa hoàn hảo */
+            z-index: 10;
+            /* QUAN TRỌNG: Không bị ảnh đè lên khi GSAP tạo transform */
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
+
         /* Đảo chiều */
-        .story-offset.reverse { justify-content: flex-end; }
-        .story-offset.reverse .visual { order: 2; }
-        .story-offset.reverse .content { left: 0; right: auto; }
+        .story-offset.reverse {
+            justify-content: flex-end;
+        }
+
+        .story-offset.reverse .visual {
+            order: 2;
+        }
+
+        .story-offset.reverse .content {
+            left: 0;
+            right: auto;
+        }
 
         /* ARTICLE STYLE 3: Grid Collage (Nhiều ảnh nhỏ) */
-        .story-collage {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 20px;
-            width: 90%;
-            margin: 0 auto 200px;
+        .story-collage-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
             align-items: center;
         }
+
+        .story-collage {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.2fr;
+            gap: 40px;
+            width: 85%;
+            margin: 0 auto;
+            /* Xoá margin */
+            align-items: center;
+            z-index: 3;
+            position: relative;
+        }
+
         .story-collage .img-small {
-            height: 400px; object-fit: cover; width: 100%;
-            transform: translateY(50px); /* Parallax lệch pha */
+            height: 65vh;
+            object-fit: cover;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
         }
-        .story-collage .img-large {
-            height: 700px; object-fit: cover; width: 100%;
-        }
+
         .story-collage .content {
             grid-column: 2;
             text-align: center;
-            padding: 50px 0;
+            padding: 40px 0;
+            z-index: 10;
+            /* Chống đè */
         }
 
-        /* COMMON TYPOGRAPHY */
+        /* COMMON TYPOGRAPHY - TẠP CHÍ ĐIỆN ẢNH */
         .story-num {
             font-family: 'Great Vibes', cursive;
-            font-size: 5rem;
-            color: #d4af37;
+            font-size: 6rem;
+            color: #c9b183;
+            /* Vàng nghệ thuật dịu tĩnh */
             line-height: 1;
             display: block;
-            margin-bottom: -20px;
-            position: relative; z-index: 10;
+            margin-bottom: -30px;
+            /* Nhúng xíu vào tiêu đề */
+            position: relative;
+            z-index: 2;
+            opacity: 0.8;
+            font-weight: 300;
         }
+
+        .story-meta {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            display: block;
+            margin-bottom: 20px;
+            color: #777;
+        }
+
         .story-title {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            line-height: 1.1;
+            font-size: 4.5rem;
+            line-height: 1.05;
             margin-bottom: 30px;
-        }
-        .story-desc {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555; /* Hoặc #ddd nếu nền tối */
-            margin-bottom: 40px;
-        }
-        .story-full .story-desc { color: #eee; }
-        
-        .read-more {
-            font-size: 12px; text-transform: uppercase; letter-spacing: 3px;
-            text-decoration: none; color: inherit; border-bottom: 1px solid currentColor;
-            padding-bottom: 5px;
+            color: #1a1a1a;
+            font-weight: 400;
         }
 
-        /* VISIBLE STATE */
-        .visible .content { opacity: 1; transform: translateY(0); }
+        .story-full .story-title {
+            color: #fff;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .story-desc {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #4a4a4a;
+            margin-bottom: 40px;
+            text-align: justify;
+            /* Thẳng tắp lề tạp chí */
+        }
+
+        .story-full .story-desc {
+            color: #f0f0f0;
+            text-align: center;
+        }
+
+        /* Ở giữa lề giữa */
+
+        .read-more {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: #1a1a1a;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.3);
+            padding-bottom: 8px;
+            transition: border-color 0.4s;
+            font-weight: 500;
+        }
+
+        .read-more:hover {
+            border-color: #1a1a1a;
+        }
+
+        .story-full .read-more {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .story-full .read-more:hover {
+            border-color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .story-offset .content {
+                padding: 50px;
+                width: 55%;
+            }
+
+            .story-title {
+                font-size: 3.5rem;
+            }
+        }
 
         @media (max-width: 768px) {
-            .story-full, .story-offset, .story-collage { display: block; width: 100%; height: auto; margin-bottom: 100px; }
-            .story-offset .visual, .story-offset .content { width: 100%; position: static; height: 500px; }
-            .story-offset .content { height: auto; margin-top: -50px; width: 90%; margin-left: 5%; }
-            .story-collage { display: flex; flex-direction: column; }
-            .story-title { font-size: 2.5rem; }
+            .snap-section {
+                display: block;
+                height: auto;
+                padding: 100px 0;
+            }
+
+            .story-full {
+                height: 100vh;
+                padding: 0;
+            }
+
+            .story-offset .visual,
+            .story-offset .content {
+                width: 100%;
+                position: static;
+                height: 60vh;
+            }
+
+            .story-offset .content {
+                height: auto;
+                margin-top: -80px;
+                width: 90%;
+                margin-left: 5%;
+                padding: 40px;
+                transform: none;
+            }
+
+            .story-collage {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .story-title {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+
+            .journal-title {
+                font-size: 20vw;
+            }
+        }
+
+        /* TẠO MÀN HÌNH CHỜ (PRELOADER) */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #f6f5f0;
+            /* Tone màu chuẩn UI Tạp chí mới */
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .preloader.hide-loader {
+            transform: translateY(-100%);
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            letter-spacing: 15px;
+            color: #1a1a1a;
+            animation: textPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes textPulse {
+            0% {
+                opacity: 0.1;
+                filter: blur(5px);
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
         }
     </style>
 </head>
+
 <body>
+    <!-- PRELOADER -->
+    <div class="preloader">
+        <div class="loader-text">JOURNAL</div>
+    </div>
+
     <div class="noise-overlay"></div>
     <div class="custom-cursor"></div>
 
-        <header class="site-header">
+    <header class="site-header">
         <div class="header-container">
             <a href="index.html" class="logo">HOA SAC.</a>
 
@@ -180,8 +433,10 @@
                 <ul class="nav-list">
                     <li class="nav-item"><a href="women.html" class="nav-link" data-vi="Nữ" data-en="Women">Nữ</a></li>
                     <li class="nav-item"><a href="men.html" class="nav-link" data-vi="Nam" data-en="Men">Nam</a></li>
-                    <li class="nav-item"><a href="collections.html" class="nav-link" data-vi="Bộ Sưu Tập" data-en="Collections">Bộ Sưu Tập</a></li>
-                    <li class="nav-item"><a href="stories.html" class="nav-link" data-vi="Stories" data-en="Stories">Stories</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link" data-vi="Bộ Sưu Tập"
+                            data-en="Collections">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="stories.html" class="nav-link" data-vi="Stories"
+                            data-en="Stories">Stories</a></li>
                 </ul>
             </nav>
 
@@ -193,6 +448,9 @@
                     <span class="lang-divider">/</span>
                     <span class="lang-opt" data-lang="en">EN</span>
                 </button>
+
+                <!-- Account -->
+                <a href="auth.html" class="account-btn" data-vi="Tài Khoản" data-en="Sign In">Tài Khoản</a>
 
                 <!-- Cart -->
                 <a href="cart.html" class="cart-btn" data-vi="Giỏ hàng (0)" data-en="Cart (0)">Giỏ hàng (0)</a>
@@ -223,16 +481,19 @@
                     <div class="ov-section-head">
                         <span class="ov-num">01</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                            <line x1="3" y1="6" x2="21" y2="6"/>
-                            <path d="M16 10a4 4 0 01-8 0"/>
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
                         </svg>
                         <span class="ov-label" data-vi="MUA SẮM" data-en="SHOP">MUA SẮM</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="collections.html" data-vi="Cao Cấp" data-en="Couture">Cao Cấp</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Sẵn Mặc" data-en="Ready-to-Wear">Sẵn Mặc</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Capsule Drop" data-en="Capsule Drop">Capsule Drop</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Cao Cấp" data-en="Couture">Cao Cấp</a>
+                        </li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Sẵn Mặc" data-en="Ready-to-Wear">Sẵn
+                                Mặc</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Capsule Drop"
+                                data-en="Capsule Drop">Capsule Drop</a></li>
                     </ul>
                 </div>
 
@@ -241,20 +502,27 @@
                     <div class="ov-section-head">
                         <span class="ov-num">02</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                            <polyline points="2 17 12 22 22 17"/>
-                            <polyline points="2 12 12 17 22 12"/>
+                            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                            <polyline points="2 17 12 22 22 17" />
+                            <polyline points="2 12 12 17 22 12" />
                         </svg>
                         <span class="ov-label" data-vi="CHẤT LIỆU" data-en="MATERIAL">CHẤT LIỆU</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="collections.html" data-vi="Denim Élite" data-en="Denim Élite">Denim Élite</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Silk Essence" data-en="Silk Essence">Silk Essence</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Lace Reverie" data-en="Lace Reverie">Lace Reverie</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Power Leather" data-en="Power Leather">Power Leather</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Fur Statement" data-en="Fur Statement">Fur Statement</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Fusion Atelier" data-en="Fusion Atelier">Fusion Atelier</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Thêu Đính" data-en="Embellished Couture">Thêu Đính</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Denim Élite" data-en="Denim Élite">Denim
+                                Élite</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Silk Essence"
+                                data-en="Silk Essence">Silk Essence</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Lace Reverie"
+                                data-en="Lace Reverie">Lace Reverie</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Power Leather"
+                                data-en="Power Leather">Power Leather</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Fur Statement"
+                                data-en="Fur Statement">Fur Statement</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Fusion Atelier"
+                                data-en="Fusion Atelier">Fusion Atelier</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Thêu Đính"
+                                data-en="Embellished Couture">Thêu Đính</a></li>
                     </ul>
                 </div>
 
@@ -263,8 +531,8 @@
                     <div class="ov-section-head">
                         <span class="ov-num">03</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
                         </svg>
                         <span class="ov-label" data-vi="DÁNG" data-en="SILHOUETTE">DÁNG</span>
                     </div>
@@ -282,19 +550,30 @@
             <!-- Quick links row -->
             <div class="ov-quick">
                 <a href="contact.html" class="ov-quick-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="12 2 22 9 18 21 6 21 2 9 12 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <polygon points="12 2 22 9 18 21 6 21 2 9 12 2" />
+                    </svg>
                     <span data-vi="Bespoke" data-en="Bespoke">Bespoke</span>
                 </a>
                 <a href="collections.html" class="ov-quick-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
                     <span data-vi="Lookbook" data-en="Lookbook">Lookbook</span>
                 </a>
                 <a href="stories.html" class="ov-quick-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
                     <span data-vi="Editorial" data-en="Editorial">Editorial</span>
                 </a>
                 <a href="about.html" class="ov-quick-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 8v4l3 3" />
+                    </svg>
                     <span data-vi="Về chúng tôi" data-en="Our Story">Về chúng tôi</span>
                 </a>
             </div>
@@ -321,30 +600,33 @@
 
     </div>
     <main>
-        <section class="journal-hero">
-            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2073&auto=format&fit=crop" class="journal-bg parallax-bg" alt="Journal Hero">
+        <section class="journal-hero snap-section">
+            <img src="assets/images/editorial/editorial-main.jpg" class="journal-bg hero-bg" alt="Journal Hero">
             <h1 class="journal-title">Journal.</h1>
         </section>
 
         <div class="journal-container">
 
             <!-- STYLE 1: OFFSET OVERLAY (LỆCH PHẢI) -->
-            <div class="story-offset">
-                <div class="visual">
-                    <img src="https://images.unsplash.com/photo-1605763240004-7e93b172d754?q=80&w=1974&auto=format&fit=crop" class="parallax-img" alt="Craft">
-                </div>
-                <div class="content">
-                    <span class="story-num">01</span>
-                    <span class="story-meta">Atelier</span>
-                    <h2 class="story-title">Những Đường Kim Ẩn</h2>
-                    <p class="story-desc">Sự sang trọng thầm lặng đến từ những chi tiết không ai nhìn thấy. Khám phá kỹ thuật khâu tay Blind Stitch.</p>
-                    <a href="#" class="read-more">Đọc Tiếp</a>
+            <div class="story-offset-wrapper snap-section">
+                <div class="story-offset">
+                    <div class="visual">
+                        <img src="assets/images/lookbook/look-02.jpg" class="parallax-img" alt="Craft">
+                    </div>
+                    <div class="content">
+                        <span class="story-num">01</span>
+                        <span class="story-meta">Atelier</span>
+                        <h2 class="story-title">Những Đường Kim Ẩn</h2>
+                        <p class="story-desc">Sự sang trọng thầm lặng đến từ những chi tiết không ai nhìn thấy. Khám phá
+                            kỹ thuật khâu tay Blind Stitch.</p>
+                        <a href="#" class="read-more">Đọc Tiếp</a>
+                    </div>
                 </div>
             </div>
 
             <!-- STYLE 2: FULL WIDTH IMMERSIVE (TRÀN VIỀN) -->
-            <div class="story-full">
-                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2076&auto=format&fit=crop" class="parallax-bg" alt="Fabric">
+            <div class="story-full snap-section">
+                <img src="assets/images/hero/hero-bg.jpg" class="parallax-bg" alt="Fabric">
                 <div class="content">
                     <span class="story-num">02</span>
                     <h2 class="story-title">Lụa & Gió</h2>
@@ -353,38 +635,57 @@
                 </div>
             </div>
 
-            <!-- STYLE 3: OFFSET OVERLAY (LỆCH TRÁI) -->
-            <div class="story-offset reverse">
-                <div class="visual">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2020&auto=format&fit=crop" class="parallax-img" alt="Muse">
+            <!-- QUOTE BREAK (Thêm Nội Dung) -->
+            <div class="snap-section">
+                <div class="journal-quote"
+                    style="text-align: center; max-width: 800px; font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; color: #333; line-height: 1.4; padding: 0 5%;">
+                    "Vẻ đẹp thực sự không nằm ở chiếc đầm bạn mặc, mà ở cách chiếc đầm tôn vinh bản nguyên của bạn."
                 </div>
-                <div class="content">
-                    <span class="story-num">03</span>
-                    <span class="story-meta">Campaign</span>
-                    <h2 class="story-title">The Silent Muse</h2>
-                    <p class="story-desc">Bộ ảnh được thực hiện tại Đà Lạt, nơi vẻ đẹp cổ điển đối thoại với thiên nhiên hoang sơ.</p>
-                    <a href="#" class="read-more">Xem Lookbook</a>
+            </div>
+
+            <!-- STYLE 3: OFFSET OVERLAY (LỆCH TRÁI) -->
+            <div class="story-offset-wrapper snap-section">
+                <div class="story-offset reverse">
+                    <div class="visual">
+                        <img src="assets/images/lookbook/look-03.jpg" class="parallax-img" alt="Muse">
+                    </div>
+                    <div class="content">
+                        <span class="story-num">03</span>
+                        <span class="story-meta">Campaign</span>
+                        <h2 class="story-title">The Silent Muse</h2>
+                        <p class="story-desc">Bộ ảnh được thực hiện tại Đà Lạt, nơi vẻ đẹp cổ điển đối thoại với thiên
+                            nhiên hoang sơ.</p>
+                        <a href="#" class="read-more">Xem Lookbook</a>
+                    </div>
                 </div>
             </div>
 
             <!-- STYLE 4: COLLAGE (GHÉP NHIỀU ẢNH) -->
-            <div class="story-collage">
-                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop" class="img-small parallax-fast">
-                <div class="content">
-                    <span class="story-num">04</span>
-                    <h2 class="story-title">Di Sản</h2>
-                    <p class="story-desc">Kết hợp kỹ thuật may đo phương Tây với những họa tiết thêu tay truyền thống Á Đông.</p>
+            <div class="story-collage-wrapper snap-section">
+                <div class="story-collage">
+                    <img src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        class="img-small parallax-fast" alt="Di sản thời trang">
+                    <div class="content">
+                        <span class="story-num">04</span>
+                        <h2 class="story-title">Di Sản</h2>
+                        <p class="story-desc">Kết hợp kỹ thuật may đo phương Tây với những họa tiết thêu tay truyền
+                            thống Á
+                            Đông.</p>
+                    </div>
+                    <img src="https://images.pexels.com/photos/1126993/pexels-photo-1126993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        class="img-small parallax-slow" alt="Nghệ nhân thêu tay">
                 </div>
-                <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=1974&auto=format&fit=crop" class="img-small parallax-slow">
             </div>
 
             <!-- STYLE 5: FULL WIDTH DARK -->
-            <div class="story-full" style="height: 100vh;">
-                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" class="parallax-bg" style="filter: brightness(0.4);">
+            <div class="story-full snap-section">
+                <img src="assets/images/lookbook/look-01.jpg" class="parallax-bg" style="filter: brightness(0.4);"
+                    alt="Tương lai bền vững">
                 <div class="content" style="background: transparent; text-align: left; max-width: 800px;">
                     <span class="story-num" style="color:#fff;">05</span>
                     <h2 class="story-title">Tương Lai Bền Vững</h2>
-                    <p class="story-desc">Chúng tôi cam kết giảm thiểu rác thải thời trang bằng quy trình sản xuất theo đơn đặt hàng (Made-to-order).</p>
+                    <p class="story-desc">Chúng tôi cam kết giảm thiểu rác thải thời trang bằng quy trình sản xuất theo
+                        đơn đặt hàng (Made-to-order).</p>
                 </div>
             </div>
 
@@ -392,15 +693,58 @@
     </main>
 
     <footer class="site-footer">
-        <div class="footer-container"><div class="footer-col brand-col"><h3 class="footer-logo">HOA SAC.</h3></div></div>
-        <div class="footer-bottom"><p>&copy; <span id="year"></span> HOA SAC Fashion.</p></div>
+        <div class="footer-container">
+
+            <div class="footer-col brand-col">
+                <h3 class="footer-logo">HOA SAC.</h3>
+                <p class="brand-desc">Định hình phong cách cho tương lai. Sự tối giản là đỉnh cao của sự tinh tế.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/hoasacfashion">IG</a>
+                    <a href="https://facebook.com/hoasacfashion">FB</a>
+                    <a href="https://twitter.com/hoasacfashion">TW</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Khám Phá</h4>
+                <ul>
+                    <li><a href="/products/new-arrivals">Hàng Mới Về</a></li>
+                    <li><a href="/trends">Xu Hướng</a></li>
+                    <li><a href="/collections">Bộ Sưu Tập</a></li>
+                    <li><a href="/lookbook">Lookbook</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Hỗ Trợ</h4>
+                <ul>
+                    <li><a href="/support/shipping">Vận Chuyển</a></li>
+                    <li><a href="/support/returns">Đổi Trả</a></li>
+                    <li><a href="/support/size-chart">Bảng Size</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col newsletter-col">
+                <h4>Bản Tin</h4>
+                <p>Đăng ký để nhận thông tin về các bộ sưu tập mới sớm nhất.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn..." required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> HOA SAC Fashion. All rights reserved.</p>
+        </div>
     </footer>
 
-    
+
     <!-- Preloader fallback -->
     <script>
-        (function() {
-            setTimeout(function() {
+        (function () {
+            setTimeout(function () {
                 var pl = document.querySelector('.preloader');
                 if (pl) { pl.classList.add('hide-loader'); pl.style.transform = 'translateY(-100%)'; pl.style.pointerEvents = 'none'; }
                 document.body.style.overflow = '';
@@ -411,42 +755,113 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="main.js"></script>
 
+    <!-- GSAP / ScrollTrigger Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <script>
-        // --- ARTISTIC SCROLL LOGIC ---
+        // --- ARTISTIC SCROLL LOGIC WITH GSAP ---
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Reveal Elements
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Hiệu ứng hiện khối văn bản (Text Reveal)
+            const textBlocks = document.querySelectorAll('.story-offset .content, .story-full .content, .story-collage .content');
+
+            textBlocks.forEach(block => {
+                // Tắt CSS Transition cũ để GSAP nắm quyền (bỏ opacity=0, transform trong style.css)
+                block.style.transition = 'none';
+
+                gsap.fromTo(block,
+                    { opacity: 0, y: 80 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: block,
+                            start: "top 85%",
+                            end: "top 50%",
+                            toggleActions: "play none none reverse"
+                        }
                     }
-                });
-            }, { threshold: 0.15 });
+                );
+            });
 
-            document.querySelectorAll('.story-offset, .story-full, .story-collage').forEach(el => observer.observe(el));
+            // PARALLAX CHO HERO RIÊNG (Không bị đẩy lồi xuống sinh khoản trắng)
+            gsap.to('.hero-bg', {
+                yPercent: 30, // Chỉ tịnh tiến đi xuống khi lướt (mới vô là 0)
+                ease: "none",
+                scrollTrigger: {
+                    trigger: '.journal-hero',
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
 
-            // 2. Advanced Parallax (Nhiều tốc độ)
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                
-                // Ảnh nền trôi chậm (Background Parallax)
-                document.querySelectorAll('.parallax-bg').forEach(img => {
-                    const rect = img.parentElement.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        img.style.transform = `translateY(${(scrolled - img.parentElement.offsetTop) * 0.1}px)`;
-                    }
-                });
-
-                // Ảnh con trôi nhanh (Foreground Parallax)
-                document.querySelectorAll('.parallax-img').forEach(img => {
-                    const rect = img.parentElement.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        img.style.transform = `translateY(${(scrolled - img.parentElement.offsetTop) * 0.05}px) scale(1.1)`;
+            // 2. Hiệu ứng Background Parallax (Ảnh lớn khác)
+            const bgImages = document.querySelectorAll('.parallax-bg');
+            bgImages.forEach(img => {
+                gsap.to(img, {
+                    yPercent: 20, // Di chuyển nhẹ xuống để tạo cảm giác trôi
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: img.parentElement,
+                        start: "top bottom", // Khi thẻ bao ngoài vừa nhú lên từ đáy màn hình
+                        end: "bottom top",
+                        scrub: true // Cuộn tới đâu chạy tới đó (rất mượt)
                     }
                 });
             });
+
+            // 3. Hiệu ứng Foreground Parallax (Ảnh offset và collage)
+            const imgElems = document.querySelectorAll('.parallax-img, .parallax-fast, .parallax-slow');
+            imgElems.forEach(img => {
+                let speed = 15;
+                if (img.classList.contains('parallax-fast')) speed = 30;
+                if (img.classList.contains('parallax-slow')) speed = -10;
+
+                gsap.fromTo(img,
+                    { yPercent: -speed },
+                    {
+                        yPercent: speed,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: img.parentElement,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    }
+                );
+            });
+
+            // 4. Quote Scroll Reveal
+            const quoteText = document.querySelector('.journal-quote');
+            if (quoteText) {
+                gsap.fromTo(quoteText,
+                    { opacity: 0, scale: 0.95 },
+                    {
+                        opacity: 1, scale: 1, duration: 1.5, ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: quoteText,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            }
+
+            // XÓA BỎ MÀN HÌNH CHỜ (PRELOADER) SAU 1.2S, TRẢ LẠI TRẢI NGHIỆM ĐIỆN ẢNH
+            setTimeout(() => {
+                const pl = document.querySelector('.preloader');
+                if (pl) pl.classList.add('hide-loader');
+            }, 1200);
+
+            // GHI CHÚ: GSAP SNAP TO ĐÃ BỊ LOẠI BỎ ĐỂ KHẮC PHỤC LỖI GIẬT VỀ TRANG CHỦ HOẶC CUỘN MỎI TAY
         });
     </script>
 </body>
+
 </html>

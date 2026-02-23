@@ -50,9 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLang = lang;
         localStorage.setItem('hoasac_lang', lang);
 
+        const activeUserStr = sessionStorage.getItem('hoa_sac_active_user');
+
         // Update every element with data-vi / data-en
         document.querySelectorAll('[data-vi][data-en]').forEach(el => {
-            el.textContent = lang === 'en' ? el.dataset.en : el.dataset.vi;
+            // Nếu người dùng đã đăng nhập, KHÔNG ghi đè lại nút Account
+            if (activeUserStr && el.classList.contains('account-btn')) {
+                return;
+            }
+            el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.vi;
         });
 
         // Highlight active lang button
@@ -78,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- 0. PRELOADER LOGIC --- */
     const preloader = document.querySelector('.preloader');
-    
+
     // Khóa cuộn trang ngay lập tức khi mới vào
     document.body.style.overflow = 'hidden';
 
@@ -97,13 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(dismissPreloader, 3000);
 
     /* --- 1. KÍCH HOẠT SMOOTH SCROLL (LENIS - CẤU HÌNH LUXURY) --- */
-    // Chỉ chạy trên máy tính
-    if (window.innerWidth > 1024) {
+    // Chỉ chạy trên máy tính và khi thư viện Lenis đã được nạp
+    if (window.innerWidth > 1024 && typeof Lenis !== 'undefined') {
         const lenis = new Lenis({
-            duration: 2.0, // Tăng từ 1.2 lên 2.0 -> Cuộn đầm hơn, nặng hơn
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            duration: 1.2, // Tăng từ 1.2 lên 2.0 -> Cuộn đầm hơn, nặng hơn
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
-            mouseMultiplier: 0.8, // Giảm độ nhạy chuột một chút để người dùng phải cuộn nhiều hơn -> xem kỹ hơn
+            mouseMultiplier: 1.0, // Giảm độ nhạy chuột một chút để người dùng phải cuộn nhiều hơn -> xem kỹ hơn
             smoothTouch: false // Mobile để tự nhiên
         });
 
@@ -115,24 +121,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /* --- PARALLAX EFFECT (HIỆU ỨNG TRÔI ẢNH) --- */
         const parallaxImages = document.querySelectorAll('.look-image img, .cat-img img, .editorial-image img');
-        
+
         window.addEventListener('scroll', () => {
-             const scrollY = window.scrollY;
-             parallaxImages.forEach(img => {
-                 const parent = img.parentElement;
-                 const parentTop = parent.offsetTop;
-                 const parentHeight = parent.offsetHeight;
-                 
-                 // Nếu ảnh nằm trong viewport
-                 if (scrollY + window.innerHeight > parentTop && scrollY < parentTop + parentHeight) {
-                     const distance = scrollY - parentTop;
-                     const translateY = distance * 0.1; // Di chuyển 10% tốc độ cuộn
-                     
-                     if(img.closest('.editorial-image')) {
-                         img.style.transform = `translateY(${translateY}px)`;
-                     }
-                 }
-             });
+            const scrollY = window.scrollY;
+            parallaxImages.forEach(img => {
+                const parent = img.parentElement;
+                if (!parent) return;
+                const parentTop = parent.offsetTop;
+                const parentHeight = parent.offsetHeight;
+
+                // Nếu ảnh nằm trong viewport
+                if (scrollY + window.innerHeight > parentTop && scrollY < parentTop + parentHeight) {
+                    const distance = scrollY - parentTop;
+                    const translateY = distance * 0.1; // Di chuyển 10% tốc độ cuộn
+
+                    if (img.closest('.editorial-image')) {
+                        img.style.transform = `translateY(${translateY}px)`;
+                    }
+                }
+            });
         });
     }
 
@@ -176,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hiệu ứng Hover
         const hoverTargets = document.querySelectorAll('a, button, .hamburger-menu, .product-card, .view-more, .quick-add');
-        
+
         hoverTargets.forEach(link => {
             link.addEventListener('mouseenter', () => {
                 cursor.classList.add('hovered');
@@ -207,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let _cachedAllImages = null;
         let _rafTicking = false;
         let isScrolling;
-        const body = document.body; 
+        const body = document.body;
         let ticking = false;
 
         window.addEventListener('scroll', () => {
@@ -224,13 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Tính toán tiến độ
             const scrollDistance = stickySection.offsetHeight - window.innerHeight;
             const scrollTop = window.scrollY - stickySection.offsetTop;
-            
+
             let percentage = scrollTop / scrollDistance;
             percentage = Math.max(0, Math.min(percentage, 1));
 
             // Cập nhật thanh tiến độ
             const progressBar = document.querySelector('.nav-timeline::after'); // Cập nhật cho thanh mới
-            if(progressBar) {
+            if (progressBar) {
                 progressBar.style.width = `${percentage * 100}%`;
             }
 
@@ -238,54 +245,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const trackWidth = track.scrollWidth - window.innerWidth;
             track.style.transform = `translate3d(-${percentage * trackWidth}px, 0, 0)`;
 
-            // --- NEW CHAMELEON EFFECT (CENTER-BASED DETECTION) ---
-            const centerLine = window.innerWidth / 2;
-            const items = _cachedRunwayItems || (_cachedRunwayItems = document.querySelectorAll('.runway-item'));
-            let activeTheme = 'light'; // Mặc định
+            // --- OPTIMIZED CHAMELEON EFFECT (INTERSECTION OBSERVER) ---
+            if (!window._themeObserverSetup) {
+                const themeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const newTheme = entry.target.getAttribute('data-theme') || 'light';
+                            document.body.classList.remove('dark-mode', 'grey-mode');
+                            if (newTheme === 'dark') document.body.classList.add('dark-mode');
+                            if (newTheme === 'grey') document.body.classList.add('grey-mode');
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: "0px -40% 0px -40%",
+                    threshold: 0
+                });
 
-            items.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                if (rect.left < centerLine && rect.right > centerLine) {
-                    activeTheme = item.getAttribute('data-theme') || 'light';
-                }
-            });
-
-            // Áp dụng Theme
-            body.classList.remove('dark-mode', 'grey-mode');
-            if (activeTheme === 'dark') {
-                body.classList.add('dark-mode');
-            } else if (activeTheme === 'grey') {
-                body.classList.add('grey-mode');
+                const items = _cachedRunwayItems || (_cachedRunwayItems = document.querySelectorAll('.runway-item'));
+                items.forEach(item => {
+                    themeObserver.observe(item);
+                });
+                window._themeObserverSetup = true;
             }
-            
-            // Skew Effect
+
+            // Theo dõi cuộn
             let currentScroll = window.scrollY;
             let speed = currentScroll - (lastScrollTop || 0);
             lastScrollTop = currentScroll;
 
-            let skew = speed * 0.08; 
-            skew = Math.min(Math.max(skew, -5), 5);
-
-            const allImages = _cachedAllImages || (_cachedAllImages = document.querySelectorAll('.runway-img img, .runway-img video'));
-            allImages.forEach(img => {
-                img.style.transform = `skewX(${skew}deg) scale(1.1)`; 
-                img.style.transition = 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
-            });
-            
-            clearTimeout(isScrolling);
-            isScrolling = setTimeout(() => {
-                allImages.forEach(img => {
-                     img.style.transform = `skewX(0deg) scale(1)`; 
-                     img.style.transition = 'transform 0.5s ease';
-                });
-            }, 100);
+            // Skew Effect Disabled để tăng tốc độ mượt mà
 
             // Magnetic Navigation Logic
             const navItems = document.querySelectorAll('.nav-item');
             if (navItems.length > 0) {
                 let activeIndex = Math.round(percentage * (navItems.length - 1));
                 activeIndex = Math.max(0, Math.min(activeIndex, navItems.length - 1));
-                
+
                 navItems.forEach((nav, idx) => {
                     if (idx === activeIndex) nav.classList.add('active');
                     else nav.classList.remove('active');
@@ -301,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const offsetTop = stickySection.parentElement.offsetTop;
                 const scrollDistance = stickySection.offsetHeight - window.innerHeight;
                 const targetScrollY = offsetTop + (targetPercent * scrollDistance);
-                
+
                 window.scrollTo({
                     top: targetScrollY,
                     behavior: 'smooth'
@@ -321,17 +317,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         soundBtn.addEventListener('click', async () => {
             if (isToggling) return;
-            isToggling = true; 
+            isToggling = true;
 
             try {
                 if (audio.paused) {
                     await audio.play();
                     soundBtn.classList.add('is-playing');
-                    if(soundLabel) soundLabel.textContent = "Sound On";
+                    if (soundLabel) soundLabel.textContent = "Sound On";
                 } else {
                     audio.pause();
                     soundBtn.classList.remove('is-playing');
-                    if(soundLabel) soundLabel.textContent = "Sound Off";
+                    if (soundLabel) soundLabel.textContent = "Sound Off";
                 }
             } catch (error) {
                 console.error("Audio Error:", error);
@@ -350,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const idx = entry.target.getAttribute('data-img');
-                    
+
                     // Active Image
                     storyImages.forEach(img => img.classList.remove('active'));
                     const activeImg = document.querySelector(`.story-img[data-index="${idx}"]`);
@@ -361,9 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     entry.target.classList.add('active-text');
                 }
             });
-        }, { 
-            threshold: 0.5, 
-            rootMargin: "0px 0px -20% 0px" 
+        }, {
+            threshold: 0.5,
+            rootMargin: "0px 0px -20% 0px"
         });
 
         storyTexts.forEach(text => storyObserver.observe(text));
@@ -377,18 +373,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = bookingForm.querySelector('.btn-submit span');
             const originalText = btn.innerText;
             btn.innerText = "Đang xử lý...";
-            
+
             // Giả lập gửi dữ liệu
             setTimeout(() => {
                 // 1. Kích hoạt Modal thay vì Alert
                 const modal = document.getElementById('success-modal');
                 if (modal) {
                     modal.classList.add('active');
-                    
+
                     // Logic đóng modal
                     const closeBtn = modal.querySelector('.close-modal');
-                    if(closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-                    
+                    if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
+
                     // Đóng khi click ra ngoài
                     window.onclick = (event) => {
                         if (event.target == modal) modal.classList.remove('active');
@@ -398,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 2. Reset Form
                 bookingForm.reset();
                 btn.innerText = "Gửi Thành Công";
-                
+
                 setTimeout(() => {
                     btn.innerText = originalText;
                 }, 3000);
@@ -407,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --- 9. MINI CART DRAWER LOGIC (UPDATED) --- */
-    
+
     // 1. Inject HTML
     function injectMiniCart() {
         if (document.querySelector('.cart-drawer')) return;
@@ -443,10 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
 
     // Toggle Drawer
-    window.toggleCart = function(open) {
+    window.toggleCart = function (open) {
         const drawer = document.getElementById('cart-drawer');
         const overlay = document.getElementById('cart-overlay');
-        if(open) {
+        if (open) {
             drawer.classList.add('open');
             overlay.classList.add('open');
             renderMiniCart();
@@ -460,8 +456,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderMiniCart() {
         const body = document.getElementById('drawer-body');
         const totalEl = document.getElementById('drawer-total');
-        
-        if(cart.length === 0) {
+
+        if (cart.length === 0) {
             body.innerHTML = '<p style="text-align:center; color:#999; margin-top:50px;">Giỏ hàng trống.</p>';
             totalEl.innerText = "$0.00";
             return;
@@ -472,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cart.forEach((item, index) => {
             total += item.price * item.quantity;
-            
+
             // Hiển thị chấm màu
             let colorHTML = '';
             if (item.color) {
@@ -497,13 +493,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add to Cart Function (CHECK COLOR)
-    window.addToCart = function(product) {
-        const existingItem = cart.find(item => 
-            item.name === product.name && 
+    window.addToCart = function (product) {
+        const existingItem = cart.find(item =>
+            item.name === product.name &&
             item.size === product.size &&
             item.color === product.color // Phân biệt theo màu
         );
-        
+
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
@@ -523,12 +519,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Remove Item Function
-    window.removeFromDrawer = function(index) {
+    window.removeFromDrawer = function (index) {
         cart.splice(index, 1);
         saveCart();
         renderMiniCart();
         updateCartBadge();
-        if(window.location.pathname.includes('cart.html')) window.location.reload();
+        if (window.location.pathname.includes('cart.html')) window.location.reload();
     };
 
     function saveCart() {
@@ -546,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Header Cart Click -> Open Mini Cart
     document.querySelectorAll('.cart-btn').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
             toggleCart(true);
         });
     });
@@ -555,11 +551,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const runwayItems = document.querySelectorAll('.runway-item');
     runwayItems.forEach(item => {
         const video = item.querySelector('video');
-        if(video) {
+        if (video) {
             item.addEventListener('mouseenter', () => video.play());
             item.addEventListener('mouseleave', () => {
                 video.pause();
-                video.currentTime = 0; 
+                video.currentTime = 0;
             });
         }
     });
@@ -576,9 +572,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById('ov-clock');
         if (!el) return;
         const now = new Date();
-        const hh = String(now.getHours()).padStart(2,'0');
-        const mm = String(now.getMinutes()).padStart(2,'0');
-        const ss = String(now.getSeconds()).padStart(2,'0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
         el.textContent = hh + ':' + mm + ':' + ss;
     }
     setInterval(updateOverlayClock, 1000);
@@ -609,13 +605,90 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* --- 13. AUTHENTICATION STATE UI --- */
+    const activeUserStr = sessionStorage.getItem('hoa_sac_active_user');
+    if (activeUserStr) {
+        try {
+            const activeUser = JSON.parse(activeUserStr);
+            const accountBtns = document.querySelectorAll('.account-btn');
+
+            accountBtns.forEach(btn => {
+                let displayName = activeUser.fullname.split(' ').pop() || activeUser.username;
+
+                // Cập nhật giao diện nút
+                btn.innerHTML = `<span style="text-transform:none">Hi, ${displayName}</span> <span style="opacity:0.5; margin-left:3px; font-size:9px">(Thoát)</span>`;
+                btn.href = "#";
+
+                // Sự kiện Click thao tác Quản lý
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (activeUser.role === 'admin') {
+                        const choice = confirm(`PHIÊN BẢN QUẢN TRỊ VIÊN\\n\\n[OK] Chuyển tới Admin Dashboard.\\n[Cancel] Để Đăng Xuất.`);
+                        if (choice) {
+                            window.location.href = 'admin.html';
+                        } else {
+                            sessionStorage.removeItem('hoa_sac_active_user');
+                            window.location.reload();
+                        }
+                    } else {
+                        if (confirm('Bạn có chắc chắn muốn đăng xuất khỏi tài khoản Hội Viên?')) {
+                            sessionStorage.removeItem('hoa_sac_active_user');
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        } catch (e) { }
+    }
+
+
+    /* --- 14. TREND POPUP (FASHION SUGGESTION) --- */
+    const popupClosed = sessionStorage.getItem('hoa_sac_trend_closed');
+    if (!popupClosed) {
+        // Mảng gợi ý thời trang
+        const ideas = [
+            { img: 'assets/images/lookbook/look-01.jpg', title: 'Xu Hướng Mới', desc: 'Thử phối Monochrome để tôn vinh sự tối giản.' },
+            { img: 'assets/images/lookbook/look-02.jpg', title: 'Must Have', desc: 'Chất liệu lụa mỏng nhẹ cho lối sống thanh lịch.' },
+            { img: 'assets/images/lookbook/look-03.jpg', title: 'Bespoke', desc: 'Trang phục may đo riêng biệt cho thời đại mới.' },
+            { img: 'assets/images/editorial/editorial-1.jpg', title: 'Phối Đồ', desc: 'Kết hợp Layering tĩnh lặng nhưng sắc sảo.' }
+        ];
+        const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
+
+        // Tạo Popup
+        const popup = document.createElement('div');
+        popup.className = 'trend-popup';
+        popup.innerHTML = `
+            <div class="trend-popup-close" title="Đóng">&times;</div>
+            <div class="trend-popup-content">
+                <img src="${randomIdea.img}" alt="Trend">
+                <div class="trend-popup-text">
+                    <strong>${randomIdea.title}</strong>
+                    <p>${randomIdea.desc}</p>
+                </div>
+            </div>
+            <a href="collections.html" class="trend-popup-link" data-vi="Khám phá ngay" data-en="Discover Now">Khám phá ngay</a>
+        `;
+
+        document.body.appendChild(popup);
+
+        // Hiệu ứng vào (delay 5s)
+        setTimeout(() => {
+            popup.classList.add('show');
+        }, 5000);
+
+        // Xử lý đóng
+        popup.querySelector('.trend-popup-close').addEventListener('click', () => {
+            popup.classList.remove('show');
+            sessionStorage.setItem('hoa_sac_trend_closed', 'true'); // Chỉ đóng trong phiên này
+        });
+    }
 });
 /* =========================================
    GLOBAL DATA HANDLER (ADMIN MODE SUPPORT)
    ========================================= */
 
 // H�m n�y s? du?c c�c trang con g?i d? l?y d? li?u m?i nh?t
-window.getProductsDB = async function() {
+window.getProductsDB = async function () {
     // 1. Uu ti�n l?y t? LocalStorage (Admin Data)
     const localData = localStorage.getItem('hoasac_products_db');
     if (localData) {

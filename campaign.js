@@ -3,37 +3,67 @@
 // 1. CURSOR
 const cursor = document.querySelector('.camp-cursor');
 document.addEventListener('mousemove', (e) => {
-    if(cursor) { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; }
+    if (cursor) { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; }
 });
 
-// 2. SCROLL LOGIC (Sợi chỉ & Reveal)
+// 2. SCROLL LOGIC (Sợi chỉ & Reveal & Video Pause/Play)
 const threadGlow = document.querySelector('.thread-glow');
 const threadPoint = document.querySelector('.thread-point');
 const cards = document.querySelectorAll('.liquid-card');
 
+let ticking = false;
 window.addEventListener('scroll', () => {
-    // Tính % cuộn trang
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = window.scrollY / totalHeight;
-    const percent = Math.min(progress * 100, 100);
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            // Tính % cuộn trang
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = window.scrollY / totalHeight;
+            const percent = Math.min(progress * 100, 100);
 
-    // Cập nhật sợi chỉ
-    if(threadGlow) {
-        threadGlow.style.height = `${percent}%`;
-        threadPoint.style.top = `${percent}%`;
+            // Cập nhật sợi chỉ
+            if (threadGlow) {
+                threadGlow.style.height = `${percent}%`;
+                threadPoint.style.top = `${percent}%`;
+            }
+            ticking = false;
+        });
+        ticking = true;
     }
 });
 
-// Intersection Observer cho hiệu ứng Card trồi lên
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.2 });
+// Intersection Observer cho hiệu ứng Card trồi lên và Auto Play Videos (ĐÃ CHUYỂN SANG GSAP)
+gsap.registerPlugin(ScrollTrigger);
 
-cards.forEach(card => observer.observe(card));
+cards.forEach(card => {
+    const video = card.querySelector('video');
+
+    gsap.fromTo(card,
+        { opacity: 0, y: 150, scale: 0.95 },
+        {
+            opacity: 1, y: 0, scale: 1,
+            duration: 1.5,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: card,
+                start: "top 85%", // Bắt đầu khi đỉnh thẻ chạm 85% chiều cao màn hình
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+                onEnter: () => {
+                    if (video) video.play().catch(e => console.log("Auto-play prevented", e));
+                },
+                onLeave: () => {
+                    if (video) video.pause();
+                },
+                onEnterBack: () => {
+                    if (video) video.play().catch(e => console.log("Auto-play prevented", e));
+                },
+                onLeaveBack: () => {
+                    if (video) video.pause();
+                }
+            }
+        }
+    );
+});
 
 
 // 3. THREE.JS LIQUID ORB (NỀN 3D)
@@ -71,14 +101,14 @@ try {
 
     // Animation Lỏng
     const simplex = new SimplexNoise();
-    const originalPositions = geometry.attributes.position.array.slice(); 
+    const originalPositions = geometry.attributes.position.array.slice();
 
     function animateLiquid(time) {
         const positionAttribute = geometry.attributes.position;
         const vertex = new THREE.Vector3();
         for (let i = 0; i < positionAttribute.count; i++) {
             vertex.fromArray(originalPositions, i * 3);
-            const noise = simplex.noise3D(vertex.x*0.4+time*0.0003, vertex.y*0.4+time*0.0003, vertex.z*0.4+time*0.0003);
+            const noise = simplex.noise3D(vertex.x * 0.4 + time * 0.0003, vertex.y * 0.4 + time * 0.0003, vertex.z * 0.4 + time * 0.0003);
             vertex.multiplyScalar(1 + noise * 0.25);
             positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
         }
@@ -97,7 +127,7 @@ try {
         requestAnimationFrame(animate);
         const time = performance.now();
         animateLiquid(time);
-        
+
         // Cầu tự xoay + xoay theo chuột
         sphere.rotation.y += 0.002;
         sphere.rotation.x += (mouseY * 0.2 - sphere.rotation.x) * 0.05;
