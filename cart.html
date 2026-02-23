@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ Hàng - HOA SAC</title>
+    <title>Gi&#7887; H&#224;ng - HOA SAC</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
@@ -20,14 +20,14 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
-                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
-                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link">N&#7919;</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">B&#7897; S&#432;u T&#7853;p</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Stories</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">Về Hoa Sắc</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Li&#234;n H&#7879;</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">V&#7873; Hoa S&#7855;c</a></li>
                 </ul>
             </nav>
-            <div class="header-actions"><a href="cart.html" class="cart-btn">Giỏ hàng (0)</a></div>
+            <div class="header-actions"><a href="cart.html" class="cart-btn">Gi&#7887; h&#224;ng (0)</a></div>
         </div>
     </header>
 
@@ -38,26 +38,26 @@
             <!-- LEFT: ITEM LIST -->
             <div class="cart-items" id="cart-items-container">
                 <!-- Items injected by JS -->
-                <p class="empty-msg">Giỏ hàng đang trống.</p>
+                <p class="empty-msg">Gi&#7887; h&#224;ng &#273;ang tr&#7889;ng.</p>
             </div>
 
             <!-- RIGHT: SUMMARY -->
             <div class="cart-summary">
                 <h3>Order Summary</h3>
                 <div class="summary-row">
-                    <span>Tạm tính</span>
+                    <span>T&#7841;m t&#237;nh</span>
                     <span id="subtotal">$0.00</span>
                 </div>
                 <div class="summary-row">
-                    <span>Vận chuyển</span>
-                    <span>Miễn phí</span>
+                    <span>V&#7853;n chuy&#7875;n</span>
+                    <span>Mi&#7877;n ph&#237;</span>
                 </div>
                 <div class="summary-total">
-                    <span>Tổng cộng</span>
+                    <span>T&#7893;ng c&#7897;ng</span>
                     <span id="total">$0.00</span>
                 </div>
-                <button class="checkout-btn">Thanh Toán (Checkout)</button>
-                <a href="women.html" class="continue-link">Tiếp tục mua sắm</a>
+                <button class="checkout-btn">Thanh To&#225;n (Checkout)</button>
+                <a href="women.html" class="continue-link">Ti&#7871;p t&#7909;c mua s&#7855;m</a>
             </div>
         </div>
     </main>
@@ -73,7 +73,7 @@
     <script src="main.js"></script>
     
     <script>
-        // LOGIC HIỂN THỊ GIỎ HÀNG RIÊNG
+        // LOGIC HI&#7874;N TH&#7882; GI&#7886; H&#192;NG RI&#202;NG
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('cart-items-container');
             const subtotalEl = document.getElementById('subtotal');
@@ -83,7 +83,7 @@
 
             function renderCart() {
                 if (cart.length === 0) {
-                    container.innerHTML = '<p class="empty-msg">Giỏ hàng đang trống.</p>';
+                    container.innerHTML = '<p class="empty-msg">Gi&#7887; h&#224;ng &#273;ang tr&#7889;ng.</p>';
                     subtotalEl.innerText = "$0.00";
                     totalEl.innerText = "$0.00";
                     return;
@@ -126,7 +126,7 @@
                 if (cart[index].quantity < 1) cart[index].quantity = 1;
                 localStorage.setItem('hoasac_cart', JSON.stringify(cart));
                 renderCart();
-                // Gọi lại hàm global trong main.js để update header badge
+                // G&#7885;i l&#7841;i h&#224;m global trong main.js &#273;&#7875; update header badge
                 if(window.location.reload) window.location.reload(); 
             }
 

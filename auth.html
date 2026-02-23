@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -14,7 +14,7 @@
         body {
             background-color: #f6f5f0;
             overflow: hidden;
-            /* Cố định màn hình */
+            /* C&#7889; &#273;&#7883;nh m&#224;n h&#236;nh */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -33,7 +33,7 @@
             z-index: 10;
         }
 
-        /* KHU VỰC HÌNH ẢNH NGHỆ THUẬT (TRÁI) */
+        /* KHU V&#7920;C H&#204;NH &#7842;NH NGH&#7878; THU&#7852;T (TR&#193;I) */
         .auth-visual {
             width: 50%;
             height: 100%;
@@ -80,7 +80,7 @@
             opacity: 0.7;
         }
 
-        /* KHU VỰC FORM (PHẢI) */
+        /* KHU V&#7920;C FORM (PH&#7842;I) */
         .auth-forms {
             width: 50%;
             height: 100%;
@@ -105,7 +105,7 @@
             text-decoration: none;
         }
 
-        /* FORM CHUYỂN ĐỔI (LOGIN / REGISTER) */
+        /* FORM CHUY&#7874;N &#272;&#7892;I (LOGIN / REGISTER) */
         .form-panel {
             position: absolute;
             top: 50%;
@@ -118,7 +118,7 @@
         .form-panel.hidden {
             opacity: 0;
             pointer-events: none;
-            /* Login ẩn ra trái, Register trượt từ phải vào */
+            /* Login &#7849;n ra tr&#225;i, Register tr&#432;&#7907;t t&#7915; ph&#7843;i v&#224;o */
             transform: translateY(-50%) translateX(40px);
         }
 
@@ -221,7 +221,7 @@
             border-color: #1a1a1a;
         }
 
-        /* THÔNG BÁO LỖI */
+        /* TH&#212;NG B&#193;O L&#7894;I */
         .error-msg {
             color: #d9534f;
             font-family: 'Poppins', sans-serif;
@@ -284,11 +284,11 @@
     <div class="noise-overlay"></div>
 
     <div class="auth-container">
-        <!-- HÌNH ẢNH NGHỆ THUẬT -->
+        <!-- H&#204;NH &#7842;NH NGH&#7878; THU&#7852;T -->
         <div class="auth-visual">
             <img src="assets/images/editorial/editorial-main.jpg" id="auth-img" alt="Luxury Fashion">
             <div class="auth-overlay">
-                <div class="auth-quote" id="auth-quote">"Thời trang là kiến trúc: vấn đề nằm ở tỷ lệ."</div>
+                <div class="auth-quote" id="auth-quote">"Th&#7901;i trang l&#224; ki&#7871;n tr&#250;c: v&#7845;n &#273;&#7873; n&#7857;m &#7903; t&#7927; l&#7879;."</div>
                 <div class="auth-author" id="auth-author">Coco Chanel</div>
             </div>
         </div>
@@ -299,10 +299,10 @@
 
             <!-- PANEL: LOGIN -->
             <div class="form-panel" id="login-panel">
-                <h1 class="auth-title">Đăng Nhập</h1>
-                <p class="auth-subtitle">Nhập thông tin tín chỉ của bạn để tiếp tục.</p>
+                <h1 class="auth-title">&#272;&#259;ng Nh&#7853;p</h1>
+                <p class="auth-subtitle">Nh&#7853;p th&#244;ng tin t&#237;n ch&#7881; c&#7911;a b&#7841;n &#273;&#7875; ti&#7871;p t&#7909;c.</p>
 
-                <div class="error-msg" id="login-error">Tài khoản hoặc mật khẩu không đúng.</div>
+                <div class="error-msg" id="login-error">T&#224;i kho&#7843;n ho&#7863;c m&#7853;t kh&#7849;u kh&#244;ng &#273;&#250;ng.</div>
 
                 <div class="input-group">
                     <input type="email" id="login-email" placeholder=" " required>
@@ -310,42 +310,42 @@
                 </div>
                 <div class="input-group">
                     <input type="password" id="login-pass" placeholder=" " required>
-                    <label>Mật khẩu</label>
+                    <label>M&#7853;t kh&#7849;u</label>
                 </div>
 
-                <button class="auth-btn" id="btn-login">Vào Trong</button>
-                <div class="auth-link" id="toggle-register">Chưa có tài khoản? Đăng ký Hội viên.</div>
+                <button class="auth-btn" id="btn-login">V&#224;o Trong</button>
+                <div class="auth-link" id="toggle-register">Ch&#432;a c&#243; t&#224;i kho&#7843;n? &#272;&#259;ng k&#253; H&#7897;i vi&#234;n.</div>
             </div>
 
             <!-- PANEL: REGISTER -->
             <div class="form-panel hidden" id="register-panel">
-                <h1 class="auth-title">Hội Viên Mới</h1>
-                <p class="auth-subtitle">Trở thành một phần của di sản Quiet Luxury.</p>
+                <h1 class="auth-title">H&#7897;i Vi&#234;n M&#7899;i</h1>
+                <p class="auth-subtitle">Tr&#7903; th&#224;nh m&#7897;t ph&#7847;n c&#7911;a di s&#7843;n Quiet Luxury.</p>
 
-                <div class="error-msg" id="reg-error">Vui lòng điền đầy đủ thông tin.</div>
+                <div class="error-msg" id="reg-error">Vui l&#242;ng &#273;i&#7873;n &#273;&#7847;y &#273;&#7911; th&#244;ng tin.</div>
 
                 <div class="input-group">
                     <input type="text" id="reg-name" placeholder=" " required>
-                    <label>Họ và Tên</label>
+                    <label>H&#7885; v&#224; T&#234;n</label>
                 </div>
                 <div class="input-group">
                     <input type="email" id="reg-email" placeholder=" " required>
-                    <label>Email (địa chỉ thực)</label>
+                    <label>Email (&#273;&#7883;a ch&#7881; th&#7921;c)</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="reg-pass" placeholder=" " required minlength="6">
-                    <label>Mật khẩu (tối thiểu 6 ký tự)</label>
+                    <label>M&#7853;t kh&#7849;u (t&#7889;i thi&#7875;u 6 k&#253; t&#7921;)</label>
                 </div>
 
-                <button class="auth-btn" id="btn-register">Gia Nhập</button>
-                <div class="auth-link" id="toggle-login">Đã là Hội viên? Đăng nhập.</div>
+                <button class="auth-btn" id="btn-register">Gia Nh&#7853;p</button>
+                <div class="auth-link" id="toggle-login">&#272;&#227; l&#224; H&#7897;i vi&#234;n? &#272;&#259;ng nh&#7853;p.</div>
             </div>
         </div>
     </div>
 
-    <!-- Script điều khiển Auth -->
+    <!-- Script &#273;i&#7873;u khi&#7875;n Auth -->
     <script src="js/auth.js"></script>
-    <!-- Script điều khiển Trỏ chuột (Global) -->
+    <!-- Script &#273;i&#7873;u khi&#7875;n Tr&#7887; chu&#7897;t (Global) -->
     <script src="main.js"></script>
 
     <!-- PWA Service Worker -->

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -444,38 +444,38 @@
     <!-- AUTH WALL -->
     <div class="auth-wall" id="auth-wall">
         <h1>HOA SAC.</h1>
-        <p>Khu vực dành riêng cho Quản Trị Viên.</p>
-        <p>Vui lòng <a href="auth.html">Đăng nhập</a> bằng tài khoản Admin.</p>
+        <p>Khu v&#7921;c d&#224;nh ri&#234;ng cho Qu&#7843;n Tr&#7883; Vi&#234;n.</p>
+        <p>Vui l&#242;ng <a href="auth.html">&#272;&#259;ng nh&#7853;p</a> b&#7857;ng t&#224;i kho&#7843;n Admin.</p>
     </div>
 
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">HOA SAC.<span>Admin Console</span></div>
         <div class="sidebar-menu">
-            <div class="menu-item active" data-tab="overview">📊 Tổng Quan</div>
-            <div class="menu-item" data-tab="consultations">📋 Lịch Hẹn <span class="badge" id="badge-consult">0</span>
+            <div class="menu-item active" data-tab="overview">&#55357;&#56522; T&#7893;ng Quan</div>
+            <div class="menu-item" data-tab="consultations">&#55357;&#56523; L&#7883;ch H&#7865;n <span class="badge" id="badge-consult">0</span>
             </div>
-            <div class="menu-item" data-tab="users">👥 Hội Viên</div>
-            <div class="menu-item" data-tab="products">📦 Sản Phẩm</div>
+            <div class="menu-item" data-tab="users">&#55357;&#56421; H&#7897;i Vi&#234;n</div>
+            <div class="menu-item" data-tab="products">&#55357;&#56550; S&#7843;n Ph&#7849;m</div>
         </div>
         <div class="sidebar-footer">
             <div class="admin-info">
                 <div class="admin-avatar" id="admin-avatar">A</div>
                 <div>
                     <div class="admin-name" id="admin-name">Admin</div>
-                    <div class="admin-role">Quản trị viên</div>
+                    <div class="admin-role">Qu&#7843;n tr&#7883; vi&#234;n</div>
                 </div>
             </div>
-            <button class="btn-logout" id="btn-logout">Đăng Xuất</button>
-            <a href="index.html" class="btn-back" style="display:block; text-align:center; margin-top:8px;">← Về Trang
-                Chủ</a>
+            <button class="btn-logout" id="btn-logout">&#272;&#259;ng Xu&#7845;t</button>
+            <a href="index.html" class="btn-back" style="display:block; text-align:center; margin-top:8px;">&#8592; V&#7873; Trang
+                Ch&#7911;</a>
         </div>
     </div>
 
     <!-- MAIN -->
     <div class="main">
         <div class="topbar">
-            <h2 id="page-title">Tổng Quan</h2>
+            <h2 id="page-title">T&#7893;ng Quan</h2>
             <div class="topbar-time" id="live-clock"></div>
         </div>
 
@@ -485,34 +485,34 @@
             <div class="tab-panel active" id="panel-overview">
                 <div class="stats">
                     <div class="stat-card">
-                        <div class="stat-label">Lịch Hẹn Mới</div>
-                        <div class="stat-value gold" id="stat-consult">—</div>
+                        <div class="stat-label">L&#7883;ch H&#7865;n M&#7899;i</div>
+                        <div class="stat-value gold" id="stat-consult">&#8212;</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Hội Viên</div>
-                        <div class="stat-value green" id="stat-users">—</div>
+                        <div class="stat-label">H&#7897;i Vi&#234;n</div>
+                        <div class="stat-value green" id="stat-users">&#8212;</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Sản Phẩm</div>
-                        <div class="stat-value blue" id="stat-products">—</div>
+                        <div class="stat-label">S&#7843;n Ph&#7849;m</div>
+                        <div class="stat-value blue" id="stat-products">&#8212;</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Trạng thái Cloud</div>
-                        <div class="stat-value orange">🟢</div>
+                        <div class="stat-label">Tr&#7841;ng th&#225;i Cloud</div>
+                        <div class="stat-value orange">&#55357;&#57314;</div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h3>Lịch Hẹn Gần Đây</h3>
+                        <h3>L&#7883;ch H&#7865;n G&#7847;n &#272;&#226;y</h3>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Thời Gian</th>
-                                <th>Tên</th>
+                                <th>Th&#7901;i Gian</th>
+                                <th>T&#234;n</th>
                                 <th>Email</th>
-                                <th>Nhu Cầu</th>
-                                <th>Trạng Thái</th>
+                                <th>Nhu C&#7847;u</th>
+                                <th>Tr&#7841;ng Th&#225;i</th>
                             </tr>
                         </thead>
                         <tbody id="overview-recent"></tbody>
@@ -524,22 +524,22 @@
             <div class="tab-panel" id="panel-consultations">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Tất Cả Yêu Cầu Tư Vấn</h3>
+                        <h3>T&#7845;t C&#7843; Y&#234;u C&#7847;u T&#432; V&#7845;n</h3>
                         <div style="display:flex;gap:8px;align-items:center;">
                             <span style="font-size:0.75rem;color:var(--text2)" id="consult-read-count"></span>
                         </div>
                     </div>
-                    <div id="consult-loading" class="loading">Đang tải từ Cloud...</div>
+                    <div id="consult-loading" class="loading">&#272;ang t&#7843;i t&#7915; Cloud...</div>
                     <table id="consult-table" style="display:none">
                         <thead>
                             <tr>
-                                <th>Thời Gian</th>
-                                <th>Tên</th>
+                                <th>Th&#7901;i Gian</th>
+                                <th>T&#234;n</th>
                                 <th>Email</th>
-                                <th>Nhu Cầu</th>
-                                <th>Lời Nhắn</th>
-                                <th>Trạng Thái</th>
-                                <th>Thao Tác</th>
+                                <th>Nhu C&#7847;u</th>
+                                <th>L&#7901;i Nh&#7855;n</th>
+                                <th>Tr&#7841;ng Th&#225;i</th>
+                                <th>Thao T&#225;c</th>
                             </tr>
                         </thead>
                         <tbody id="consult-body"></tbody>
@@ -551,16 +551,16 @@
             <div class="tab-panel" id="panel-users">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Danh Sách Hội Viên</h3>
+                        <h3>Danh S&#225;ch H&#7897;i Vi&#234;n</h3>
                     </div>
-                    <div id="users-loading" class="loading">Đang tải từ Cloud...</div>
+                    <div id="users-loading" class="loading">&#272;ang t&#7843;i t&#7915; Cloud...</div>
                     <table id="users-table" style="display:none">
                         <thead>
                             <tr>
-                                <th>Ngày Gia Nhập</th>
-                                <th>Họ Tên</th>
+                                <th>Ng&#224;y Gia Nh&#7853;p</th>
+                                <th>H&#7885; T&#234;n</th>
                                 <th>Email</th>
-                                <th>Vai Trò</th>
+                                <th>Vai Tr&#242;</th>
                             </tr>
                         </thead>
                         <tbody id="users-body"></tbody>
@@ -572,30 +572,30 @@
             <div class="tab-panel" id="panel-products">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Kho Sản Phẩm (Local)</h3>
+                        <h3>Kho S&#7843;n Ph&#7849;m (Local)</h3>
                         <div style="display:flex;gap:8px;align-items:center;">
-                            <input type="text" id="product-search" placeholder="Tìm kiếm sản phẩm..."
+                            <input type="text" id="product-search" placeholder="T&#236;m ki&#7871;m s&#7843;n ph&#7849;m..."
                                 style="padding:6px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;font-size:0.8rem;width:220px;">
-                            <button class="btn btn-sm" onclick="openProductModal()">+ Thêm Mới</button>
+                            <button class="btn btn-sm" onclick="openProductModal()">+ Th&#234;m M&#7899;i</button>
                         </div>
                     </div>
                     <div id="batch-bar"
                         style="display:none;padding:10px 20px;background:var(--surface2);border-bottom:1px solid var(--border);display:none;align-items:center;gap:12px;">
-                        <span style="font-size:0.8rem;color:var(--accent);" id="selected-count">0 đã chọn</span>
-                        <button class="btn btn-sm" style="background:var(--red);" onclick="batchDelete()">🗑️ Xóa đã
-                            chọn</button>
-                        <button class="btn-outline-sm" onclick="clearSelection()">Bỏ chọn</button>
+                        <span style="font-size:0.8rem;color:var(--accent);" id="selected-count">0 &#273;&#227; ch&#7885;n</span>
+                        <button class="btn btn-sm" style="background:var(--red);" onclick="batchDelete()">&#55357;&#56785;&#65039; X&#243;a &#273;&#227;
+                            ch&#7885;n</button>
+                        <button class="btn-outline-sm" onclick="clearSelection()">B&#7887; ch&#7885;n</button>
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 <th style="width:40px;"><input type="checkbox" id="select-all"
                                         onclick="toggleSelectAll(this)"></th>
-                                <th>Ảnh</th>
-                                <th>Tên</th>
-                                <th>Giá</th>
-                                <th>Danh Mục</th>
-                                <th>Thao Tác</th>
+                                <th>&#7842;nh</th>
+                                <th>T&#234;n</th>
+                                <th>Gi&#225;</th>
+                                <th>Danh M&#7909;c</th>
+                                <th>Thao T&#225;c</th>
                             </tr>
                         </thead>
                         <tbody id="product-body"></tbody>
@@ -611,23 +611,23 @@
         style="position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:1000;">
         <div
             style="background:var(--surface);padding:28px;border-radius:10px;width:460px;max-width:90%;border:1px solid var(--border);">
-            <h3 style="margin-bottom:18px;font-size:1rem;">Thông Tin Sản Phẩm</h3>
+            <h3 style="margin-bottom:18px;font-size:1rem;">Th&#244;ng Tin S&#7843;n Ph&#7849;m</h3>
             <form id="product-form">
                 <input type="hidden" id="p-id">
                 <div style="margin-bottom:12px;"><label
-                        style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Tên</label><input
+                        style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">T&#234;n</label><input
                         type="text" id="p-name" required
                         style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                 </div>
                 <div style="display:flex;gap:12px;margin-bottom:12px;">
                     <div style="flex:1;"><label
-                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Giá
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Gi&#225;
                             ($)</label><input type="number" id="p-price" required
                             style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                     </div>
                     <div style="flex:1;"><label
-                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Phân
-                            loại</label><select id="p-dept"
+                            style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Ph&#226;n
+                            lo&#7841;i</label><select id="p-dept"
                             style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);">
                             <option value="women">Women</option>
                             <option value="men">Men</option>
@@ -636,7 +636,7 @@
                 <div style="display:flex;gap:12px;margin-bottom:12px;">
                     <div style="flex:1;"><label
                             style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">Danh
-                            mục</label><select id="p-cat"
+                            m&#7909;c</label><select id="p-cat"
                             style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);">
                             <option value="outerwear">Outerwear</option>
                             <option value="dresses">Dresses</option>
@@ -647,13 +647,13 @@
                         </select></div>
                     <div style="flex:1;"><label
                             style="font-size:0.75rem;color:var(--text2);display:block;margin-bottom:4px;">File
-                            ảnh</label><input type="text" id="p-image" required
+                            &#7843;nh</label><input type="text" id="p-image" required
                             style="width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);outline:none;">
                     </div>
                 </div>
                 <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px;">
-                    <button type="button" class="btn-outline-sm" onclick="closeProductModal()">Hủy</button>
-                    <button type="submit" class="btn btn-sm">Lưu</button>
+                    <button type="button" class="btn-outline-sm" onclick="closeProductModal()">H&#7911;y</button>
+                    <button type="submit" class="btn btn-sm">L&#432;u</button>
                 </div>
             </form>
         </div>
@@ -661,7 +661,7 @@
 
     <script>
         // ==========================================
-        // ADMIN DASHBOARD — FIREBASE REST API
+        // ADMIN DASHBOARD &#8212; FIREBASE REST API
         // ==========================================
         const FIREBASE_PROJECT = 'hoasac-web';
         const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
@@ -672,17 +672,17 @@
         // ---- AUTH GUARD ----
         document.addEventListener('DOMContentLoaded', async () => {
             const userStr = sessionStorage.getItem('hoa_sac_active_user');
-            if (!userStr) return; // Giữ auth-wall hiển thị
+            if (!userStr) return; // Gi&#7919; auth-wall hi&#7875;n th&#7883;
 
             currentUser = JSON.parse(userStr);
             if (currentUser.role !== 'admin') return;
 
-            // Ẩn Auth Wall, hiện Dashboard
+            // &#7848;n Auth Wall, hi&#7879;n Dashboard
             document.getElementById('auth-wall').style.display = 'none';
             document.getElementById('admin-avatar').textContent = currentUser.fullname.charAt(0).toUpperCase();
             document.getElementById('admin-name').textContent = currentUser.fullname;
 
-            // Tải toàn bộ dữ liệu
+            // T&#7843;i to&#224;n b&#7897; d&#7919; li&#7879;u
             await Promise.all([loadConsultations(), loadUsers(), loadProducts()]);
             updateStats();
             startClock();
@@ -700,7 +700,7 @@
 
         // ---- TAB NAVIGATION ----
         function initTabs() {
-            const titles = { overview: 'Tổng Quan', consultations: 'Lịch Hẹn & Tư Vấn', users: 'Quản Lý Hội Viên', products: 'Kho Sản Phẩm' };
+            const titles = { overview: 'T&#7893;ng Quan', consultations: 'L&#7883;ch H&#7865;n & T&#432; V&#7845;n', users: 'Qu&#7843;n L&#253; H&#7897;i Vi&#234;n', products: 'Kho S&#7843;n Ph&#7849;m' };
             document.querySelectorAll('.menu-item[data-tab]').forEach(item => {
                 item.addEventListener('click', () => {
                     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
@@ -727,7 +727,7 @@
             try { return new Date(isoStr).toLocaleString('vi-VN'); } catch { return isoStr; }
         }
 
-        const subjectLabels = { advisory: 'Tư vấn', appointment: 'Ghé Atelier', press: 'Báo chí', other: 'Khác' };
+        const subjectLabels = { advisory: 'T&#432; v&#7845;n', appointment: 'Gh&#233; Atelier', press: 'B&#225;o ch&#237;', other: 'Kh&#225;c' };
 
         // ---- LOAD CONSULTATIONS ----
         let consultations = [];
@@ -744,11 +744,11 @@
                 });
                 renderConsultations();
             } catch (err) {
-                document.getElementById('consult-loading').textContent = 'Lỗi tải dữ liệu: ' + err.message;
+                document.getElementById('consult-loading').textContent = 'L&#7895;i t&#7843;i d&#7919; li&#7879;u: ' + err.message;
             }
         }
 
-        // Trạng thái đã đọc (lưu local)
+        // Tr&#7841;ng th&#225;i &#273;&#227; &#273;&#7885;c (l&#432;u local)
         let readConsultations = JSON.parse(localStorage.getItem('hoasac_read_consults') || '[]');
 
         function toggleReadStatus(docId) {
@@ -773,12 +773,12 @@
                 const isRead = readConsultations.includes(c.docId || i.toString());
                 if (!isRead) unreadCount++;
                 const rowStyle = isRead ? 'opacity:0.5;' : 'font-weight:500;';
-                const readLabel = isRead ? '📖 Đã đọc' : '🔵 Chưa đọc';
+                const readLabel = isRead ? '&#55357;&#56534; &#272;&#227; &#273;&#7885;c' : '&#55357;&#56629; Ch&#432;a &#273;&#7885;c';
                 const readBtnClass = isRead ? 'status-resolved' : 'status-new';
-                tbody.innerHTML += `<tr style="${rowStyle}"><td>${formatDate(c.date)}</td><td><b>${c.name}</b></td><td>${c.email}</td><td>${subjectLabels[c.subject] || c.subject}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.message}</td><td><span class="status-badge ${readBtnClass}">${readLabel}</span></td><td><button class="btn-outline-sm" onclick="toggleReadStatus('${c.docId || i}')">${isRead ? 'Đánh chưa đọc' : 'Đánh đã đọc'}</button></td></tr>`;
+                tbody.innerHTML += `<tr style="${rowStyle}"><td>${formatDate(c.date)}</td><td><b>${c.name}</b></td><td>${c.email}</td><td>${subjectLabels[c.subject] || c.subject}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.message}</td><td><span class="status-badge ${readBtnClass}">${readLabel}</span></td><td><button class="btn-outline-sm" onclick="toggleReadStatus('${c.docId || i}')">${isRead ? '&#272;&#225;nh ch&#432;a &#273;&#7885;c' : '&#272;&#225;nh &#273;&#227; &#273;&#7885;c'}</button></td></tr>`;
             });
             document.getElementById('badge-consult').textContent = unreadCount;
-            document.getElementById('consult-read-count').textContent = `${consultations.length - unreadCount}/${consultations.length} đã đọc`;
+            document.getElementById('consult-read-count').textContent = `${consultations.length - unreadCount}/${consultations.length} &#273;&#227; &#273;&#7885;c`;
 
             // Overview recent (top 5)
             const recent = document.getElementById('overview-recent');
@@ -786,7 +786,7 @@
             consultations.slice(0, 5).forEach((c, i) => {
                 const isRead = readConsultations.includes(c.docId || i.toString());
                 const readBtnClass = isRead ? 'status-resolved' : 'status-new';
-                const readLabel = isRead ? '📖 Đã đọc' : '🔵 Chưa đọc';
+                const readLabel = isRead ? '&#55357;&#56534; &#272;&#227; &#273;&#7885;c' : '&#55357;&#56629; Ch&#432;a &#273;&#7885;c';
                 recent.innerHTML += `<tr><td>${formatDate(c.date)}</td><td>${c.name}</td><td>${c.email}</td><td>${subjectLabels[c.subject] || c.subject}</td><td><span class="status-badge ${readBtnClass}">${readLabel}</span></td></tr>`;
             });
         }
@@ -805,7 +805,7 @@
                 });
                 renderUsers();
             } catch (err) {
-                document.getElementById('users-loading').textContent = 'Lỗi: ' + err.message;
+                document.getElementById('users-loading').textContent = 'L&#7895;i: ' + err.message;
             }
         }
 
@@ -847,7 +847,7 @@
             <td><b>${p.name}</b><br><span style="font-size:0.7rem;color:var(--text2)">ID: ${p.id}</span></td>
             <td>$${p.price}</td>
             <td style="text-transform:capitalize">${p.department} / ${p.category}</td>
-            <td><button class="btn-outline-sm" onclick="editProduct(${p.id})">✏️</button> <button class="btn-outline-sm" onclick="deleteProduct(${p.id})">🗑️</button></td>
+            <td><button class="btn-outline-sm" onclick="editProduct(${p.id})">&#9999;&#65039;</button> <button class="btn-outline-sm" onclick="deleteProduct(${p.id})">&#55357;&#56785;&#65039;</button></td>
         </tr>`;
             });
             updateBatchBar();
@@ -865,12 +865,12 @@
 
         function updateBatchBar() {
             const bar = document.getElementById('batch-bar');
-            if (selectedProducts.size > 0) { bar.style.display = 'flex'; document.getElementById('selected-count').textContent = selectedProducts.size + ' đã chọn'; }
+            if (selectedProducts.size > 0) { bar.style.display = 'flex'; document.getElementById('selected-count').textContent = selectedProducts.size + ' &#273;&#227; ch&#7885;n'; }
             else { bar.style.display = 'none'; }
         }
 
         window.batchDelete = () => {
-            if (!confirm(`Bạn chắc chắn muốn xóa ${selectedProducts.size} sản phẩm?`)) return;
+            if (!confirm(`B&#7841;n ch&#7855;c ch&#7855;n mu&#7889;n x&#243;a ${selectedProducts.size} s&#7843;n ph&#7849;m?`)) return;
             products = products.filter(p => !selectedProducts.has(p.id));
             selectedProducts.clear();
             document.getElementById('select-all').checked = false;
@@ -902,7 +902,7 @@
         window.openProductModal = () => { document.getElementById('product-form').reset(); document.getElementById('p-id').value = ''; document.getElementById('product-modal').style.display = 'flex'; };
         window.closeProductModal = () => { document.getElementById('product-modal').style.display = 'none'; };
         window.editProduct = (id) => { const p = products.find(x => x.id === id); if (p) { document.getElementById('p-id').value = p.id; document.getElementById('p-name').value = p.name; document.getElementById('p-price').value = p.price; document.getElementById('p-dept').value = p.department; document.getElementById('p-cat').value = p.category; document.getElementById('p-image').value = p.image; document.getElementById('product-modal').style.display = 'flex'; } };
-        window.deleteProduct = (id) => { if (confirm('Xóa sản phẩm này?')) { products = products.filter(x => x.id !== id); saveProducts(); renderProducts(); updateStats(); } };
+        window.deleteProduct = (id) => { if (confirm('X&#243;a s&#7843;n ph&#7849;m n&#224;y?')) { products = products.filter(x => x.id !== id); saveProducts(); renderProducts(); updateStats(); } };
 
         document.getElementById('product-form').addEventListener('submit', (e) => {
             e.preventDefault();

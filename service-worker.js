@@ -1,7 +1,7 @@
 // ==========================================
 // HOA SAC — Service Worker (PWA Offline Cache)
 // ==========================================
-const CACHE_NAME = 'hoasac-v1';
+const CACHE_NAME = 'hoasac-v2';
 const PRECACHE_URLS = [
     '/',
     '/index.html',
