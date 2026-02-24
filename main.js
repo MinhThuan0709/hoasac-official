@@ -1,4 +1,4 @@
-﻿/* =========================================
+/* =========================================
    FILE: main.js - FULL RESTORED VERSION
    ========================================= */
 
@@ -715,21 +715,21 @@ document.addEventListener('DOMContentLoaded', () => {
    GLOBAL DATA HANDLER (ADMIN MODE SUPPORT)
    ========================================= */
 
-// H�m n�y s? du?c c�c trang con g?i d? l?y d? li?u m?i nh?t
+// Hàm này sẽ được các trang con gọi để lấy dữ liệu mới nhất
 window.getProductsDB = async function () {
-    // 1. Uu ti�n l?y t? LocalStorage (Admin Data)
+    // 1. Ưu tiên lấy từ LocalStorage (Admin Data)
     const localData = localStorage.getItem('hoasac_products_db');
     if (localData) {
-        console.log('�ang s? d?ng d? li?u t? Admin Dashboard');
+        console.log('Đang sử dụng dữ liệu từ Admin Dashboard');
         return JSON.parse(localData);
     }
 
-    // 2. N?u kh�ng c�, l?y t? file JSON g?c
+    // 2. Nếu không có, lấy từ file JSON gốc
     try {
         const response = await fetch('assets/data/products.json');
         return await response.json();
     } catch (error) {
-        console.error('L?i t?i d? li?u:', error);
+        console.error('Lỗi tải dữ liệu:', error);
         return [];
     }
 };

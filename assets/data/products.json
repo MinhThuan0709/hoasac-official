@@ -11,7 +11,24 @@
     { "id": 10, "name": "Slip Dress Noir", "price": 600, "category": "dresses", "image": "dress-black.jpg", "department": "women", "cross_sell": [9] },
     { "id": 11, "name": "High-Waist Palazzo", "price": 480, "category": "bottoms", "image": "pants.jpg", "department": "women", "cross_sell": [12, 8] },
     { "id": 12, "name": "Sheer Organza Top", "price": 390, "category": "tops", "image": "top.jpg", "department": "women", "cross_sell": [6, 4] },
-    
+
+    {
+        "id": 13,
+        "name": "Aurora Silk Trench",
+        "price": 1650,
+        "category": "outerwear",
+        "image": "aurora-trench-front.jpg",
+        "images": ["aurora-trench-back.jpg", "aurora-trench-detail.jpg"],
+        "department": "women",
+        "hover_video": "look-03.mp4",
+        "colors": ["Ivory", "Nude", "Black"],
+        "description": "Trench coat dáng dài chất liệu lụa pha wool cao cấp, phom rũ vừa, phần cổ ve lớn và đai bản to tôn dáng thanh thoát.",
+        "details": "Chất liệu: 70% Wool chải kỹ, 30% Silk mờ.<br>Lót: Cupro Nhật thấm hút tốt.<br>Phom: Regular, vai rơi nhẹ.<br>Chi tiết: Nút xà cừ khắc logo HOA SAC, đai tháo rời.<br>Sản xuất giới hạn tại xưởng HOA SAC Atelier.",
+        "sku": "HS-W-TR-AURORA",
+        "fit": "Regular",
+        "cross_sell": [2, 6]
+    },
+
     { "id": 101, "name": "Italian Wool Suit", "price": 2500, "category": "suits", "image": "suit-01.jpg", "department": "men", "hover_video": "look-01.mp4", "cross_sell": [102] },
     { "id": 102, "name": "Classic Oxford Shirt", "price": 350, "category": "shirts", "image": "shirt-01.jpg", "department": "men", "hover_video": "look-02.mp4", "cross_sell": [104, 106] },
     { "id": 103, "name": "Leather Biker Jacket", "price": 1800, "category": "outerwear", "image": "jacket-01.jpg", "department": "men", "cross_sell": [108, 105] },

@@ -19,7 +19,8 @@
         .zoom-container:first-child { grid-column: span 2; }
         .pdp-info { flex: 1; position: sticky; top: 120px; height: fit-content; }
         .breadcrumb { font-size: 12px; color: #999; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
-        .pdp-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 10px; line-height: 1.2; }
+        .pdp-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 4px; line-height: 1.2; }
+        .pdp-meta { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 18px; display:flex; gap:10px; flex-wrap:wrap; }
         .pdp-price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; display: block; }
         .pdp-desc { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 40px; }
         .selector-group { margin-bottom: 30px; }
@@ -35,7 +36,7 @@
         .accordion-item { border-bottom: 1px solid #eee; }
         .accordion-header { padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; font-weight: 500; text-transform: uppercase; font-size: 13px; }
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: #666; font-size: 13px; line-height: 1.6; }
-        .accordion-item.active .accordion-content { max-height: 200px; padding-bottom: 20px; }
+        .accordion-item.active .accordion-content { max-height: 400px; padding-bottom: 20px; overflow-y: auto; }
         .related-section { padding: 100px 5%; border-top: 1px solid #eee; }
         .related-title { text-align: center; font-size: 2rem; margin-bottom: 60px; font-weight: 300; }
         @media (max-width: 900px) { .pdp-container { flex-direction: column; padding-top: 100px; } .pdp-gallery { grid-template-columns: 1fr; } .zoom-container:first-child { grid-column: auto; } .pdp-info { position: static; } }
@@ -149,80 +150,95 @@
     <script>
         // --- LOGIC RENDER & FETCH ---
         
+        function colorToCss(val) {
+            const v = (val || '').trim();
+            if (v.startsWith('#')) return v;
+            const names = { black: '#000', trắng: '#fff', white: '#fff', navy: '#000080', đen: '#000', xám: '#888', gray: '#888', grey: '#888', be: '#f5f5dc', nude: '#e3c6a8', đỏ: '#c00', red: '#c00' };
+            return names[v.toLowerCase()] || '#888';
+        }
+
         function renderProductDetail(product) {
             const container = document.getElementById('product-detail-container');
             const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price);
             
             const imgFolder = product.department === 'men' ? 'assets/images/products/men/' : 'assets/images/products/women/';
-            const imgSrc = imgFolder + product.image;
+            const imgFallback = 'assets/images/placeholder.svg';
+            const allImages = [product.image].concat(Array.isArray(product.images) ? product.images : []);
+            const galleryHtml = allImages.slice(0, 6).map((img, i) => {
+                const src = imgFolder + img;
+                const zoom = i === 0 ? ' onmousemove="zoom(event)" onmouseleave="resetZoom(event)"' : '';
+                return `<div class="zoom-container"${zoom}><img src="${src}" alt="${product.name}" onerror="this.src='${imgFallback}'"></div>`;
+            }).join('');
 
-            // JSON stringify object &#273;&#7875; truy&#7873;n v&#224;o onclick, c&#7847;n escape d&#7845;u nh&#225;y &#273;&#417;n
-            const productJson = JSON.stringify(product).replace(/'/g, "\'");
+            const defaultDesc = 'Sản phẩm được chế tác thủ công từ chất liệu cao cấp nhất. Thiết kế tinh giản tôn vinh vẻ đẹp tự nhiên. ' + (product.department === 'men' ? 'Form dáng chuẩn mực quý ông.' : 'Đường cắt mềm mại nữ tính.');
+            const descText = (product.description || defaultDesc).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+            const rawColors = Array.isArray(product.colors) && product.colors.length > 0 ? product.colors : ['#000', '#f0f0f0'];
+            const colorHtml = rawColors.map((c, i) => {
+                const bg = colorToCss(c);
+                return `<div class="color-opt ${i === 0 ? 'selected' : ''}" style="width:30px;height:30px;border-radius:50%;background:${bg};border:1px solid #ccc;cursor:pointer;" data-color="${bg}" data-name="${c}"></div>`;
+            }).join('');
+            const initialColorLabel = rawColors.length ? `Màu: ${rawColors[0]}` : '';
+
+            const detailsContent = (product.details || 'Chất liệu: 100% Lụa tơ tằm / Wool cao cấp.<br>Lót: Cupro thoáng khí.<br>Sản xuất tại Việt Nam.').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&lt;br&gt;/gi, '<br>');
+
+            const skuMeta = product.sku ? `SKU: ${product.sku}` : '';
+            const fitMeta = product.fit ? `Fit: ${product.fit}` : '';
+            const metaHtml = (skuMeta || fitMeta) ? `<div class="pdp-meta">${skuMeta ? `<span>${skuMeta}</span>` : ''}${fitMeta ? `<span>${fitMeta}</span>` : ''}</div>` : '';
+
+            const productJson = JSON.stringify(product).replace(/'/g, "\\'");
 
             container.innerHTML = `
                 <div class="pdp-gallery">
-                    <div class="zoom-container" onmousemove="zoom(event)" onmouseleave="resetZoom(event)">
-                        <img src="${imgSrc}" alt="${product.name}" onerror="this.src='assets/images/products/women/coat.jpg'">
-                    </div>
-                    <div class="zoom-container">
-                        <img src="${imgSrc}" style="filter: brightness(0.95)">
-                    </div>
-                    <div class="zoom-container">
-                        <img src="${imgSrc}" style="filter: contrast(1.1)">
-                    </div>
+                    ${galleryHtml || `<div class="zoom-container" onmousemove="zoom(event)" onmouseleave="resetZoom(event)"><img src="${imgFolder + product.image}" alt="${product.name}" onerror="this.src='${imgFallback}'"></div>`}
                 </div>
 
                 <div class="pdp-info">
                     <div class="breadcrumb">Home / ${product.department} / ${product.category}</div>
                     <h1 class="pdp-title">${product.name}</h1>
+                    ${metaHtml}
                     <span class="pdp-price">${formattedPrice}</span>
                     
-                    <p class="pdp-desc">
-                        S&#7843;n ph&#7849;m &#273;&#432;&#7907;c ch&#7871; t&#225;c th&#7911; c&#244;ng t&#7915; ch&#7845;t li&#7879;u cao c&#7845;p nh&#7845;t. 
-                        Thi&#7871;t k&#7871; tinh gi&#7843;n t&#244;n vinh v&#7867; &#273;&#7865;p t&#7921; nhi&#234;n. 
-                        ${product.department === 'men' ? 'Form d&#225;ng chu&#7849;n m&#7921;c qu&#253; &#244;ng.' : '&#272;&#432;&#7901;ng c&#7855;t m&#7873;m m&#7841;i n&#7919; t&#237;nh.'}
-                    </p>
+                    <p class="pdp-desc">${descText}</p>
 
                     <div class="selector-group">
-                        <span class="selector-label">M&#224;u S&#7855;c</span>
-                        <div class="color-options" style="display:flex; gap:10px; margin-bottom:20px;">
-                            <div class="color-opt selected" style="width:30px; height:30px; border-radius:50%; background:#000; border:1px solid #ccc; cursor:pointer;"></div>
-                            <div class="color-opt" style="width:30px; height:30px; border-radius:50%; background:#f0f0f0; border:1px solid #ccc; cursor:pointer;"></div>
-                        </div>
+                        <span class="selector-label">Màu Sắc</span>
+                        <div class="color-options" style="display:flex; gap:10px; margin-bottom:4px;">${colorHtml}</div>
+                        ${initialColorLabel ? `<div class="pdp-color-label" style="font-size:11px;color:#777;margin-top:4px;"><span id="color-label">${initialColorLabel}</span></div>` : ''}
                     </div>
 
                     <div class="selector-group">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                             <span class="selector-label" style="margin:0;">Size</span>
-                            <a href="#" id="size-guide-link" style="font-size:11px; text-decoration:underline; color:#666;">H&#432;&#7899;ng d&#7851;n ch&#7885;n size</a>
+                            <a href="#" id="size-guide-link" style="font-size:11px; text-decoration:underline; color:#666;">Hướng dẫn chọn size</a>
                         </div>
                         <div class="size-options">
                             ${product.department === 'men' 
-                                ? `<div class="size-opt">48</div><div class="size-opt selected">50</div><div class="size-opt">52</div>`
-                                : `<div class="size-opt">S</div><div class="size-opt selected">M</div><div class="size-opt">L</div>`
+                                ? '<div class="size-opt">48</div><div class="size-opt selected">50</div><div class="size-opt">52</div><div class="size-opt">54</div>'
+                                : '<div class="size-opt">S</div><div class="size-opt selected">M</div><div class="size-opt">L</div>'
                             }
                         </div>
                     </div>
 
                     <div class="pdp-actions">
-                        <button class="btn-add-bag" onclick='triggerAddToCart(${productJson})'>Th&#234;m V&#224;o Gi&#7887;</button>
+                        <button class="btn-add-bag" onclick='triggerAddToCart(${productJson})'>Thêm Vào Giỏ</button>
                         <button class="btn-wishlist">&#10084;</button>
                     </div>
 
                     <div class="trust-badges" style="display:flex; gap:20px; margin-top:30px; padding-top:20px; border-top:1px solid #eee; font-size:11px; color:#555; text-transform:uppercase;">
-                        <div style="display:flex; align-items:center; gap:5px;"><span>&#8634;</span> &#272;&#7893;i tr&#7843; 7 ng&#224;y</div>
+                        <div style="display:flex; align-items:center; gap:5px;"><span>&#8634;</span> Đổi trả 7 ngày</div>
                         <div style="display:flex; align-items:center; gap:5px;"><span>&#9992;</span> Free Shipping</div>
-                        <div style="display:flex; align-items:center; gap:5px;"><span>&#9733;</span> Ch&#237;nh h&#227;ng 100%</div>
+                        <div style="display:flex; align-items:center; gap:5px;"><span>&#9733;</span> Chính hãng 100%</div>
                     </div>
 
                     <div class="pdp-accordion">
                         <div class="accordion-item">
-                            <div class="accordion-header" onclick="toggleAccordion(this)">Chi ti&#7871;t s&#7843;n ph&#7849;m <span>+</span></div>
-                            <div class="accordion-content">Ch&#7845;t li&#7879;u: 100% L&#7909;a t&#417; t&#7857;m / Wool cao c&#7845;p.<br>L&#243;t: Cupro tho&#225;ng kh&#237;.<br>S&#7843;n xu&#7845;t t&#7841;i Vi&#7879;t Nam.</div>
+                            <div class="accordion-header" onclick="toggleAccordion(this)">Chi tiết sản phẩm <span>+</span></div>
+                            <div class="accordion-content">${detailsContent}</div>
                         </div>
                         <div class="accordion-item">
-                            <div class="accordion-header" onclick="toggleAccordion(this)">V&#7853;n chuy&#7875;n & &#272;&#7893;i tr&#7843; <span>+</span></div>
-                            <div class="accordion-content">Mi&#7877;n ph&#237; v&#7853;n chuy&#7875;n to&#224;n qu&#7889;c.<br>&#272;&#7893;i tr&#7843; trong v&#242;ng 7 ng&#224;y n&#7871;u l&#7895;i s&#7843;n xu&#7845;t.</div>
+                            <div class="accordion-header" onclick="toggleAccordion(this)">Vận chuyển & Đổi trả <span>+</span></div>
+                            <div class="accordion-content">Miễn phí vận chuyển toàn quốc.<br>Đổi trả trong vòng 7 ngày nếu lỗi sản xuất.</div>
                         </div>
                     </div>
                 </div>
@@ -240,11 +256,16 @@
                 });
             });
 
-            // Color Events
+            // Color Events + cập nhật label
+            const colorLabelEl = document.getElementById('color-label');
             document.querySelectorAll('.color-opt').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.color-opt').forEach(b => b.classList.remove('selected'));
                     this.classList.add('selected');
+                    if (colorLabelEl) {
+                        const name = this.getAttribute('data-name') || this.getAttribute('data-color') || '';
+                        if (name) colorLabelEl.textContent = 'Màu: ' + name;
+                    }
                 });
             });
 
@@ -262,12 +283,11 @@
             }
         }
 
-        function renderCrossSell(allProducts, crossIds) {
+        function renderCrossSell(allProducts, crossIds, department) {
             const section = document.getElementById('cross-sell-section');
             const grid = document.getElementById('cross-sell-grid');
-            
-            // L&#7885;c danh s&#225;ch cross-sell
-            const items = allProducts.filter(p => crossIds.includes(p.id));
+            // Ch&#7889; hi&#7875;n cross-sell c&#249;ng department (nam v&#7899;i nam, n&#7919; v&#7899;i n&#7919;)
+            const items = allProducts.filter(p => crossIds.includes(p.id) && p.department === department);
             
             if (items.length > 0) {
                 section.style.display = 'block';
@@ -278,8 +298,8 @@
             }
         }
 
-        function renderRelated(allProducts, category, currentId) {
-            const related = allProducts.filter(p => p.category === category && p.id !== currentId).slice(0, 4);
+        function renderRelated(allProducts, category, currentId, department) {
+            const related = allProducts.filter(p => p.department === department && p.category === category && p.id !== currentId).slice(0, 4);
             const grid = document.getElementById('related-grid');
             grid.innerHTML = '';
             related.forEach(p => createProductCard(p, grid));
@@ -287,13 +307,13 @@
 
         function createProductCard(p, container) {
             const imgFolder = p.department === 'men' ? 'assets/images/products/men/' : 'assets/images/products/women/';
+            const imgFallback = 'assets/images/placeholder.svg';
             const div = document.createElement('div');
             div.className = 'product-item';
-            // S&#7917; d&#7909;ng template gi&#7889;ng trang danh m&#7909;c
             div.innerHTML = `
                 <div class="prod-img">
                     <a href="product-detail.html?id=${p.id}">
-                        <img src="${imgFolder + p.image}" alt="${p.name}" onerror="this.src='assets/images/products/women/coat.jpg'">
+                        <img src="${imgFolder + p.image}" alt="${p.name}" onerror="this.src='${imgFallback}'">
                     </a>
                 </div>
                 <div class="prod-info">
@@ -330,10 +350,10 @@
 
                 if (product) {
                     renderProductDetail(product);
-                    if (product.cross_sell) renderCrossSell(products, product.cross_sell);
+                    if (product.cross_sell && product.cross_sell.length) renderCrossSell(products, product.cross_sell, product.department);
                     else document.getElementById('cross-sell-section').style.display = 'none';
                     
-                    renderRelated(products, product.category, product.id);
+                    renderRelated(products, product.category, product.id, product.department);
                 } else {
                     document.getElementById('product-detail-container').innerHTML = '<p style="text-align:center">Kh&#244;ng t&#236;m th&#7845;y s&#7843;n ph&#7849;m.</p>';
                 }

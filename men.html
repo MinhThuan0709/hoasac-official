@@ -142,11 +142,11 @@
                         <span class="ov-label" data-vi="D&#193;NG" data-en="SILHOUETTE">D&#193;NG</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="women.html" data-vi="V&#225;y" data-en="Dress">V&#225;y</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o Corset" data-en="Corset">&#193;o Corset</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o Kho&#225;c" data-en="Coat">&#193;o Kho&#225;c</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o" data-en="Tops">&#193;o</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="Qu&#7847;n" data-en="Pants">Qu&#7847;n</a></li>
+                        <li class="ov-item"><a href="men.html" data-vi="Complet" data-en="Suits">Complet</a></li>
+                        <li class="ov-item"><a href="men.html" data-vi="&#193;o S&#417; Mi" data-en="Shirts">&#193;o S&#417; Mi</a></li>
+                        <li class="ov-item"><a href="men.html" data-vi="&#193;o Kho&#225;c" data-en="Coat">&#193;o Kho&#225;c</a></li>
+                        <li class="ov-item"><a href="men.html" data-vi="&#193;o Thun" data-en="Tops">&#193;o Thun</a></li>
+                        <li class="ov-item"><a href="men.html" data-vi="Qu&#7847;n &#193;o" data-en="Trousers">Qu&#7847;n &#193;o</a></li>
                     </ul>
                 </div>
 
@@ -187,7 +187,7 @@
         <!-- RIGHT PANEL &#8212; mood image -->
         <div class="ov-right">
             <div class="ov-mood" id="ov-mood">
-                <img src="assets/images/lookbook/look-01.jpg" alt="Mood" id="ov-mood-img">
+                <img src="assets/images/lookbook/look-01.jpg" alt="Mood" id="ov-mood-img" onerror="this.src='assets/images/placeholder.svg'">
                 <div class="ov-mood-label"><span id="ov-mood-text">New Collection</span></div>
             </div>
         </div>
@@ -226,8 +226,8 @@
                     // L&#7884;C S&#7842;N PH&#7848;M NAM
                     const menProducts = products.filter(p => p.department === 'men');
 
-                    if(menProducts.length === 0) {
-                        grid.innerHTML = '<p style="text-align:center;width:100%;">&#272;ang c&#7853;p nh&#7853;t b&#7897; s&#432;u t&#7853;p m&#7899;i.</p>';
+                    if (menProducts.length === 0) {
+                        grid.innerHTML = '<p class="catalog-empty" style="text-align:center;width:100%;grid-column:1/-1;padding:3rem 1rem;color:var(--text-muted, #888);font-size:0.95rem;">Đang cập nhật bộ sưu tập mới.</p>';
                         return;
                     }
 
@@ -250,7 +250,7 @@
                         item.innerHTML = `
                             <div class="prod-img">
                                 <a href="product-detail.html?id=${product.id}" style="display:block; width:100%; height:100%;">
-                                    <img src="assets/images/products/men/${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='assets/images/products/women/coat.jpg'"> 
+                                    <img src="assets/images/products/men/${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='assets/images/placeholder.svg'"> 
                                     ${videoHTML}
                                 </a>
                                 <span class="quick-add" 
@@ -281,6 +281,7 @@
 
                 } catch (error) {
                     console.error('L&#7895;i t&#7843;i s&#7843;n ph&#7849;m:', error);
+                    document.getElementById('product-grid').innerHTML = '<p class="catalog-empty" style="text-align:center;width:100%;grid-column:1/-1;padding:3rem 1rem;color:var(--text-muted, #888);font-size:0.95rem;">Đang cập nhật sản phẩm...</p>';
                 }
             }
 
@@ -307,7 +308,7 @@
                         mTitle.innerText = name;
                         mPrice.innerText = price;
                         mImg.src = img;
-                        mImg.onerror = function() { this.src = 'assets/images/products/women/coat.jpg'; }; // Fallback &#7843;nh
+                        mImg.onerror = function() { this.src = 'assets/images/placeholder.svg'; };
                         mCat.innerText = cat;
 
                         modal.classList.add('active');

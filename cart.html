@@ -99,7 +99,7 @@
                     div.className = 'cart-item';
                     div.innerHTML = `
                         <div class="cart-img">
-                            <img src="${item.image}" alt="${item.name}">
+                            <img src="${item.image}" alt="${item.name}" onerror="this.src='assets/images/placeholder.svg'">
                         </div>
                         <div class="cart-details">
                             <h4>${item.name}</h4>

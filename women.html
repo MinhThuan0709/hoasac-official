@@ -187,7 +187,7 @@
         <!-- RIGHT PANEL &#8212; mood image -->
         <div class="ov-right">
             <div class="ov-mood" id="ov-mood">
-                <img src="assets/images/lookbook/look-01.jpg" alt="Mood" id="ov-mood-img">
+                <img src="assets/images/lookbook/look-01.jpg" alt="Mood" id="ov-mood-img" onerror="this.src='assets/images/placeholder.svg'">
                 <div class="ov-mood-label"><span id="ov-mood-text">New Collection</span></div>
             </div>
         </div>
@@ -227,6 +227,11 @@
                     // Ch&#7881; l&#7845;y s&#7843;n ph&#7849;m N&#7919;
                     const womenProducts = products.filter(p => p.department === 'women');
 
+                    if (womenProducts.length === 0) {
+                        grid.innerHTML = '<p class="catalog-empty" style="text-align:center;width:100%;grid-column:1/-1;padding:3rem 1rem;color:var(--text-muted, #888);font-size:0.95rem;">Đang cập nhật bộ sưu tập mới.</p>';
+                        return;
+                    }
+
                     womenProducts.forEach(product => {
                         const item = document.createElement('div');
                         item.className = 'product-item';
@@ -247,13 +252,13 @@
                         item.innerHTML = `
                             <div class="prod-img">
                                 <a href="product-detail.html?id=${product.id}" style="display:block; width:100%; height:100%;">
-                                    <img src="assets/images/products/women/${product.image}" alt="${product.name}" loading="lazy">
+                                    <img src="assets/images/products/women/${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='assets/images/placeholder.svg'">
                                     ${videoHTML}
                                 </a>
                                 <span class="quick-add" 
                                     data-name="${product.name}" 
                                     data-price="${formattedPrice}" 
-                                    data-img="assets/images/products/women/${product.image}" 
+                                    data-img="assets/images/products/women/${product.image}" data-fallback="assets/images/placeholder.svg" 
                                     data-cat="${product.category}">+</span>
                             </div>
                             <div class="prod-info">
@@ -310,6 +315,7 @@
                         mTitle.innerText = name;
                         mPrice.innerText = price;
                         mImg.src = img;
+                        mImg.onerror = function() { this.src = 'assets/images/placeholder.svg'; };
                         mCat.innerText = cat;
 
                         // Hi&#7879;n Modal

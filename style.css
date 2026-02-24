@@ -1,4 +1,4 @@
-﻿@import url("header.css");
+@import url("header.css");
 @import url("footer.css");
 
 /* Thiết lập chung */
@@ -2709,11 +2709,11 @@ body.dark-mode .nav-link::after {
    FIX: CONTACT PAGE STYLES (DETAILED)
    ========================================= */
 
-/* 1. Layout Ch�nh */
+/* 1. Layout Chinh */
 .contact-page {
-    padding-top: 180px; /* Tang kho?ng c�ch v?i Header */
+    padding-top: 180px;
     min-height: 100vh;
-    background-color: #fdfbf7; /* M�u n?n d?ng b? */
+    background-color: #fdfbf7;
 }
 
 .contact-hero {
@@ -2722,7 +2722,7 @@ body.dark-mode .nav-link::after {
 }
 
 .contact-hero .big-title {
-    font-size: 6rem; /* Ch? ti�u d? to hon */
+    font-size: 6rem;
     line-height: 0.9;
     color: #000;
     margin-bottom: 20px;
@@ -2732,7 +2732,7 @@ body.dark-mode .nav-link::after {
 .contact-hero .intro-sub {
     font-size: 1.1rem;
     color: #666;
-    font-style: normal; /* B? in nghi�ng */
+    font-style: normal;
     font-weight: 300;
     letter-spacing: 1px;
 }
@@ -2743,19 +2743,19 @@ body.dark-mode .nav-link::after {
     max-width: 1200px; /* Gi?i h?n chi?u r?ng */
     margin: 0 auto;
     padding: 0 5% 150px;
-    gap: 100px; /* Kho?ng c�ch gi?a 2 c?t */
-    align-items: flex-start; /* Can h�ng d?u */
+    gap: 100px;
+    align-items: flex-start;
 }
 
-/* C?t Tr�i: Form */
+/* Cot Trai: Form */
 .contact-form-wrapper {
-    flex: 1.2; /* Chi?m nhi?u ch? hon ch�t */
+    flex: 1.2;
 }
 
 .luxury-form {
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Tang kho?ng c�ch gi?a c�c � nh?p */
+    gap: 60px;
 }
 
 /* C?t Ph?i: Info & ?nh */
@@ -2763,9 +2763,9 @@ body.dark-mode .nav-link::after {
     flex: 0.8;
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Kho?ng c�ch gi?a ch? v� ?nh */
+    gap: 60px;
     position: relative;
-    padding-top: 20px; /* �?y xu?ng 1 ch�t cho so le */
+    padding-top: 20px;
 }
 
 /* Typography cho Info */
@@ -2803,7 +2803,7 @@ body.dark-mode .nav-link::after {
 }
 
 .contact-links a:hover {
-    color: #d4af37; /* M�u v�ng kim khi hover */
+    color: #d4af37;
 }
 
 /* ?nh Atelier */
@@ -2811,7 +2811,7 @@ body.dark-mode .nav-link::after {
     width: 100%;
     height: 500px; /* Chi?u cao c? d?nh */
     overflow: hidden;
-    border-radius: 0 0 100px 0; /* Bo g�c ngh? thu?t */
+    border-radius: 0 0 100px 0;
 }
 
 .atelier-image img {
@@ -2822,10 +2822,10 @@ body.dark-mode .nav-link::after {
 }
 
 .contact-info-wrapper:hover .atelier-image img {
-    transform: scale(1.1); /* Zoom nh? khi di chu?t v�o v�ng info */
+    transform: scale(1.1);
 }
 
-/* 3. Success Modal (Th�ng b�o th�nh c�ng) */
+/* 3. Success Modal (Thong bao thanh cong) */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -2879,7 +2879,7 @@ body.dark-mode .nav-link::after {
 /* RESPONSIVE FIX */
 @media (max-width: 900px) {
     .contact-split {
-        flex-direction: column; /* X?p d?c tr�n tablet/mobile */
+        flex-direction: column;
         gap: 60px;
     }
     
@@ -2908,15 +2908,15 @@ body.dark-mode .nav-link::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* N?n den m? d?m hon cho sang */
-    z-index: 99999; /* Cao nh?t c� th? */
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 99999;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    backdrop-filter: blur(10px); /* Hi?u ?ng k�nh m? */
+    backdrop-filter: blur(10px);
 }
 
 #success-modal.active {
@@ -2945,7 +2945,7 @@ body.dark-mode .nav-link::after {
 #success-modal h3 {
     font-family: 'Great Vibes', cursive;
     font-size: 5rem;
-    color: #d4af37; /* M�u v�ng kim */
+    color: #d4af37;
     margin-bottom: 30px;
     line-height: 1;
 }
@@ -2972,7 +2972,7 @@ body.dark-mode .nav-link::after {
     opacity: 0.8;
 }
 
-/* N�t d�ng X */
+/* Nut dong X */
 #success-modal .close-modal {
     position: absolute;
     top: 30px;
@@ -2995,7 +2995,7 @@ body.dark-mode .nav-link::after {
    FIX: COLLECTIONS PAGE (RUNWAY RESTORED)
    ========================================= */
 
-/* 1. Giant Typography (Ch? ch�m sau ?nh) */
+/* 1. Giant Typography (chu chim sau anh) */
 .giant-text {
     position: absolute;
     top: 50%;
@@ -3005,14 +3005,14 @@ body.dark-mode .nav-link::after {
     font-weight: 700;
     color: rgba(0,0,0,0.03); /* M? r?t nh? */
     white-space: nowrap;
-    z-index: -1; /* N?m sau ?nh */
+    z-index: -1;
     pointer-events: none;
     letter-spacing: -5px;
     line-height: 0.8;
     transition: color 0.5s ease;
 }
 
-/* �?i m�u ch? theo theme */
+/* Doi mau chu theo theme */
 body.dark-mode .giant-text { color: rgba(255,255,255,0.05); }
 body.grey-mode .giant-text { color: rgba(255,255,255,0.1); }
 
@@ -3020,14 +3020,14 @@ body.grey-mode .giant-text { color: rgba(255,255,255,0.1); }
 .runway-item {
     position: relative;
     flex-shrink: 0;
-    width: 40vw; /* �? r?ng m?i item */
+    width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: 1; /* N?i l�n tr�n ch? n?n */
+    z-index: 1;
 }
 
-/* 3. Hotspot (�i?m ch?m tr�n ?nh) */
+/* 3. Hotspot (diem cham tren anh) */
 .hotspot {
     position: absolute;
     width: 20px; height: 20px;
@@ -3072,7 +3072,7 @@ body.grey-mode .giant-text { color: rgba(255,255,255,0.1); }
     transform: translateX(-50%) translateY(0);
 }
 
-/* 4. Foggy Background (Hi?u ?ng suong m�) */
+/* 4. Foggy Background (hieu ung suong mo) */
 .fog-background {
     position: fixed;
     top: 0; left: 0;
@@ -3091,7 +3091,7 @@ body.grey-mode .giant-text { color: rgba(255,255,255,0.1); }
     animation: floatFog 20s infinite alternate ease-in-out;
 }
 
-/* M�u s?c blob thay d?i theo theme (JS s? x? l� class body, ? d�y d�ng bi?n CSS ho?c opacity) */
+/* Mau sac blob thay doi theo theme */
 .blob-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #ffe5e5 0%, transparent 70%); top: -20%; left: -10%; }
 .blob-2 { width: 70vw; height: 70vw; background: radial-gradient(circle, #e0f2f1 0%, transparent 70%); bottom: -20%; right: -20%; animation-delay: -5s; }
 .blob-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, #fff8e1 0%, transparent 70%); top: 30%; left: 30%; animation-delay: -10s; }
@@ -3101,15 +3101,15 @@ body.grey-mode .giant-text { color: rgba(255,255,255,0.1); }
     100% { transform: translate(50px, 30px) scale(1.1); }
 }
 
-/* 5. Visual Break (Video to�n m�n h�nh) */
+/* 5. Visual Break (video toan man hinh) */
 .runway-item[style*='width: 50vw'] {
-    width: 50vw !important; /* Ghi d� width m?c d?nh */
+    width: 50vw !important;
 }
 
 .runway-item[style*='width: 50vw'] .giant-text {
-    font-size: 5vw !important; /* Ch? nh? hon ch�t d? v?a khung */
+    font-size: 5vw !important;
     color: #fff !important;
-    opacity: 1 !important; /* Hi?n r� tr�n n?n video */
+    opacity: 1 !important;
     z-index: 2;
     text-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
@@ -3129,7 +3129,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    ========================================= */
 
 .products-page {
-    padding-top: 120px; /* �?y xu?ng d? kh�ng b? Header che */
+    padding-top: 120px;
     min-height: 100vh;
     background-color: #fff;
 }
@@ -3182,11 +3182,11 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
 /* Grid ?n d?nh */
 .catalog-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Lu�n chia 4 c?t tr�n Desktop */
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px 30px; /* Gap d?c 40, Gap ngang 30 */
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 5% 100px; /* Padding 2 b�n 5% */
+    padding: 0 5% 100px;
 }
 
 .product-item {
@@ -3205,7 +3205,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
 }
 
 @media (max-width: 600px) {
-    .catalog-grid { grid-template-columns: 1fr; /* 1 c?t tr�n mobile */ }
+    .catalog-grid { grid-template-columns: 1fr; /* 1 cot tren mobile */ }
 }
 
 
@@ -3213,26 +3213,26 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    FIX: PRODUCT IMAGE ASPECT RATIO (LUXURY GRID)
    ========================================= */
 
-/* �p bu?c t? l? khung h�nh chu?n */
+/* Ap buoc ti le khung hinh chuan */
 .prod-img {
     position: relative;
     width: 100%;
     /* T? l? 3:4 (R?ng 3 ph?n, Cao 4 ph?n) - Chu?n cho ?nh th?i trang */
     padding-bottom: 133.33%; 
     overflow: hidden;
-    background-color: #f9f9f9; /* M�u n?n ch? ?nh load */
+    background-color: #f9f9f9;
     margin-bottom: 20px;
 }
 
-/* �?nh v? ?nh tuy?t d?i d? l?p d?y khung */
+/* Anh va anh tuyet doi de lap day khung */
 .prod-img img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* C?t ?nh d? v?a kh�t, kh�ng b? m�o */
-    object-position: center top; /* Uu ti�n l?y ph?n tr�n (m?t ngu?i m?u) */
+    object-fit: cover;
+    object-position: center top;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Hi?u ?ng zoom mu?t */
 }
 
@@ -3241,7 +3241,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     transform: scale(1.05); /* Zoom nh? */
 }
 
-/* Can ch?nh th�ng tin s?n ph?m */
+/* Can chinh thong tin san pham */
 .prod-info {
     text-align: center; /* Can gi?a cho trang tr?ng */
     padding: 0 10px;
@@ -3254,7 +3254,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     margin-bottom: 8px;
     color: #000;
     text-transform: uppercase;
-    /* Gi?i h?n t�n 1 d�ng, n?u d�i qu� th� ... */
+    /* Gioi han ten 1 dong, neu dai qua thi ... */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3291,16 +3291,16 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     transform: translateY(10px); 
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    z-index: 10; /* �?m b?o n?m tr�n l?p ph? ?nh */
+    z-index: 10;
 }
 
-/* Hi?u ?ng hover: �?i m�u den sang tr?ng */
+/* Hieu ung hover */
 .quick-add:hover { 
     background-color: #000; 
     color: #fff; 
 }
 
-/* Khi di chu?t v�o khung ?nh th� hi?n n�t */
+/* Khi di chuot vao khung anh thi hien nut */
 .product-item:hover .quick-add { 
     opacity: 1; 
     transform: translateY(0); 
@@ -3311,7 +3311,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    FIX: REFINED NAVIGATION & PROGRESS
    ========================================= */
 
-/* 1. ?n Progress Bar cu th� k?ch */
+/* 1. An Progress Bar cu */
 .runway-progress {
     display: none !important;
 }
@@ -3324,37 +3324,35 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 40px; /* Kho?ng c�ch r?ng hon */
+    gap: 40px;
     z-index: 1000;
     /* mix-blend-mode: difference; */ /* Tuong ph?n v?i n?n */
     padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.2); /* �u?ng k? m? l�m n?n */
+    border-top: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Thanh ti?n tr�nh t�ch h?p (Ch?y d� l�n du?ng k? n?n) */
+/* Thanh tien trinh tich hop */
 .nav-timeline::after {
     content: '';
     position: absolute;
-    top: 0; /* N?m ngay tr�n vi?n */
+    top: 0;
     left: 0;
     height: 1px; /* M?nh tinh t? */
     background-color: #fff;
-    width: 0%; /* JS s? c?p nh?t c�i n�y thay v� .progress-bar cu */
+    width: 0%;
     transition: width 0.1s linear;
     z-index: 1;
 }
 
-/* JS s? c?n update bi?n --progress ho?c width tr?c ti?p cho .nav-timeline::after 
-   Tuy nhi�n d? don gi?n v� kh�ng s?a JS nhi?u, ta s? t�i s? d?ng class .progress-bar nhung style l?i v? tr� c?a n� 
-*/
+/* JS can update --progress / width cho .nav-timeline::after */
 
-/* C�CH 2: STYLE L?I .runway-progress �? N� TR? TH�NH LINE C?A NAV */
+/* CACH 2: STYLE LAI .runway-progress DE TRO THANH LINE CUA NAV */
 .runway-progress {
     display: block !important;
-    bottom: 70px; /* N?m ngay tr�n s? */
+    bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px; /* �? r?ng c? d?nh b?ng v?i Nav */
+    width: 600px;
     max-width: 90%;
     height: 1px; /* C?c m?nh */
     background-color: rgba(255,255,255,0.2);
@@ -3367,16 +3365,16 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
 }
 
 .progress-number {
-    display: none; /* ?n s? % di v� d� c� s? 01 02 ? du?i */
+    display: none;
 }
 
-/* Ch?nh l?i v? tr� Nav Timeline kh?p v?i Progress Bar m?i */
+/* Chinh lai vi tri Nav Timeline khop voi Progress Bar moi */
 .nav-timeline {
-    bottom: 30px; /* N?m ngay du?i thanh progress */
+    bottom: 30px;
     width: 600px;
     max-width: 90%;
-    justify-content: space-between; /* D�n d?u c�c s? */
-    border-top: none; /* B? border cu */
+    justify-content: space-between;
+    border-top: none;
     padding-top: 0;
 }
 
@@ -3386,11 +3384,11 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
 }
 
 .nav-item::before {
-    display: none; /* ?n g?ch d?u d�ng c?a t?ng s? */
+    display: none;
 }
 
 .nav-label {
-    position: static; /* �? n?m t? nhi�n */
+    position: static;
     opacity: 0.5;
     transform: none;
     font-size: 12px;
@@ -3412,7 +3410,7 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    ========================================= */
 
 @media (max-width: 600px) {
-    /* Hero Section: Ch? nh? l?i d? v?a m�n h�nh d?c */
+    /* Hero Section: chu nho lai cho man hinh doc */
     .hero-content h1 {
         font-size: 2.5rem !important;
         line-height: 1.2;
@@ -3424,14 +3422,14 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
         padding: 0 20px;
     }
 
-    /* N�t b?m to hon d? d? ch?m */
+    /* Nut bam to hon de de cham */
     .btn-primary {
         padding: 15px 50px;
-        width: 80%; /* N�t r?ng ra */
+        width: 80%;
         display: inline-block;
     }
 
-    /* Category Grid: Kho?ng c�ch c�c th? */
+    /* Category Grid: khoang cach cac the */
     .category-grid {
         gap: 20px !important;
     }
@@ -3440,13 +3438,13 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
         height: 400px !important; /* Gi?m chi?u cao ?nh danh m?c */
     }
 
-    /* ?n c�c hi?u ?ng hover ph?c t?p tr�n mobile */
+    /* An cac hieu ung hover phuc tap tren mobile */
     .cat-info {
-        border-bottom: 1px solid #eee; /* Lu�n hi?n du?ng k? */
+        border-bottom: 1px solid #eee;
     }
     
     .link-arrow {
-        opacity: 1 !important; /* Lu�n hi?n mui t�n */
+        opacity: 1 !important;
         transform: none !important;
     }
 }
@@ -3464,18 +3462,18 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     height: 100%;
     object-fit: cover; /* C?t video v?a khung 3:4 */
     object-position: center top;
-    z-index: 2; /* N?m tr�n ?nh (z-index 1) */
-    opacity: 0; /* ?n m?c d?nh */
-    transition: opacity 0.4s ease; /* Hi?n t? t? */
-    pointer-events: none; /* �? kh�ng ch?n click v�o link s?n ph?m */
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
 }
 
-/* Khi hover v�o � s?n ph?m */
+/* Khi hover vao o san pham */
 .product-item:hover .prod-img video {
     opacity: 1; /* Hi?n video */
 }
 
-/* ?n ?nh di m?t ch�t khi video hi?n d? tr�nh b? nh�y (t�y ch?n) */
+/* An anh di mot chut khi video hien */
 .product-item:hover .prod-img img {
     opacity: 0; 
 }
@@ -3485,13 +3483,13 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
    FIX: INTERACTION BUGS (ZOOM & QUICK VIEW)
    ========================================= */
 
-/* 1. Fix Quick View (+): �ua l�n tr�n c�ng v� cho ph�p click */
+/* 1. Fix Quick View (+): dua len tren cung va cho phep click */
 .quick-add {
-    z-index: 20 !important; /* Cao hon th? a link (thu?ng l� z-index 1) */
+    z-index: 20 !important;
     pointer-events: auto !important; /* B?t bu?c nh?n click */
 }
 
-/* �?m b?o th? a bao quanh ?nh kh�ng che m?t n�t */
+/* Dam bao the a bao quanh anh khong che nut */
 .prod-img a {
     display: block;
     width: 100%;
@@ -3499,14 +3497,13 @@ body.grey-mode .giant-text { color: rgba(255, 255, 255, 0.1) !important; }
     z-index: 1;
 }
 
-/* 2. Fix Zoom: �?m b?o nh?n s? ki?n chu?t */
+/* 2. Fix Zoom: dam bao nhan su kien chuot */
 .zoom-container {
-    z-index: 10; /* N?i l�n tr�n c�c ph?n t? trang tr� */
-    /* �?m b?o kh�ng b? l?p n�o che (nhu overlay m?) */
+    z-index: 10;
     pointer-events: auto !important; 
 }
 
-/* T?t s? ki?n chu?t cho c�c th�nh ph?n trang tr� d� l�n (n?u c�) */
+/* Tat su kien chuot cho cac thanh phan trang tri */
 .video-overlay, .noise-overlay {
     pointer-events: none !important;
 }
