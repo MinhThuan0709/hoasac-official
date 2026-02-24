@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Junk scripts (one-time utility scripts)
+perf_patch*.js
+sync_*.js
+inject_*.js
+fix_*.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output (if added later)
+dist/
+.next/
+
+# Editor
+.vscode/settings.json
+.idea/

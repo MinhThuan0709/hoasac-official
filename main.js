@@ -1,116 +1,36 @@
 /* =========================================
-   FILE: main.js - FULL RESTORED VERSION
+   main.js — HOA SAC Core
+   Chỉ chứa logic chuyên biệt cho từng trang.
+   Logic chung đã chuyển sang:
+     js/nav.js        → Hamburger, overlay, clock
+     js/lang.js       → VI/EN toggle
+     js/auth-state.js → Header auth UI
+     js/cart.js       → Mini cart drawer
    ========================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* --- NAV OVERLAY + HAMBURGER TOGGLE --- */
-    const hamburger = document.getElementById('hamburger');
-    const navOverlay = document.getElementById('nav-overlay');
-
-    function openNav() {
-        navOverlay.classList.add('open');
-        document.body.classList.add('nav-open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeNav() {
-        navOverlay.classList.remove('open');
-        document.body.classList.remove('nav-open');
-        document.body.style.overflow = '';
-    }
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            if (navOverlay.classList.contains('open')) {
-                closeNav();
-            } else {
-                openNav();
-            }
-        });
-    }
-
-    // Close when clicking a link inside overlay
-    if (navOverlay) {
-        navOverlay.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeNav);
-        });
-    }
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeNav();
-    });
-
-    /* --- EN / VI LANGUAGE TOGGLE --- */
-    const langToggle = document.getElementById('lang-toggle');
-    let currentLang = localStorage.getItem('hoasac_lang') || 'vi';
-
-    function applyLanguage(lang) {
-        currentLang = lang;
-        localStorage.setItem('hoasac_lang', lang);
-
-        const activeUserStr = sessionStorage.getItem('hoa_sac_active_user');
-
-        // Update every element with data-vi / data-en
-        document.querySelectorAll('[data-vi][data-en]').forEach(el => {
-            // Nếu người dùng đã đăng nhập, KHÔNG ghi đè lại nút Account
-            if (activeUserStr && el.classList.contains('account-btn')) {
-                return;
-            }
-            el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.vi;
-        });
-
-        // Highlight active lang button
-        if (langToggle) {
-            langToggle.querySelectorAll('.lang-opt').forEach(opt => {
-                opt.classList.toggle('active', opt.dataset.lang === lang);
-            });
-        }
-
-        // Update html lang attribute
-        document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
-    }
-
-    if (langToggle) {
-        langToggle.querySelectorAll('.lang-opt').forEach(opt => {
-            opt.addEventListener('click', () => applyLanguage(opt.dataset.lang));
-        });
-    }
-
-    // Apply saved language on load
-    applyLanguage(currentLang);
-
-
-    /* --- 0. PRELOADER LOGIC --- */
+    /* --- 0. PRELOADER --- */
     const preloader = document.querySelector('.preloader');
-
-    // Khóa cuộn trang ngay lập tức khi mới vào
     document.body.style.overflow = 'hidden';
 
-    // Ham dismiss preloader dung chung
     function dismissPreloader() {
         if (preloader && !preloader.classList.contains('hide-loader')) {
             preloader.classList.add('hide-loader');
             document.body.style.overflow = '';
         }
     }
+    window.addEventListener('load', () => setTimeout(dismissPreloader, 1200));
+    setTimeout(dismissPreloader, 3000); // Fallback max 3s
 
-    // Kich hoat khi trang load xong
-    window.addEventListener('load', () => { setTimeout(dismissPreloader, 1200); });
-
-    // Fallback: Dam bao luon an sau toi da 3 giay du anh/video khong load duoc
-    setTimeout(dismissPreloader, 3000);
-
-    /* --- 1. KÍCH HOẠT SMOOTH SCROLL (LENIS - CẤU HÌNH LUXURY) --- */
-    // Chỉ chạy trên máy tính và khi thư viện Lenis đã được nạp
+    /* --- 1. LENIS SMOOTH SCROLL (Desktop only) --- */
     if (window.innerWidth > 1024 && typeof Lenis !== 'undefined') {
         const lenis = new Lenis({
-            duration: 1.2, // Tăng từ 1.2 lên 2.0 -> Cuộn đầm hơn, nặng hơn
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 1.2,
+            easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
-            mouseMultiplier: 1.0, // Giảm độ nhạy chuột một chút để người dùng phải cuộn nhiều hơn -> xem kỹ hơn
-            smoothTouch: false // Mobile để tự nhiên
+            mouseMultiplier: 1.0,
+            smoothTouch: false
         });
 
         function raf(time) {
@@ -119,194 +39,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(raf);
 
-        /* --- PARALLAX EFFECT (HIỆU ỨNG TRÔI ẢNH) --- */
-        const parallaxImages = document.querySelectorAll('.look-image img, .cat-img img, .editorial-image img');
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            parallaxImages.forEach(img => {
-                const parent = img.parentElement;
-                if (!parent) return;
-                const parentTop = parent.offsetTop;
-                const parentHeight = parent.offsetHeight;
-
-                // Nếu ảnh nằm trong viewport
-                if (scrollY + window.innerHeight > parentTop && scrollY < parentTop + parentHeight) {
-                    const distance = scrollY - parentTop;
-                    const translateY = distance * 0.1; // Di chuyển 10% tốc độ cuộn
-
-                    if (img.closest('.editorial-image')) {
-                        img.style.transform = `translateY(${translateY}px)`;
+        /* Parallax scroll */
+        const parallaxImages = document.querySelectorAll('.editorial-image img');
+        if (parallaxImages.length > 0) {
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                parallaxImages.forEach(img => {
+                    const parent = img.parentElement;
+                    if (!parent) return;
+                    const parentTop = parent.offsetTop;
+                    const parentHeight = parent.offsetHeight;
+                    if (scrollY + window.innerHeight > parentTop && scrollY < parentTop + parentHeight) {
+                        img.style.transform = `translateY(${(scrollY - parentTop) * 0.1}px)`;
                     }
-                }
-            });
-        });
+                });
+            }, { passive: true });
+        }
     }
 
-    /* --- 2. HEADER & MENU LOGIC --- */
-
-    const header = document.querySelector('.site-header');
-
-    // Hiệu ứng đổi màu Header khi cuộn
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+    /* --- 2. INTERSECTION OBSERVER (Reveal on scroll) --- */
+    const hiddenItems = document.querySelectorAll('.hidden-item');
+    if (hiddenItems.length > 0) {
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show-item'); });
+        }, { threshold: 0.1 });
+        hiddenItems.forEach(el => revealObserver.observe(el));
     }
 
-    /* --- 3. ANIMATION SCROLL OBSERVER --- */
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show-item');
-            }
-        });
-    });
-
-    const hiddenElements = document.querySelectorAll('.hidden-item');
-    if (hiddenElements.length > 0) {
-        hiddenElements.forEach((el) => observer.observe(el));
-    }
-
-    /* --- 4. CUSTOM CURSOR --- */
+    /* --- 3. CUSTOM CURSOR (Desktop only) --- */
     const cursor = document.querySelector('.custom-cursor');
     if (cursor && window.innerWidth > 1024) {
-        // Di chuyển
-        document.addEventListener('mousemove', (e) => {
+        document.addEventListener('mousemove', e => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Hiệu ứng Hover
         const hoverTargets = document.querySelectorAll('a, button, .hamburger-menu, .product-card, .view-more, .quick-add');
-
-        hoverTargets.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
-            });
-            link.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
-            });
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
 
-        // Hiệu ứng Click
-        document.addEventListener('mousedown', () => {
-            cursor.style.transform = "translate(-50%, -50%) scale(0.8)";
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursor.style.transform = "translate(-50%, -50%) scale(1)";
-        });
+        document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%,-50%) scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
     }
 
-    /* --- 5. HORIZONTAL SCROLL (RUNWAY & THEME SWITCHER) --- */
+    /* --- 4. HORIZONTAL SCROLL — RUNWAY (collections.html desktop only) --- */
     const stickySection = document.querySelector('.scroll-container');
     const track = document.querySelector('.horizontal-track');
 
-    // Chỉ chạy logic này nếu đang ở trang Collections và trên máy tính
     if (stickySection && track && window.innerWidth > 768) {
         let lastScrollTop = 0;
-        let _cachedRunwayItems = null;
-        let _cachedAllImages = null;
-        let _rafTicking = false;
-        let isScrolling;
-        const body = document.body;
         let ticking = false;
 
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    updateRunway();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
         function updateRunway() {
-            // Tính toán tiến độ
             const scrollDistance = stickySection.offsetHeight - window.innerHeight;
             const scrollTop = window.scrollY - stickySection.offsetTop;
+            const percentage = Math.max(0, Math.min(scrollTop / scrollDistance, 1));
 
-            let percentage = scrollTop / scrollDistance;
-            percentage = Math.max(0, Math.min(percentage, 1));
-
-            // Cập nhật thanh tiến độ
-            const progressBar = document.querySelector('.nav-timeline::after'); // Cập nhật cho thanh mới
-            if (progressBar) {
-                progressBar.style.width = `${percentage * 100}%`;
-            }
-
-            // Di chuyển Track
+            // Move track
             const trackWidth = track.scrollWidth - window.innerWidth;
             track.style.transform = `translate3d(-${percentage * trackWidth}px, 0, 0)`;
 
-            // --- OPTIMIZED CHAMELEON EFFECT (INTERSECTION OBSERVER) ---
+            // Theme observer — setup once
             if (!window._themeObserverSetup) {
-                const themeObserver = new IntersectionObserver((entries) => {
+                const themeObserver = new IntersectionObserver(entries => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            const newTheme = entry.target.getAttribute('data-theme') || 'light';
+                            const theme = entry.target.dataset.theme || 'light';
                             document.body.classList.remove('dark-mode', 'grey-mode');
-                            if (newTheme === 'dark') document.body.classList.add('dark-mode');
-                            if (newTheme === 'grey') document.body.classList.add('grey-mode');
+                            if (theme === 'dark') document.body.classList.add('dark-mode');
+                            if (theme === 'grey') document.body.classList.add('grey-mode');
                         }
                     });
-                }, {
-                    root: null,
-                    rootMargin: "0px -40% 0px -40%",
-                    threshold: 0
-                });
+                }, { rootMargin: '0px -40% 0px -40%', threshold: 0 });
 
-                const items = _cachedRunwayItems || (_cachedRunwayItems = document.querySelectorAll('.runway-item'));
-                items.forEach(item => {
-                    themeObserver.observe(item);
-                });
+                document.querySelectorAll('.runway-item').forEach(item => themeObserver.observe(item));
                 window._themeObserverSetup = true;
             }
 
-            // Theo dõi cuộn
-            let currentScroll = window.scrollY;
-            let speed = currentScroll - (lastScrollTop || 0);
-            lastScrollTop = currentScroll;
-
-            // Skew Effect Disabled để tăng tốc độ mượt mà
-
-            // Magnetic Navigation Logic
+            // Magnetic nav highlight
             const navItems = document.querySelectorAll('.nav-item');
             if (navItems.length > 0) {
-                let activeIndex = Math.round(percentage * (navItems.length - 1));
-                activeIndex = Math.max(0, Math.min(activeIndex, navItems.length - 1));
-
-                navItems.forEach((nav, idx) => {
-                    if (idx === activeIndex) nav.classList.add('active');
-                    else nav.classList.remove('active');
-                });
+                const activeIndex = Math.max(0, Math.min(Math.round(percentage * (navItems.length - 1)), navItems.length - 1));
+                navItems.forEach((nav, idx) => nav.classList.toggle('active', idx === activeIndex));
             }
+
+            lastScrollTop = window.scrollY;
         }
 
-        // Click Navigation
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach((nav, index) => {
-            nav.addEventListener('click', () => {
-                const targetPercent = index / (navItems.length - 1);
-                const offsetTop = stickySection.parentElement.offsetTop;
-                const scrollDistance = stickySection.offsetHeight - window.innerHeight;
-                const targetScrollY = offsetTop + (targetPercent * scrollDistance);
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => { updateRunway(); ticking = false; });
+                ticking = true;
+            }
+        }, { passive: true });
 
-                window.scrollTo({
-                    top: targetScrollY,
-                    behavior: 'smooth'
-                });
+        // Click nav to scroll
+        document.querySelectorAll('.nav-item').forEach((nav, index, items) => {
+            nav.addEventListener('click', () => {
+                const scrollDistance = stickySection.offsetHeight - window.innerHeight;
+                window.scrollTo({ top: stickySection.offsetTop + (index / (items.length - 1)) * scrollDistance, behavior: 'smooth' });
             });
         });
     }
 
-    /* --- 6. SOUNDSCAPE CONTROLLER --- */
+    /* --- 5. SOUNDSCAPE CONTROLLER --- */
     const soundBtn = document.getElementById('sound-toggle');
     const audio = document.getElementById('bg-audio');
     const soundLabel = document.querySelector('.sound-label');
@@ -318,421 +156,138 @@ document.addEventListener('DOMContentLoaded', () => {
         soundBtn.addEventListener('click', async () => {
             if (isToggling) return;
             isToggling = true;
-
             try {
                 if (audio.paused) {
                     await audio.play();
                     soundBtn.classList.add('is-playing');
-                    if (soundLabel) soundLabel.textContent = "Sound On";
+                    if (soundLabel) soundLabel.textContent = 'Sound On';
                 } else {
                     audio.pause();
                     soundBtn.classList.remove('is-playing');
-                    if (soundLabel) soundLabel.textContent = "Sound Off";
+                    if (soundLabel) soundLabel.textContent = 'Sound Off';
                 }
-            } catch (error) {
-                console.error("Audio Error:", error);
+            } catch (err) {
+                console.error('Audio error:', err);
             } finally {
                 isToggling = false;
             }
         });
     }
 
-    /* --- 7. STORYTELLING SCROLL LOGIC (ABOUT PAGE) --- */
+    /* --- 6. STORY SCROLL (stories.html / about.html) --- */
     const storyTexts = document.querySelectorAll('.text-block');
     const storyImages = document.querySelectorAll('.story-img');
 
     if (storyTexts.length > 0 && storyImages.length > 0) {
-        const storyObserver = new IntersectionObserver((entries) => {
+        const storyObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const idx = entry.target.getAttribute('data-img');
-
-                    // Active Image
-                    storyImages.forEach(img => img.classList.remove('active'));
-                    const activeImg = document.querySelector(`.story-img[data-index="${idx}"]`);
-                    if (activeImg) activeImg.classList.add('active');
-
-                    // Active Text
-                    storyTexts.forEach(t => t.classList.remove('active-text'));
-                    entry.target.classList.add('active-text');
-                }
+                if (!entry.isIntersecting) return;
+                const idx = entry.target.getAttribute('data-img');
+                storyImages.forEach(img => img.classList.remove('active'));
+                document.querySelector(`.story-img[data-index="${idx}"]`)?.classList.add('active');
+                storyTexts.forEach(t => t.classList.remove('active-text'));
+                entry.target.classList.add('active-text');
             });
-        }, {
-            threshold: 0.5,
-            rootMargin: "0px 0px -20% 0px"
-        });
-
-        storyTexts.forEach(text => storyObserver.observe(text));
+        }, { threshold: 0.5, rootMargin: '0px 0px -20% 0px' });
+        storyTexts.forEach(t => storyObserver.observe(t));
     }
 
-    /* --- 8. CONTACT FORM HANDLER (FIREBASE REST API) --- */
+    /* --- 7. CONTACT FORM → FIRESTORE (contact.html) --- */
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
-        bookingForm.addEventListener('submit', async (e) => {
+        bookingForm.addEventListener('submit', async e => {
             e.preventDefault();
             const btn = bookingForm.querySelector('.btn-submit span');
-            const originalText = btn.innerText;
-            btn.innerText = "Đang gửi...";
+            const original = btn?.innerText;
+            if (btn) btn.innerText = 'Đang gửi...';
 
-            // Lấy dữ liệu form
-            const nameVal = document.getElementById('name')?.value || '';
-            const emailVal = document.getElementById('email')?.value || '';
-            const subjectVal = document.getElementById('subject')?.value || '';
-            const messageVal = document.getElementById('message')?.value || '';
-
-            // Chuyển đổi sang định dạng Firestore REST API
-            const firestoreDoc = {
+            const fields = id => document.getElementById(id)?.value || '';
+            const doc = {
                 fields: {
                     date: { stringValue: new Date().toISOString() },
-                    name: { stringValue: nameVal },
-                    email: { stringValue: emailVal },
-                    subject: { stringValue: subjectVal },
-                    message: { stringValue: messageVal },
+                    name: { stringValue: fields('name') },
+                    email: { stringValue: fields('email') },
+                    subject: { stringValue: fields('subject') },
+                    message: { stringValue: fields('message') },
                     status: { stringValue: 'new' }
                 }
             };
 
-            const FIREBASE_PROJECT = 'hoasac-web';
-            const API_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents/consultations`;
-
+            const URL = 'https://firestore.googleapis.com/v1/projects/hoasac-web/databases/(default)/documents/consultations';
             try {
-                const res = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(firestoreDoc)
-                });
+                const res = await fetch(URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(doc) });
+                if (!res.ok) throw new Error((await res.json()).error?.message || 'HTTP ' + res.status);
 
-                if (!res.ok) {
-                    const errData = await res.json();
-                    throw new Error(errData.error?.message || 'HTTP ' + res.status);
-                }
-
-                const data = await res.json();
-                console.log("Đã gửi lên Firestore thành công:", data.name);
-
-                // Hiện Modal thành công
                 const modal = document.getElementById('success-modal');
                 if (modal) {
                     modal.classList.add('active');
-                    const closeBtn = modal.querySelector('.close-modal');
-                    if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-                    window.onclick = (ev) => { if (ev.target == modal) modal.classList.remove('active'); };
+                    modal.querySelector('.close-modal').onclick = () => modal.classList.remove('active');
+                    window.onclick = ev => { if (ev.target === modal) modal.classList.remove('active'); };
                 }
                 bookingForm.reset();
-                btn.innerText = "Gửi Thành Công ✓";
-                setTimeout(() => { btn.innerText = originalText; }, 3000);
-
+                if (btn) { btn.innerText = 'Gửi Thành Công ✓'; setTimeout(() => btn.innerText = original, 3000); }
             } catch (err) {
-                console.error("Lỗi gửi Firestore:", err);
-                btn.innerText = "Lỗi: " + err.message;
-                setTimeout(() => { btn.innerText = originalText; }, 5000);
+                console.error('Firestore error:', err);
+                if (btn) { btn.innerText = 'Lỗi: ' + err.message; setTimeout(() => btn.innerText = original, 5000); }
             }
         });
     }
 
-    /* --- 9. MINI CART DRAWER LOGIC (UPDATED) --- */
-
-    // 1. Inject HTML
-    function injectMiniCart() {
-        if (document.querySelector('.cart-drawer')) return;
-
-        const cartHTML = `
-            <div class="cart-overlay" id="cart-overlay"></div>
-            <div class="cart-drawer" id="cart-drawer">
-                <div class="drawer-header">
-                    <h2>Giỏ Hàng Của Bạn</h2>
-                    <span class="close-drawer" id="close-drawer">&times;</span>
-                </div>
-                <div class="drawer-body" id="drawer-body"></div>
-                <div class="drawer-footer">
-                    <div class="total-row">
-                        <span>Tổng cộng:</span>
-                        <span id="drawer-total">$0.00</span>
-                    </div>
-                    <a href="cart.html" class="btn-checkout">Thanh Toán</a>
-                    <a href="women.html" class="btn-view-cart" onclick="toggleCart(false)">Tiếp Tục Mua Sắm</a>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', cartHTML);
-
-        // Gắn sự kiện đóng
-        document.getElementById('close-drawer').onclick = () => toggleCart(false);
-        document.getElementById('cart-overlay').onclick = () => toggleCart(false);
-    }
-    injectMiniCart();
-
-    // 2. Global Cart Logic
-    let cart = JSON.parse(localStorage.getItem('hoasac_cart')) || [];
-    updateCartBadge();
-
-    // Toggle Drawer
-    window.toggleCart = function (open) {
-        const drawer = document.getElementById('cart-drawer');
-        const overlay = document.getElementById('cart-overlay');
-        if (open) {
-            drawer.classList.add('open');
-            overlay.classList.add('open');
-            renderMiniCart();
-        } else {
-            drawer.classList.remove('open');
-            overlay.classList.remove('open');
-        }
-    }
-
-    // Render Items (CÓ MÀU SẮC)
-    function renderMiniCart() {
-        const body = document.getElementById('drawer-body');
-        const totalEl = document.getElementById('drawer-total');
-
-        if (cart.length === 0) {
-            body.innerHTML = '<p style="text-align:center; color:#999; margin-top:50px;">Giỏ hàng trống.</p>';
-            totalEl.innerText = "$0.00";
-            return;
-        }
-
-        body.innerHTML = '';
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            total += item.price * item.quantity;
-
-            // Hiển thị chấm màu
-            let colorHTML = '';
-            if (item.color) {
-                colorHTML = `<span style="display:inline-block; width:12px; height:12px; border-radius:50%; background-color:${item.color}; border:1px solid #ddd; margin-left:5px; vertical-align:middle;" title="Màu sắc"></span>`;
-            }
-
-            const itemEl = document.createElement('div');
-            itemEl.className = 'drawer-item';
-            itemEl.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <div class="item-details">
-                    <h4>${item.name}</h4>
-                    <p>Size: ${item.size} ${colorHTML} | SL: ${item.quantity}</p>
-                    <span class="item-price">$${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(item.price * item.quantity)}</span>
-                </div>
-                <span class="remove-btn" onclick="removeFromDrawer(${index})">&times;</span>
-            `;
-            body.appendChild(itemEl);
-        });
-
-        totalEl.innerText = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total);
-    }
-
-    // Add to Cart Function (CHECK COLOR)
-    window.addToCart = function (product) {
-        const existingItem = cart.find(item =>
-            item.name === product.name &&
-            item.size === product.size &&
-            item.color === product.color // Phân biệt theo màu
-        );
-
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                name: product.name,
-                price: product.price,
-                image: product.image,
-                size: product.size,
-                color: product.color, // Lưu màu
-                quantity: 1
-            });
-        }
-
-        saveCart();
-        updateCartBadge();
-        toggleCart(true); // MỞ MINI CART
-    };
-
-    // Remove Item Function
-    window.removeFromDrawer = function (index) {
-        cart.splice(index, 1);
-        saveCart();
-        renderMiniCart();
-        updateCartBadge();
-        if (window.location.pathname.includes('cart.html')) window.location.reload();
-    };
-
-    function saveCart() {
-        localStorage.setItem('hoasac_cart', JSON.stringify(cart));
-    }
-
-    function updateCartBadge() {
-        const badges = document.querySelectorAll('.cart-btn');
-        const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-        badges.forEach(btn => {
-            btn.innerText = `Giỏ hàng (${totalQty})`;
-        });
-    }
-
-    // Header Cart Click -> Open Mini Cart
-    document.querySelectorAll('.cart-btn').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleCart(true);
-        });
-    });
-
-    /* --- 10. AUTO PLAY VIDEO ON HOVER --- */
-    const runwayItems = document.querySelectorAll('.runway-item');
-    runwayItems.forEach(item => {
+    /* --- 8. VIDEO HOVER PLAY (collections.html) --- */
+    document.querySelectorAll('.runway-item').forEach(item => {
         const video = item.querySelector('video');
         if (video) {
             item.addEventListener('mouseenter', () => video.play());
-            item.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-            });
+            item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
         }
     });
 
-    /* --- 11. FOOTER YEAR --- */
+    /* --- 9. FOOTER YEAR --- */
     const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-    /* --- 12. OVERLAY CLOCK + MOOD IMAGE SWAP --- */
-    // Live clock in overlay
-    function updateOverlayClock() {
-        const el = document.getElementById('ov-clock');
-        if (!el) return;
-        const now = new Date();
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        el.textContent = hh + ':' + mm + ':' + ss;
-    }
-    setInterval(updateOverlayClock, 1000);
-    updateOverlayClock();
-
-    // Mood image swap on section hover
-    const ovSections = document.querySelectorAll('.ov-section');
-    const moodImg = document.getElementById('ov-mood-img');
-    const moodText = document.getElementById('ov-mood-text');
-    const moodLabels = { '01': 'New Collection', '02': 'Fabric Stories', '03': 'Silhouette Edit' };
-
-    if (moodImg) {
-        ovSections.forEach(section => {
-            section.addEventListener('mouseenter', () => {
-                const imgSrc = section.dataset.img;
-                const num = section.querySelector('.ov-num');
-                if (imgSrc && imgSrc !== moodImg.src.split('/').slice(-3).join('/')) {
-                    moodImg.classList.add('fading');
-                    setTimeout(() => {
-                        moodImg.src = imgSrc;
-                        moodImg.classList.remove('fading');
-                        if (num && moodText) {
-                            moodText.textContent = moodLabels[num.textContent.trim()] || 'Collection';
-                        }
-                    }, 300);
-                }
-            });
-        });
-    }
-
-    /* --- 13. AUTHENTICATION STATE UI --- */
-    const activeUserStr = sessionStorage.getItem('hoa_sac_active_user');
-    if (activeUserStr) {
-        try {
-            const activeUser = JSON.parse(activeUserStr);
-            const accountBtns = document.querySelectorAll('.account-btn');
-
-            accountBtns.forEach(btn => {
-                let displayName = activeUser.fullname.split(' ').pop() || activeUser.username;
-
-                // Cập nhật giao diện nút
-                btn.innerHTML = `<span style="text-transform:none">Hi, ${displayName}</span> <span style="opacity:0.5; margin-left:3px; font-size:9px">(Thoát)</span>`;
-                btn.href = "#";
-
-                // Sự kiện Click thao tác Quản lý
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (activeUser.role === 'admin') {
-                        const choice = confirm(`PHIÊN BẢN QUẢN TRỊ VIÊN\\n\\n[OK] Chuyển tới Admin Dashboard.\\n[Cancel] Để Đăng Xuất.`);
-                        if (choice) {
-                            window.location.href = 'admin.html';
-                        } else {
-                            sessionStorage.removeItem('hoa_sac_active_user');
-                            window.location.reload();
-                        }
-                    } else {
-                        if (confirm('Bạn có chắc chắn muốn đăng xuất khỏi tài khoản Hội Viên?')) {
-                            sessionStorage.removeItem('hoa_sac_active_user');
-                            window.location.reload();
-                        }
-                    }
-                });
-            });
-        } catch (e) { }
-    }
-
-
-    /* --- 14. TREND POPUP (FASHION SUGGESTION) --- */
-    const popupClosed = sessionStorage.getItem('hoa_sac_trend_closed');
-    if (!popupClosed) {
-        // Mảng gợi ý thời trang
+    /* --- 10. TREND POPUP --- */
+    if (!sessionStorage.getItem('hoa_sac_trend_closed')) {
         const ideas = [
-            { img: 'assets/images/lookbook/look-01.jpg', title: 'Xu Hướng Mới', desc: 'Thử phối Monochrome để tôn vinh sự tối giản.' },
-            { img: 'assets/images/lookbook/look-02.jpg', title: 'Must Have', desc: 'Chất liệu lụa mỏng nhẹ cho lối sống thanh lịch.' },
-            { img: 'assets/images/lookbook/look-03.jpg', title: 'Bespoke', desc: 'Trang phục may đo riêng biệt cho thời đại mới.' },
-            { img: 'assets/images/editorial/editorial-1.jpg', title: 'Phối Đồ', desc: 'Kết hợp Layering tĩnh lặng nhưng sắc sảo.' }
+            { img: 'assets/images/lookbook/look-01.jpg', title: 'Xu H&#432;&#7899;ng M&#7899;i', desc: 'Th&#7917; ph&#7889;i Monochrome &#273;&#7875; t&#244;n vinh s&#7921; t&#7889;i gi&#7843;n.' },
+            { img: 'assets/images/lookbook/look-02.jpg', title: 'Must Have', desc: 'Ch&#7845;t li&#7879;u l&#7909;a m&#7887;ng nh&#7865; cho l&#7889;i s&#7889;ng thanh l&#7883;ch.' },
+            { img: 'assets/images/lookbook/look-03.jpg', title: 'Bespoke', desc: 'Trang ph&#7909;c may &#273;o ri&#234;ng bi&#7879;t cho th&#7901;i &#273;&#7841;i m&#7899;i.' },
+            { img: 'assets/images/editorial/editorial-1.jpg', title: 'Ph&#7889;i &#272;&#7891;', desc: 'K&#7871;t h&#7907;p Layering t&#297;nh l&#7863;ng nh&#432;ng s&#7855;c s&#7843;o.' }
         ];
-        const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
-
-        // Tạo Popup
+        const idea = ideas[Math.floor(Math.random() * ideas.length)];
         const popup = document.createElement('div');
         popup.className = 'trend-popup';
         popup.innerHTML = `
-            <div class="trend-popup-close" title="Đóng">&times;</div>
+            <div class="trend-popup-close" title="&#272;&#243;ng">&times;</div>
             <div class="trend-popup-content">
-                <img src="${randomIdea.img}" alt="Trend">
+                <img src="${idea.img}" alt="Trend">
                 <div class="trend-popup-text">
-                    <strong>${randomIdea.title}</strong>
-                    <p>${randomIdea.desc}</p>
+                    <strong>${idea.title}</strong>
+                    <p>${idea.desc}</p>
                 </div>
             </div>
-            <a href="collections.html" class="trend-popup-link" data-vi="Khám phá ngay" data-en="Discover Now">Khám phá ngay</a>
+            <a href="collections.html" class="trend-popup-link">Kh&#225;m ph&#225; ngay</a>
         `;
-
         document.body.appendChild(popup);
-
-        // Hiệu ứng vào (delay 5s)
-        setTimeout(() => {
-            popup.classList.add('show');
-        }, 5000);
-
-        // Xử lý đóng
+        setTimeout(() => popup.classList.add('show'), 5000);
         popup.querySelector('.trend-popup-close').addEventListener('click', () => {
             popup.classList.remove('show');
-            sessionStorage.setItem('hoa_sac_trend_closed', 'true'); // Chỉ đóng trong phiên này
+            sessionStorage.setItem('hoa_sac_trend_closed', 'true');
         });
     }
-});
+
+}); // end DOMContentLoaded
+
 /* =========================================
-   GLOBAL DATA HANDLER (ADMIN MODE SUPPORT)
+   GLOBAL: Products DB (Admin Support)
    ========================================= */
-
-// Hàm này sẽ được các trang con gọi để lấy dữ liệu mới nhất
 window.getProductsDB = async function () {
-    // 1. Ưu tiên lấy từ LocalStorage (Admin Data)
-    const localData = localStorage.getItem('hoasac_products_db');
-    if (localData) {
-        console.log('Đang sử dụng dữ liệu từ Admin Dashboard');
-        return JSON.parse(localData);
-    }
-
-    // 2. Nếu không có, lấy từ file JSON gốc
+    const local = localStorage.getItem('hoasac_products_db');
+    if (local) return JSON.parse(local);
     try {
-        const response = await fetch('assets/data/products.json');
-        return await response.json();
-    } catch (error) {
-        console.error('Lỗi tải dữ liệu:', error);
+        const res = await fetch('assets/data/products.json');
+        return await res.json();
+    } catch {
         return [];
     }
 };
-
-
-
