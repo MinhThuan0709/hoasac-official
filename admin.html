@@ -4,7 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOA SAC - Admin Dashboard</title>
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="Qu&#7843;n tr&#7883; n&#7897;i dung, s&#7843;n ph&#7849;m v&#224; t&#432; v&#7845;n kh&#225;ch h&#224;ng c&#7911;a HOA SAC.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hoasac-official.vercel.app/admin.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HOA SAC">
+    <meta property="og:title" content="HOA SAC Admin Dashboard">
+    <meta property="og:description" content="Qu&#7843;n tr&#7883; n&#7897;i dung, s&#7843;n ph&#7849;m v&#224; t&#432; v&#7845;n kh&#225;ch h&#224;ng c&#7911;a HOA SAC.">
+    <meta property="og:image" content="https://hoasac-official.vercel.app/assets/images/lookbook/look-01.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://hoasac-official.vercel.app/admin.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HOA SAC Admin Dashboard">
+    <meta name="twitter:description" content="Qu&#7843;n tr&#7883; n&#7897;i dung, s&#7843;n ph&#7849;m v&#224; t&#432; v&#7845;n kh&#225;ch h&#224;ng c&#7911;a HOA SAC.">
+    <meta name="twitter:image" content="https://hoasac-official.vercel.app/assets/images/lookbook/look-01.jpg">
+    <title>Admin Dashboard — HOA SAC</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -851,7 +867,7 @@
                 const checked = selectedProducts.has(p.id) ? 'checked' : '';
                 tbody.innerHTML += `<tr>
             <td><input type="checkbox" class="product-cb" data-id="${p.id}" ${checked} onchange="toggleProductSelect(${p.id}, this.checked)"></td>
-            <td><img src="${img}" style="width:40px;height:50px;object-fit:cover;border-radius:4px;" onerror="this.src='assets/images/placeholder.svg'"></td>
+            <td><img src="${img}" style="width:40px;height:50px;object-fit:cover;border-radius:4px;" onerror="this.src='assets/images/placeholder.svg'" loading="lazy" decoding="async"></td>
             <td><b>${p.name}</b><br><span style="font-size:0.7rem;color:var(--text2)">ID: ${p.id}</span></td>
             <td>$${p.price}</td>
             <td style="text-transform:capitalize">${p.department} / ${p.category}</td>
