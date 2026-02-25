@@ -3,42 +3,74 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon"
+        href="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007504/hoasac/images/icons/icon-192.jpg"
+        type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO & Open Graph -->
-    <meta name="description" content="Kh&#225;m ph&#225; campaign ngh&#7879; thu&#7853;t 2024 "The Silence Between" c&#7911;a HOA SAC. V&#7867; &#273;&#7865;p trong s&#7921; im l&#7863;ng c&#7911;a th&#7901;i trang cao c&#7845;p.">
+    <meta name="description"
+        content="Khám phá campaign nghệ thuật 2024 &quot;The Silence Between&quot; của HOA SAC. Vẻ đẹp trong sự im lặng của thời trang cao cấp.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hoasac-official.vercel.app/campaign.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HOA SAC">
     <meta property="og:title" content="HOA SAC Campaign — The Silence Between 2024">
-    <meta property="og:description" content="Kh&#225;m ph&#225; campaign ngh&#7879; thu&#7853;t 2024 "The Silence Between" c&#7911;a HOA SAC. V&#7867; &#273;&#7865;p trong s&#7921; im l&#7863;ng c&#7911;a th&#7901;i trang cao c&#7845;p.">
+    <meta property="og:description"
+        content="Khám phá campaign nghệ thuật 2024 &quot;The Silence Between&quot; của HOA SAC.">
     <meta property="og:image" content="https://hoasac-official.vercel.app/assets/images/lookbook/look-01.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://hoasac-official.vercel.app/campaign.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="HOA SAC Campaign — The Silence Between 2024">
-    <meta name="twitter:description" content="Kh&#225;m ph&#225; campaign ngh&#7879; thu&#7853;t 2024 "The Silence Between" c&#7911;a HOA SAC. V&#7867; &#273;&#7865;p trong s&#7921; im l&#7863;ng c&#7911;a th&#7901;i trang cao c&#7845;p.">
+    <meta name="twitter:description"
+        content="Khám phá campaign nghệ thuật 2024 &quot;The Silence Between&quot; của HOA SAC.">
     <meta name="twitter:image" content="https://hoasac-official.vercel.app/assets/images/lookbook/look-01.jpg">
     <title>Campaign — HOA SAC "The Silence Between" 2024</title>
-    <link rel="stylesheet" href="campaign.css">
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;600&display=swap"
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;400;600&display=swap"
         rel="stylesheet">
 
-    <!-- PWA Meta Tags -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="campaign.css">
+    <link rel="stylesheet" href="responsive.css">
+
+    <!-- PWA -->
     <meta name="theme-color" content="#0a0a0a">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HOA SAC">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="assets/images/icons/icon-192.png">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="responsive.css">
+    <link rel="apple-touch-icon"
+        href="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007504/hoasac/images/icons/icon-192.jpg">
 </head>
 
 <body>
 
-    <!-- HEADER (SYNCED) -->
+    <!-- SCROLL PROGRESS -->
+    <div id="camp-progress"></div>
+
+    <!-- GRAIN FILM OVERLAY -->
+    <div class="camp-grain" aria-hidden="true"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="camp-cursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+        <div class="cursor-label" id="cursor-label">VIEW</div>
+    </div>
+
+    <!-- SCROLL THREAD INDICATOR -->
+    <div class="camp-thread" id="camp-thread" aria-hidden="true">
+        <span class="thread-pct" id="thread-pct">0%</span>
+        <div class="thread-track">
+            <div class="thread-fill" id="thread-fill"></div>
+        </div>
+    </div>
+
+    <!-- ══ SITE HEADER (SYNCED) ══ -->
     <header class="site-header">
         <div class="header-container">
             <a href="index.html" class="logo">HOA SAC.</a>
@@ -46,15 +78,15 @@
             <!-- Center Nav (Desktop only) -->
             <nav class="main-nav">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="women.html" class="nav-link" data-vi="N&#7919;" data-en="Women">N&#7919;</a></li>
+                    <li class="nav-item"><a href="women.html" class="nav-link" data-vi="Nữ" data-en="Women">Nữ</a></li>
                     <li class="nav-item"><a href="men.html" class="nav-link" data-vi="Nam" data-en="Men">Nam</a></li>
-                    <li class="nav-item"><a href="collections.html" class="nav-link" data-vi="B&#7897; S&#432;u T&#7853;p"
-                            data-en="Collections">B&#7897; S&#432;u T&#7853;p</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link" data-vi="Bộ Sưu Tập"
+                            data-en="Collections">Bộ Sưu Tập</a></li>
                     <li class="nav-item"><a href="stories.html" class="nav-link" data-vi="Stories"
                             data-en="Stories">Stories</a></li>
                     <li class="nav-item">
                         <a href="contact.html" class="nav-link nav-contact">
-                            <span class="text" data-vi="Li&#234;n H&#7879;" data-en="Contact">Li&#234;n H&#7879;</span>
+                            <span class="text" data-vi="Liên Hệ" data-en="Contact">Liên Hệ</span>
                             <svg class="flower-icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M12 2C8 6 4 10 4 14C4 18.4183 7.58172 22 12 22C16.4183 22 20 18.4183 20 14C20 10 16 6 12 2ZM12 8C13.6569 8 15 9.34315 15 11C15 12.6569 13.6569 14 12 14C10.3431 14 9 12.6569 9 11C9 9.34315 10.3431 8 12 8Z" />
@@ -66,20 +98,13 @@
 
             <!-- Right Actions -->
             <div class="header-actions">
-                <!-- Language Toggle -->
                 <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
                     <span class="lang-opt" data-lang="vi">VI</span>
                     <span class="lang-divider">/</span>
                     <span class="lang-opt" data-lang="en">EN</span>
                 </button>
-
-                <!-- Account -->
-                <a href="auth.html" class="account-btn" data-vi="T&#224;i Kho&#7843;n" data-en="Sign In">T&#224;i Kho&#7843;n</a>
-
-                <!-- Cart -->
-                <a href="cart.html" class="cart-btn" data-vi="Gi&#7887; h&#224;ng (0)" data-en="Cart (0)">Gi&#7887; h&#224;ng (0)</a>
-
-                <!-- Hamburger: ALWAYS VISIBLE -->
+                <a href="auth.html" class="account-btn" data-vi="Tài Khoản" data-en="Sign In">Tài Khoản</a>
+                <a href="cart.html" class="cart-btn" data-vi="Giỏ hàng (0)" data-en="Cart (0)">Giỏ hàng (0)</a>
                 <div class="hamburger-menu" id="hamburger" aria-label="Open menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -89,16 +114,15 @@
         </div>
     </header>
 
-    <!-- PREMIUM NAV OVERLAY -->
+    <!-- ══ NAV OVERLAY ══ -->
     <div class="nav-overlay" id="nav-overlay">
         <!-- LEFT PANEL -->
         <div class="ov-left">
-
             <a href="index.html" class="ov-brand">HOA SAC.</a>
-
             <nav class="ov-nav">
-                <!-- 01 &#183; SHOP -->
-                <div class="ov-section" data-img="assets/images/lookbook/look-01.jpg">
+                <!-- 01 · SHOP -->
+                <div class="ov-section"
+                    data-img="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007501/hoasac/images/lookbook/look-01.jpg">
                     <div class="ov-section-head">
                         <span class="ov-num">01</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
@@ -106,20 +130,20 @@
                             <line x1="3" y1="6" x2="21" y2="6" />
                             <path d="M16 10a4 4 0 01-8 0" />
                         </svg>
-                        <span class="ov-label" data-vi="MUA S&#7854;M" data-en="SHOP">MUA S&#7854;M</span>
+                        <span class="ov-label" data-vi="MUA SẮM" data-en="SHOP">MUA SẮM</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="collections.html" data-vi="Cao C&#7845;p" data-en="Couture">Cao C&#7845;p</a>
+                        <li class="ov-item"><a href="collections.html" data-vi="Cao Cấp" data-en="Couture">Cao Cấp</a>
                         </li>
-                        <li class="ov-item"><a href="collections.html" data-vi="S&#7861;n M&#7863;c" data-en="Ready-to-Wear">S&#7861;n
-                                M&#7863;c</a></li>
+                        <li class="ov-item"><a href="collections.html" data-vi="Sẵn Mặc" data-en="Ready-to-Wear">Sẵn
+                                Mặc</a></li>
                         <li class="ov-item"><a href="collections.html" data-vi="Capsule Drop"
                                 data-en="Capsule Drop">Capsule Drop</a></li>
                     </ul>
                 </div>
-
-                <!-- 02 &#183; MATERIAL -->
-                <div class="ov-section" data-img="assets/images/lookbook/look-02.jpg">
+                <!-- 02 · MATERIAL -->
+                <div class="ov-section"
+                    data-img="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007500/hoasac/images/lookbook/look-02.jpg">
                     <div class="ov-section-head">
                         <span class="ov-num">02</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
@@ -127,78 +151,63 @@
                             <polyline points="2 17 12 22 22 17" />
                             <polyline points="2 12 12 17 22 12" />
                         </svg>
-                        <span class="ov-label" data-vi="CH&#7844;T LI&#7878;U" data-en="MATERIAL">CH&#7844;T LI&#7878;U</span>
+                        <span class="ov-label" data-vi="CHẤT LIỆU" data-en="MATERIAL">CHẤT LIỆU</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="collections.html" data-vi="Denim &#201;lite" data-en="Denim &#201;lite">Denim
-                                &#201;lite</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Silk Essence"
-                                data-en="Silk Essence">Silk Essence</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Lace Reverie"
-                                data-en="Lace Reverie">Lace Reverie</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Power Leather"
-                                data-en="Power Leather">Power Leather</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Fur Statement"
-                                data-en="Fur Statement">Fur Statement</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Fusion Atelier"
-                                data-en="Fusion Atelier">Fusion Atelier</a></li>
-                        <li class="ov-item"><a href="collections.html" data-vi="Th&#234;u &#272;&#237;nh"
-                                data-en="Embellished Couture">Th&#234;u &#272;&#237;nh</a></li>
+                        <li class="ov-item"><a href="collections.html">Denim Élite</a></li>
+                        <li class="ov-item"><a href="collections.html">Silk Essence</a></li>
+                        <li class="ov-item"><a href="collections.html">Lace Reverie</a></li>
+                        <li class="ov-item"><a href="collections.html">Power Leather</a></li>
                     </ul>
                 </div>
-
-                <!-- 03 &#183; SILHOUETTE -->
-                <div class="ov-section" data-img="assets/images/lookbook/look-03.jpg">
+                <!-- 03 · SILHOUETTE -->
+                <div class="ov-section"
+                    data-img="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007499/hoasac/images/lookbook/look-03.jpg">
                     <div class="ov-section-head">
                         <span class="ov-num">03</span>
                         <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                         </svg>
-                        <span class="ov-label" data-vi="D&#193;NG" data-en="SILHOUETTE">D&#193;NG</span>
+                        <span class="ov-label" data-vi="DÁNG" data-en="SILHOUETTE">DÁNG</span>
                     </div>
                     <ul class="ov-items">
-                        <li class="ov-item"><a href="women.html" data-vi="V&#225;y" data-en="Dress">V&#225;y</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o Corset" data-en="Corset">&#193;o Corset</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o Kho&#225;c" data-en="Coat">&#193;o Kho&#225;c</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="&#193;o" data-en="Tops">&#193;o</a></li>
-                        <li class="ov-item"><a href="women.html" data-vi="Qu&#7847;n" data-en="Pants">Qu&#7847;n</a></li>
+                        <li class="ov-item"><a href="women.html" data-vi="Váy" data-en="Dress">Váy</a></li>
+                        <li class="ov-item"><a href="women.html" data-vi="Áo Corset" data-en="Corset">Áo Corset</a></li>
+                        <li class="ov-item"><a href="women.html" data-vi="Áo Khoác" data-en="Coat">Áo Khoác</a></li>
                     </ul>
                 </div>
-
             </nav>
-
             <!-- Quick links row -->
             <div class="ov-quick">
                 <a href="contact.html" class="ov-quick-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                         <polygon points="12 2 22 9 18 21 6 21 2 9 12 2" />
                     </svg>
-                    <span data-vi="Bespoke" data-en="Bespoke">Bespoke</span>
+                    <span>Bespoke</span>
                 </a>
                 <a href="collections.html" class="ov-quick-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <path d="M3 9h18M9 21V9" />
                     </svg>
-                    <span data-vi="Lookbook" data-en="Lookbook">Lookbook</span>
+                    <span>Lookbook</span>
                 </a>
                 <a href="stories.html" class="ov-quick-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                         <path d="M12 20h9" />
                         <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
                     </svg>
-                    <span data-vi="Editorial" data-en="Editorial">Editorial</span>
+                    <span>Editorial</span>
                 </a>
                 <a href="about.html" class="ov-quick-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 8v4l3 3" />
                     </svg>
-                    <span data-vi="V&#7873; ch&#250;ng t&#244;i" data-en="Our Story">V&#7873; ch&#250;ng t&#244;i</span>
+                    <span data-vi="Về chúng tôi" data-en="Our Story">Về chúng tôi</span>
                 </a>
             </div>
-
             <!-- Footer strip -->
             <div class="ov-foot">
                 <div class="ov-socials">
@@ -208,147 +217,328 @@
                 </div>
                 <span class="ov-clock" id="ov-clock">00:00</span>
             </div>
-
         </div>
-
-        <!-- RIGHT PANEL &#8212; mood image -->
+        <!-- RIGHT PANEL -->
         <div class="ov-right">
             <div class="ov-mood" id="ov-mood">
-                <img src="assets/images/lookbook/look-01.jpg" alt="Mood" id="ov-mood-img" onerror="this.src='assets/images/placeholder.svg'" fetchpriority="high">
+                <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007501/hoasac/images/lookbook/look-01.jpg"
+                    alt="Mood" id="ov-mood-img"
+                    onerror="this.src='https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007410/hoasac/images/placeholder.svg'"
+                    fetchpriority="high">
                 <div class="ov-mood-label"><span id="ov-mood-text">New Collection</span></div>
             </div>
         </div>
-
     </div>
 
+    <!-- ══════════════════════════════════════
+         SECTION 1: CINEMATIC HERO
+    ═══════════════════════════════════════ -->
+    <section class="camp-hero bars-open" id="camp-hero" aria-label="Campaign hero">
+        <div class="hero-video-wrap">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="assets/videos/hero_hermes_01.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-vignette"></div>
+        <div class="hero-bar-top" aria-hidden="true"></div>
+        <div class="hero-bar-bottom" aria-hidden="true"></div>
 
-    <canvas id="webgl-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-overline">
+                <span>HOA SAC</span>
+                <span>·</span>
+                <span>Campaign 2024</span>
+                <span>·</span>
+                <span>The Silence Between</span>
+            </div>
 
-    <nav class="glass-nav">
-        <a href="index.html" class="back-link">&#8592; HOA SAC</a>
-        <div class="camp-logo">THE VOID</div>
-    </nav>
+            <h1 class="hero-title" aria-label="The Silence Between">
+                <span class="line"><span>THE SILENCE</span></span>
+                <span class="line"><span>BETWEEN</span></span>
+            </h1>
 
-    <div class="thread-container">
-        <div class="thread-line"></div>
-        <div class="thread-glow"></div>
-        <div class="thread-point"></div>
+            <p class="hero-sub">Vẻ đẹp trong khoảnh khắc tĩnh lặng tuyệt đối</p>
+        </div>
+
+        <div class="hero-scroll-cue" aria-hidden="true">
+            <div class="scroll-line"></div>
+            <span>Cuộn</span>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SECTION 2: MARQUEE STRIP
+    ═══════════════════════════════════════ -->
+    <div class="camp-marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <!-- duplicated for seamless loop -->
+            <span class="marquee-item">HOA SAC <span class="marquee-dot"></span></span>
+            <span class="marquee-item"><em>The Silence Between</em> <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Campaign 2024 <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Nghệ Thuật Thời Trang <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Luxury Couture <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Hà Nội · Việt Nam <span class="marquee-dot"></span></span>
+            <span class="marquee-item">HOA SAC <span class="marquee-dot"></span></span>
+            <span class="marquee-item"><em>The Silence Between</em> <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Campaign 2024 <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Nghệ Thuật Thời Trang <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Luxury Couture <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Hà Nội · Việt Nam <span class="marquee-dot"></span></span>
+        </div>
     </div>
 
-    <div class="scroll-wrapper">
+    <!-- ══════════════════════════════════════
+         SECTION 3: CHAPTERS (5 panels)
+    ═══════════════════════════════════════ -->
+    <div class="camp-chapters">
 
-        <section class="void-section intro">
-            <h1 class="void-title">LIQUID<br>MEMORY</h1>
-            <p class="void-sub">H&#224;nh tr&#236;nh &#273;i t&#236;m v&#7867; &#273;&#7865;p t&#7915; h&#432; v&#244;</p>
-        </section>
-
-        <section class="void-section chapter-left">
-            <div class="liquid-card">
-                <div class="video-mask arch-shape">
-                    <video muted loop playsinline preload="none">
-                        <source src="assets/videos/cp1 (4).mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="text-glass">
-                    <span class="chapter-no">01</span>
-                    <h2>Nguy&#234;n B&#7843;n</h2>
-                    <p>Tr&#432;&#7899;c khi c&#243; h&#236;nh h&#224;i, v&#7841;n v&#7853;t &#273;&#7873;u t&#7891;n t&#7841;i &#7903; th&#7875; l&#7887;ng. B&#7897; s&#432;u t&#7853;p b&#7855;t &#273;&#7847;u t&#7915; nh&#7919;ng &#253; ni&#7879;m ch&#432;a
-                        th&#224;nh h&#236;nh, tr&#244;i n&#7893;i trong ti&#7873;m th&#7913;c. Ch&#250;ng t&#244;i kh&#244;ng c&#7889; g&#7855;ng &#273;&#7883;nh h&#236;nh v&#7843;i v&#243;c, m&#224; &#273;&#7875; ch&#250;ng t&#7921;
-                        t&#236;m l&#7845;y d&#242;ng ch&#7843;y c&#7911;a ri&#234;ng m&#236;nh tr&#234;n c&#417; th&#7875; ng&#432;&#7901;i m&#7863;c.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="void-section chapter-right">
-            <div class="liquid-card">
-                <div class="video-mask circle-shape">
-                    <video muted loop playsinline preload="none">
-                        <source src="assets/videos/cp1 (3).mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="text-glass">
-                    <span class="chapter-no">02</span>
-                    <h2>S&#7921; Ph&#7843;n Chi&#7871;u</h2>
-                    <p>Th&#7901;i trang l&#224; t&#7845;m g&#432;&#417;ng ph&#7843;n chi&#7871;u t&#226;m h&#7891;n. Khi b&#7841;n kho&#225;c l&#234;n m&#236;nh m&#7897;t thi&#7871;t k&#7871; c&#7911;a THE VOID, b&#7841;n
-                        kh&#244;ng &#273;ang che &#273;&#7853;y c&#417; th&#7875;, m&#224; &#273;ang b&#7897;c l&#7897; m&#7897;t ph&#7847;n b&#7843;n ng&#227; s&#226;u k&#237;n nh&#7845;t. S&#7921; t&#432;&#417;ng ph&#7843;n gi&#7919;a b&#243;ng
-                        t&#7889;i v&#224; &#225;nh s&#225;ng t&#7841;o n&#234;n chi&#7873;u s&#226;u cho nh&#226;n c&#225;ch.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="void-section chapter-center">
-            <div class="liquid-card">
-                <div class="video-mask blob-shape">
-                    <video muted loop playsinline preload="none">
-                        <source src="assets/videos/cp1 (2).mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="text-glass">
-                    <span class="chapter-no">03</span>
-                    <h2>V&#7867; &#272;&#7865;p H&#7895;n Mang</h2>
-                    <p>Tr&#7853;t t&#7921; sinh ra t&#7915; s&#7921; h&#7895;n lo&#7841;n. Nh&#7919;ng &#273;&#432;&#7901;ng c&#7855;t b&#7845;t &#273;&#7889;i x&#7913;ng (Asymmetrical), nh&#7919;ng n&#7871;p g&#7845;p ng&#7851;u
-                        h&#7913;ng kh&#244;ng tu&#226;n theo quy lu&#7853;t n&#224;o c&#7843;. Ch&#250;ng t&#244;i t&#244;n vinh s&#7921; kh&#244;ng ho&#224;n h&#7843;o, b&#7903;i ch&#237;nh trong
-                        nh&#7919;ng khi&#7871;m khuy&#7871;t &#273;&#243;, v&#7867; &#273;&#7865;p &#273;&#7897;c b&#7843;n m&#7899;i th&#7921;c s&#7921; th&#7913;c t&#7881;nh.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="void-section chapter-left">
-            <div class="liquid-card">
-                <div class="video-mask pill-shape">
-                    <video muted loop playsinline preload="none">
-                        <source src="https://videos.pexels.com/video-files/5309381/5309381-hd_1920_1080_25fps.mp4"
+        <!-- CHAPTER 01 — Nguyên Bản -->
+        <article class="camp-chapter" data-chapter="01">
+            <div class="ch-media" data-cursor="WATCH">
+                <div class="media-inner">
+                    <video muted loop playsinline preload="none" class="ch-video">
+                        <source
+                            src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007383/hoasac/videos/cp1%20%284%29.mp4"
                             type="video/mp4">
                     </video>
                 </div>
-                <div class="text-glass">
-                    <span class="chapter-no">04</span>
-                    <h2>Kho&#7843;ng L&#7863;ng</h2>
-                    <p>Gi&#7919;a nh&#7883;p s&#7889;ng &#7891;n &#224;o, THE VOID l&#224; m&#7897;t n&#7889;t tr&#7847;m c&#7847;n thi&#7871;t. S&#7917; d&#7909;ng t&#244;ng m&#224;u &#273;&#417;n s&#7855;c (Monochrome)
-                        v&#224; lo&#7841;i b&#7887; m&#7885;i chi ti&#7871;t th&#7915;a th&#227;i, ch&#250;ng t&#244;i &#273;&#432;a thi&#7871;t k&#7871; tr&#7903; v&#7873; tr&#7841;ng th&#225;i thi&#7873;n &#273;&#7883;nh. T&#297;nh
-                        l&#7863;ng, nh&#432;ng ch&#7913;a &#273;&#7921;ng s&#7913;c m&#7841;nh n&#7897;i t&#7841;i m&#227;nh li&#7879;t.</p>
-                </div>
+                <div class="ch-accent-bar"></div>
             </div>
-        </section>
+            <div class="ch-text">
+                <div class="ch-indexline">
+                    <span class="ch-num">01 / 05</span>
+                    <div class="ch-rule"></div>
+                    <span class="ch-tag">Chương Đầu</span>
+                </div>
+                <h2 class="ch-headline" data-split>Nguyên Bản</h2>
+                <p class="ch-body">Trước khi có hình hài, vạn vật đều tồn tại ở thể lỏng. Bộ sưu tập bắt đầu từ những ý
+                    niệm chưa thành hình, trôi nổi trong tiềm thức. Chúng tôi không cố gắng định hình vải vóc, mà để
+                    chúng tự tìm lấy dòng chảy của riêng mình trên cơ thể người mặc.</p>
+                <a href="collections.html" class="ch-cta" data-hover>Khám Phá Bộ Sưu Tập</a>
+            </div>
+        </article>
 
-        <section class="void-section chapter-right">
-            <div class="liquid-card">
-                <div class="video-mask organic-shape">
-                    <video muted loop playsinline preload="none">
-                        <source src="assets/videos/cp1 (1).mp4" type="video/mp4">
+        <!-- CHAPTER 02 — Sự Phản Chiếu -->
+        <article class="camp-chapter" data-chapter="02">
+            <div class="ch-media" data-cursor="WATCH">
+                <div class="media-inner">
+                    <video muted loop playsinline preload="none" class="ch-video">
+                        <source
+                            src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007386/hoasac/videos/cp1%20%283%29.mp4"
+                            type="video/mp4">
                     </video>
                 </div>
-                <div class="text-glass">
-                    <span class="chapter-no">05</span>
-                    <h2>S&#7921; T&#225;i Sinh</h2>
-                    <p>K&#7871;t th&#250;c c&#7911;a h&#224;nh tr&#236;nh l&#224; s&#7921; kh&#7903;i &#273;&#7847;u m&#7899;i. Khi v&#7853;t ch&#7845;t tan ch&#7843;y v&#224;o h&#432; v&#244;, th&#7913; c&#242;n l&#7841;i duy nh&#7845;t
-                        l&#224; phong c&#225;ch v&#297;nh c&#7917;u. &#272;&#226;y kh&#244;ng ch&#7881; l&#224; qu&#7847;n &#225;o, &#273;&#226;y l&#224; l&#7899;p da th&#7913; hai c&#7911;a b&#7841;n.</p>
-
-                    <div class="cta-group">
-                        <a href="collections.html" class="void-btn primary">S&#7903; H&#7919;u T&#225;c Ph&#7849;m</a>
-                    </div>
-                </div>
+                <div class="ch-accent-bar"></div>
             </div>
-        </section>
+            <div class="ch-text">
+                <div class="ch-indexline">
+                    <span class="ch-num">02 / 05</span>
+                    <div class="ch-rule"></div>
+                    <span class="ch-tag">Phản Chiếu</span>
+                </div>
+                <h2 class="ch-headline" data-split>Sự Phản Chiếu</h2>
+                <p class="ch-body">Thời trang là tấm gương phản chiếu tâm hồn. Khi bạn khoác lên mình một thiết kế của
+                    HOA SAC, bạn không đang che đậy cơ thể, mà đang bộc lộ một phần bản ngã sâu kín nhất. Sự tương phản
+                    giữa bóng tối và ánh sáng tạo nên chiều sâu cho nhân cách.</p>
+                <a href="women.html" class="ch-cta" data-hover>Khám Phá Nữ Phục</a>
+            </div>
+        </article>
 
-        <div class="spacer"></div>
+        <!-- CHAPTER 03 — Vẻ Đẹp Hỗn Mang -->
+        <article class="camp-chapter" data-chapter="03">
+            <div class="ch-media" data-cursor="WATCH">
+                <div class="media-inner">
+                    <video muted loop playsinline preload="none" class="ch-video">
+                        <source
+                            src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007402/hoasac/videos/cp1%20%282%29.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="ch-accent-bar"></div>
+            </div>
+            <div class="ch-text">
+                <div class="ch-indexline">
+                    <span class="ch-num">03 / 05</span>
+                    <div class="ch-rule"></div>
+                    <span class="ch-tag">Hỗn Mang</span>
+                </div>
+                <h2 class="ch-headline" data-split>Vẻ Đẹp Hỗn Mang</h2>
+                <p class="ch-body">Trật tự sinh ra từ sự hỗn loạn. Những đường cắt bất đối xứng, những nếp gấp ngẫu hứng
+                    không tuân theo quy luật nào cả. Chúng tôi tôn vinh sự không hoàn hảo, bởi chính trong những khiếm
+                    khuyết đó, vẻ đẹp độc bản mới thực sự thức tỉnh.</p>
+                <a href="collections.html" class="ch-cta" data-hover>Xem Lookbook</a>
+            </div>
+        </article>
+
+        <!-- CHAPTER 04 — Khoảng Lặng -->
+        <article class="camp-chapter" data-chapter="04">
+            <div class="ch-media" data-cursor="WATCH">
+                <div class="media-inner">
+                    <video muted loop playsinline preload="none" class="ch-video">
+                        <source
+                            src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007379/hoasac/videos/look-01.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="ch-accent-bar"></div>
+            </div>
+            <div class="ch-text">
+                <div class="ch-indexline">
+                    <span class="ch-num">04 / 05</span>
+                    <div class="ch-rule"></div>
+                    <span class="ch-tag">Tĩnh Lặng</span>
+                </div>
+                <h2 class="ch-headline" data-split>Khoảng Lặng</h2>
+                <p class="ch-body">Giữa nhịp sống ồn ào, HOA SAC là một nốt trầm cần thiết. Sử dụng tông màu đơn sắc và
+                    loại bỏ mọi chi tiết thừa thãi, chúng tôi đưa thiết kế trở về trạng thái thiền định. Tĩnh lặng,
+                    nhưng chứa đựng sức mạnh nội tại mãnh liệt.</p>
+                <a href="men.html" class="ch-cta" data-hover>Khám Phá Nam Phục</a>
+            </div>
+        </article>
+
+        <!-- CHAPTER 05 — Sự Tái Sinh -->
+        <article class="camp-chapter" data-chapter="05">
+            <div class="ch-media" data-cursor="WATCH">
+                <div class="media-inner">
+                    <video muted loop playsinline preload="none" class="ch-video">
+                        <source
+                            src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007408/hoasac/videos/cp1%20%281%29.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="ch-accent-bar"></div>
+            </div>
+            <div class="ch-text">
+                <div class="ch-indexline">
+                    <span class="ch-num">05 / 05</span>
+                    <div class="ch-rule"></div>
+                    <span class="ch-tag">Tái Sinh</span>
+                </div>
+                <h2 class="ch-headline" data-split>Sự Tái Sinh</h2>
+                <p class="ch-body">Kết thúc của hành trình là sự khởi đầu mới. Khi vật chất tan chảy vào hư vô, thứ còn
+                    lại duy nhất là phong cách vĩnh cửu. Đây không chỉ là quần áo — đây là lớp da thứ hai của bạn, ngôn
+                    ngữ im lặng nhưng hùng hồn nhất.</p>
+                <a href="collections.html" class="ch-cta" data-hover>Sở Hữu Tác Phẩm</a>
+            </div>
+        </article>
+
     </div>
 
-    <div class="camp-cursor"></div>
+    <!-- ══════════════════════════════════════
+         SECTION 4: EDITORIAL LOOKBOOK
+    ═══════════════════════════════════════ -->
+    <section class="camp-lookbook" aria-label="Lookbook editorial">
+        <div class="lb-header">
+            <div class="lb-title-group">
+                <span class="lb-eyebrow sr-up">Lookbook 2024</span>
+                <h2 class="lb-title sr-up">Editorial<br><em>Stills</em></h2>
+            </div>
+            <span class="lb-count sr-up">05 Images</span>
+        </div>
 
-    <script src="https://unpkg.com/three@0.146.0/build/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
-    <!-- Th&#432; vi&#7879;n GSAP v&#224; ScrollTrigger -->
+        <div class="lb-grid">
+            <div class="lb-item" data-hover data-cursor="VIEW">
+                <div class="lb-tilt">
+                    <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007501/hoasac/images/lookbook/look-01.jpg"
+                        alt="HOA SAC Look 01 — The Silence Between" loading="lazy">
+                </div>
+                <div class="lb-item-overlay">
+                    <span class="lb-view-label">Look 01</span>
+                </div>
+            </div>
+            <div class="lb-item" data-hover data-cursor="VIEW">
+                <div class="lb-tilt">
+                    <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007500/hoasac/images/lookbook/look-02.jpg"
+                        alt="HOA SAC Look 02 — The Silence Between" loading="lazy">
+                </div>
+                <div class="lb-item-overlay">
+                    <span class="lb-view-label">Look 02</span>
+                </div>
+            </div>
+            <div class="lb-item" data-hover data-cursor="VIEW">
+                <div class="lb-tilt">
+                    <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007499/hoasac/images/lookbook/look-03.jpg"
+                        alt="HOA SAC Look 03 — The Silence Between" loading="lazy">
+                </div>
+                <div class="lb-item-overlay">
+                    <span class="lb-view-label">Look 03</span>
+                </div>
+            </div>
+            <div class="lb-item" data-hover data-cursor="VIEW">
+                <div class="lb-tilt">
+                    <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007513/hoasac/images/collections/look-01.jpg"
+                        alt="HOA SAC Look 04 — The Silence Between" loading="lazy">
+                </div>
+                <div class="lb-item-overlay">
+                    <span class="lb-view-label">Look 04</span>
+                </div>
+            </div>
+            <div class="lb-item" data-hover data-cursor="VIEW">
+                <div class="lb-tilt">
+                    <img src="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007513/hoasac/images/collections/look-02.jpg"
+                        alt="HOA SAC Look 05 — The Silence Between" loading="lazy">
+                </div>
+                <div class="lb-item-overlay">
+                    <span class="lb-view-label">Look 05</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SECTION 5: FINALE CTA
+    ═══════════════════════════════════════ -->
+    <section class="camp-finale" aria-label="Shop the collection">
+        <div class="finale-bg-video">
+            <video autoplay muted loop playsinline preload="none">
+                <source
+                    src="https://res.cloudinary.com/dy7wqhut6/video/upload/f_auto,q_auto/v1772007375/hoasac/videos/look-02.mp4"
+                    type="video/mp4">
+            </video>
+        </div>
+        <div class="finale-overlay"></div>
+        <div class="finale-content">
+            <span class="finale-eyebrow">HOA SAC · 2024</span>
+            <h2 class="finale-headline">
+                <span class="line"><span>Màn Đêm</span></span>
+                <span class="line"><span>Đã Xuống</span></span>
+            </h2>
+            <p class="finale-sub">Bộ sưu tập "The Silence Between" — nơi im lặng trở thành ngôn ngữ quyền năng nhất. Số
+                lượng giới hạn.</p>
+            <a href="collections.html" class="finale-btn" data-hover>
+                Sở Hữu Ngay
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         FOOTER STRIP
+    ═══════════════════════════════════════ -->
+    <footer class="camp-foot" aria-label="Campaign footer">
+        <a href="index.html">← HOA SAC</a>
+        <span>The Silence Between · Campaign 2024</span>
+        <div style="display:flex;gap:20px;">
+            <a href="https://instagram.com/hoasacfashion">IG</a>
+            <a href="https://facebook.com/hoasacfashion">FB</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <!-- Remove Three.js & SimplexNoise — replaced by CSS/GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis smooth scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
     <script src="campaign.js"></script>
-
 
     <!-- PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js').catch(() => {});
+                navigator.serviceWorker.register('service-worker.js').catch(() => { });
             });
         }
     </script>

@@ -96,34 +96,223 @@ body.grey-mode {
     cursor: pointer;
 }
 
-/* Hero Section */
+/* ================================================
+   HERO SECTION — VIDEO CINEMATIC (Pro Max Upgrade)
+   ================================================ */
 .hero {
+    position: relative;
     height: 100vh;
-    /* Chiều cao bằng 100% màn hình */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/images/hero/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
+    background-color: #0a0a0a;
 }
 
-.hero-content h1 {
-    font-size: 4rem;
-    color: #fff;
-    margin-bottom: 20px;
+/* Video Background */
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: saturate(0.75) brightness(0.7);
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
+}
+
+.hero--video.loaded .hero__video {
+    transform: scale(1);
+}
+
+/* Cinematic Gradient Overlay */
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.65) 100%);
+    z-index: 1;
+}
+
+/* Content */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    max-width: 800px;
+}
+
+/* Season Label */
+.hero__season {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 28px;
+    font-family: 'Courier New', monospace;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: heroFadeUp 0.8s ease forwards 0.3s;
+}
+
+/* Hero Title */
+.hero__title {
+    font-size: clamp(3rem, 7vw, 6.5rem);
     font-weight: 300;
-    /* Nét chữ mảnh sang trọng */
+    color: #fff;
+    margin-bottom: 24px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    display: flex;
+    flex-direction: column;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
-    color: #f0f0f0;
-    margin-bottom: 40px;
+.hero__line {
+    display: block;
+    opacity: 0;
+    transform: translateY(60px);
+    animation: heroLineUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Nút bấm (Button) */
+.hero__line--1 {
+    animation-delay: 0.6s;
+}
+
+.hero__line--2 {
+    animation-delay: 0.85s;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.88em;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+/* Subtitle */
+.hero__sub {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 44px;
+    letter-spacing: 0.08em;
+    font-weight: 300;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards 1.1s;
+}
+
+/* CTA Button */
+.hero__cta {
+    display: inline-block;
+    padding: 14px 44px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 5px;
+    font-weight: 500;
+    transition: color 0.4s ease, border-color 0.4s ease, letter-spacing 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards 1.35s;
+}
+
+.hero__cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+}
+
+.hero__cta:hover {
+    color: #000;
+    border-color: #fff;
+    letter-spacing: 6px;
+}
+
+.hero__cta:hover::before {
+    transform: scaleX(1);
+}
+
+/* Scroll Cue */
+.hero__scroll-cue {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    opacity: 0;
+    animation: heroFadeUp 1s ease forwards 1.6s;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    animation: scrollLineFlow 2s ease-in-out infinite 1.6s;
+}
+
+@keyframes scrollLineFlow {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroLineUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Giữ btn-primary cho các trang khác */
 .btn-primary {
     padding: 15px 40px;
     background-color: #fff;
@@ -136,9 +325,24 @@ body.grey-mode {
 }
 
 .btn-primary:hover {
-    background-color: #d4af37;
-    /* Đổi màu khi hover */
+    background-color: #111;
     color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero__title {
+        font-size: clamp(2.2rem, 10vw, 3.5rem);
+    }
+
+    .hero__scroll-cue {
+        display: none;
+    }
+
+    .hero__cta {
+        padding: 13px 36px;
+        font-size: 9px;
+    }
 }
 
 /* --- PHẦN SẢN PHẨM --- */
@@ -277,50 +481,66 @@ body.grey-mode {
 
 /* --- NEW ADDITIONS: CATEGORIES (THE EDIT) --- */
 .categories-section {
-    padding: 100px 5%;
+    padding: 120px 5% 100px;
     background-color: #fff;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 }
 
 .sub-title {
-    font-size: 12px;
-    letter-spacing: 4px;
+    font-size: 11px;
+    letter-spacing: 5px;
     text-transform: uppercase;
-    color: #999;
+    color: #aaa;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .main-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 300;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    color: #111;
 }
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: 60% 1fr;
+    gap: 16px;
+    align-items: stretch;
 }
 
+/* Right column stacks two cards vertically */
+.cat-col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Base card styles */
 .cat-card {
     display: block;
-    /* Link bao trùm */
     position: relative;
     text-decoration: none;
     color: #000;
     overflow: hidden;
-    group: cursor;
-    /* Nhóm hover */
+}
+
+/* Large (Women) card */
+.cat-card--large .cat-img {
+    height: 660px;
+}
+
+/* Standard (Men / Accessories) card */
+.cat-col-right .cat-img {
+    height: 320px;
 }
 
 .cat-img {
-    height: 500px;
     overflow: hidden;
     position: relative;
 }
@@ -329,41 +549,113 @@ body.grey-mode {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: saturate(0.88) brightness(0.95);
 }
 
 .cat-card:hover .cat-img img {
-    transform: scale(1.05);
+    transform: scale(1.07);
+    filter: saturate(1) brightness(1);
 }
 
+/* ---- HOVER OVERLAY ---- */
+.cat-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.78) 0%,
+            rgba(0, 0, 0, 0.25) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px 32px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+}
+
+.cat-card:hover .cat-hover-overlay {
+    opacity: 1;
+}
+
+.cat-hover-tag {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    transform: translateY(12px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cat-card:hover .cat-hover-tag {
+    transform: translateY(0);
+}
+
+.cat-hover-sub {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+    transform: translateY(12px);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.04s;
+}
+
+.cat-card:hover .cat-hover-sub {
+    transform: translateY(0);
+}
+
+.cat-hover-cta {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 4px;
+    display: inline-block;
+    transform: translateY(12px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+
+.cat-card:hover .cat-hover-cta {
+    transform: translateY(0);
+}
+
+/* ---- CAT INFO (below image) ---- */
 .cat-info {
-    padding-top: 20px;
+    padding: 16px 4px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s;
-    padding-bottom: 10px;
+    background: #fff;
 }
 
 .cat-card:hover .cat-info {
-    border-color: #000;
+    border-color: #111;
 }
 
 .cat-info h3 {
-    font-size: 1.5rem;
+    font-size: 0.85rem;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 4px;
+    color: #111;
 }
 
 .link-arrow {
-    font-size: 12px;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(-8px);
     transition: all 0.3s ease;
+    color: #888;
 }
 
 .cat-card:hover .link-arrow {
@@ -371,14 +663,114 @@ body.grey-mode {
     transform: translateX(0);
 }
 
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 900px) {
     .category-grid {
         grid-template-columns: 1fr;
-        /* 1 cột trên mobile */
     }
 
-    .cat-img {
-        height: 350px;
+    .cat-col-right {
+        flex-direction: column;
+    }
+
+    .cat-card--large .cat-img {
+        height: 420px;
+    }
+
+    .cat-col-right .cat-img {
+        height: 260px;
+    }
+}
+
+/* --- STATS SECTION --- */
+.stats-section {
+    padding: 100px 5%;
+    background-color: #fafafa;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.stats-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 20px 40px;
+
+    /* Scroll reveal */
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.stat-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays */
+.stat-item:nth-child(1) {
+    transition-delay: 0s;
+}
+
+.stat-item:nth-child(3) {
+    transition-delay: 0.12s;
+}
+
+.stat-item:nth-child(5) {
+    transition-delay: 0.24s;
+}
+
+.stat-item:nth-child(7) {
+    transition-delay: 0.36s;
+}
+
+.stat-number {
+    display: block;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+    line-height: 1;
+    margin-bottom: 14px;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.stat-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 500;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 70px;
+    background: #ddd;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .stat-item {
+        flex: 0 0 50%;
+        padding: 30px 20px;
+    }
+
+    .stat-divider {
+        display: none;
     }
 }
 
@@ -477,34 +869,64 @@ body.grey-mode {
 
 /* --- LOOKBOOK SECTION --- */
 .lookbook-container {
-    padding: 100px 5%;
-    background-color: #f9f9f9;
-    /* Màu nền xám rất nhạt cho sang */
+    padding: 0 5% 120px;
+    background-color: #fdfbf7;
     overflow: hidden;
 }
 
-.lookbook-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 150px;
-    /* Khoảng cách lớn giữa các mục */
-    gap: 50px;
+/* Header cho lookbook */
+.lookbook-header {
+    text-align: center;
+    padding: 120px 0 80px;
+    border-bottom: 1px solid #e8e4de;
+    margin-bottom: 100px;
 }
 
-/* Kỹ thuật đảo chiều: Mục chẵn (2, 4, 6...) sẽ đảo ngược thứ tự flex */
-.lookbook-item:nth-child(even) {
-    flex-direction: row-reverse;
+.lb-overline {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 14px;
+}
+
+.lb-main-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #111;
+}
+
+.lookbook-item {
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    align-items: center;
+    margin-bottom: 130px;
+    gap: 0 80px;
+}
+
+/* Kỹ thuật đảo chiều cho mục chẵn */
+.lookbook-item:nth-of-type(even) {
+    grid-template-columns: 1fr 55%;
+    direction: rtl;
+}
+
+.lookbook-item:nth-of-type(even) .look-content {
+    direction: ltr;
+}
+
+.lookbook-item:nth-of-type(even) .look-image {
+    direction: ltr;
 }
 
 /* Phần Hình ảnh */
 .look-image {
-    flex: 1;
-    /* Chiếm 50% chiều rộng */
     position: relative;
-    height: 600px;
-    /* Cố định chiều cao ảnh lớn */
+    height: 680px;
     overflow: hidden;
+    background-color: #f0ede8;
 }
 
 .look-image img {
@@ -512,43 +934,61 @@ body.grey-mode {
     height: 100%;
     object-fit: cover;
     transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-    /* Hiệu ứng cực mượt */
+    filter: saturate(0.85) brightness(0.96);
 }
 
-/* Hiệu ứng Parallax nhẹ khi hover */
 .lookbook-item:hover .look-image img {
-    transform: scale(1.03);
+    transform: scale(1.04);
+    filter: saturate(1) brightness(1);
+}
+
+/* Số thứ tự kiểu editorial */
+.look-index {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    z-index: 2;
+    font-family: 'Courier New', monospace;
 }
 
 /* Phần Nội dung chữ */
 .look-content {
-    flex: 1;
-    /* Chiếm 50% chiều rộng */
-    padding: 0 40px;
+    padding: 0 20px 0 60px;
+}
+
+.lookbook-item:nth-of-type(even) .look-content {
+    padding: 0 60px 0 20px;
 }
 
 .collection-year {
     display: block;
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
     text-transform: uppercase;
 }
 
 .look-content h2 {
-    font-size: 3rem;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
     font-weight: 300;
-    margin-bottom: 20px;
-    line-height: 1.2;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #111;
 }
 
 .look-content p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 30px;
-    max-width: 400px;
-    /* Giới hạn độ dài dòng chữ để dễ đọc */
+    font-size: 0.92rem;
+    color: #666;
+    margin-bottom: 36px;
+    max-width: 380px;
+    line-height: 1.9;
+    font-weight: 300;
 }
 
 .view-more {
@@ -556,15 +996,16 @@ body.grey-mode {
     color: #000;
     border-bottom: 1px solid #000;
     padding-bottom: 5px;
-    font-size: 14px;
+    font-size: 11px;
     text-transform: uppercase;
+    letter-spacing: 3px;
     transition: all 0.3s;
 }
 
 .view-more:hover {
-    color: #d4af37;
-    border-color: #d4af37;
-    letter-spacing: 1px;
+    color: #9a7a4a;
+    border-color: #9a7a4a;
+    letter-spacing: 4px;
 }
 
 /* --- ANIMATION SCROLL (Quan trọng) --- */
@@ -572,41 +1013,40 @@ body.grey-mode {
 /* Trạng thái ẩn ban đầu */
 .hidden-item {
     opacity: 0;
-    transform: translateY(100px);
-    /* Dịch xuống dưới 100px */
-    transition: all 1s ease-out;
-    /* Thời gian chuyển động là 1 giây */
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 /* Trạng thái hiện ra (JavaScript sẽ thêm class này vào) */
 .show-item {
     opacity: 1;
     transform: translateY(0);
-    /* Trở về vị trí cũ */
 }
 
 /* Responsive cho điện thoại */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
     .lookbook-item,
-    .lookbook-item:nth-child(even) {
-        flex-direction: column;
-        /* Xếp chồng dọc trên điện thoại */
+    .lookbook-item:nth-of-type(even) {
+        grid-template-columns: 1fr;
+        direction: ltr;
         margin-bottom: 80px;
+        gap: 0;
     }
 
     .look-image {
         width: 100%;
-        height: 400px;
+        height: 420px;
     }
 
-    .look-content {
-        padding: 0;
-        text-align: center;
+    .look-content,
+    .lookbook-item:nth-child(even) .look-content {
+        padding: 40px 0 0;
+        text-align: left;
     }
 
     .look-content p {
-        margin: 0 auto 30px auto;
+        max-width: 100%;
     }
 }
 
@@ -919,7 +1359,7 @@ html.lenis body {
 /* Class này sẽ được JS thêm vào để ẩn Preloader */
 .preloader.hide-loader {
     transform: translateY(-100%);
-    /* Trượt toàn bộ màn hình đen lên trên */
+    pointer-events: none;
 }
 
 /* Animation chữ hiện lên */
@@ -1987,11 +2427,13 @@ html.lenis body {
 /* --- PROMO VIDEO SECTION --- */
 .promo-video-section {
     position: relative;
-    height: 80vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background-color: #0a0a0a;
+    /* fallback khi video chưa load */
 }
 
 .video-overlay {
@@ -2000,7 +2442,10 @@ html.lenis body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.55) 50%,
+            rgba(0, 0, 0, 0.7) 100%);
     z-index: 2;
 }
 
@@ -2014,6 +2459,7 @@ html.lenis body {
     transform: translate(-50%, -50%);
     z-index: 1;
     opacity: 1;
+    filter: saturate(0.8) brightness(0.85);
 }
 
 .promo-video-content {
@@ -2022,17 +2468,72 @@ html.lenis body {
     text-align: center;
     color: #fff;
     padding: 20px;
+    max-width: 700px;
 }
 
 .promo-video-content h2 {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 300;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .promo-video-content p {
-    font-size: 1.1rem;
-    max-width: 600px;
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+
+.promo-video-content a {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 14px 40px;
+    border: 1px solid #d4af37;
+    color: #fff;
+    background: transparent;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease;
+    position: relative;
+    z-index: 4;
+}
+
+.promo-video-content a:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+/* Campaign CTA button in promo section */
+.btn-campaign {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 13px 36px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: #fff !important;
+    background: transparent;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+    position: relative;
+    z-index: 5;
+}
+
+.btn-campaign:hover {
+    border-color: #d4af37;
+    background: #d4af37;
+    color: #000 !important;
 }
 
 /* --- HEADER STYLES --- */

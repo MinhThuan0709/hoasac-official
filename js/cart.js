@@ -3,7 +3,9 @@
    Giỏ hàng, badge cập nhật, mở/đóng drawer.
    ========================================= */
 
-(function initCart() {
+// Use DOMContentLoaded to guarantee document.body exists regardless of where script is loaded
+document.addEventListener('DOMContentLoaded', function initCart() {
+
     // Inject cart drawer HTML once
     if (!document.querySelector('.cart-drawer')) {
         document.body.insertAdjacentHTML('beforeend', `
@@ -38,8 +40,6 @@
     function updateCartBadge() {
         const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
         document.querySelectorAll('.cart-btn').forEach(btn => {
-            btn.textContent = `Gi&#7887; h&#224;ng (${totalQty})`;
-            // Use innerHTML to render entities
             btn.innerHTML = `Gi&#7887; h&#224;ng (${totalQty})`;
         });
     }
@@ -114,4 +114,4 @@
     });
 
     updateCartBadge();
-})();
+});

@@ -1,7 +1,7 @@
 // ==========================================
 // HOA SAC — Service Worker (PWA Offline Cache)
 // ==========================================
-const CACHE_NAME = 'hoasac-v2';
+const CACHE_NAME = 'hoasac-v3';
 const PRECACHE_URLS = [
     '/',
     '/index.html',
@@ -34,11 +34,11 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch — Cache-first strategy cho assets tĩnh, network-first cho API
+// Fetch — Network-first strategy to prevent stale HTML issues
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
-    // Chỉ xử lý HTTP/HTTPS — bỏ qua chrome-extension, blob, data, v.v.
+    // Chỉ xử lý HTTP/HTTPS
     if (!url.protocol.startsWith('http')) return;
 
     // Bỏ qua Firebase API calls
@@ -47,21 +47,23 @@ self.addEventListener('fetch', (event) => {
     }
 
     event.respondWith(
-        caches.match(event.request).then(cached => {
-            if (cached) return cached;
-            return fetch(event.request).then(response => {
-                // Chỉ cache response hoàn chỉnh (status 200), bỏ qua 206 (partial) và opaque
+        fetch(event.request)
+            .then(response => {
+                // Chỉ cache response hoàn chỉnh (status 200)
                 if (response.status === 200 && event.request.method === 'GET') {
                     const clone = response.clone();
                     caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
                 }
                 return response;
-            });
-        }).catch(() => {
-            // Offline fallback
-            if (event.request.destination === 'document') {
-                return caches.match('/index.html');
-            }
-        })
+            })
+            .catch(() => {
+                // Offline fallback
+                return caches.match(event.request).then(cached => {
+                    if (cached) return cached;
+                    if (event.request.destination === 'document') {
+                        return caches.match('/index.html');
+                    }
+                });
+            })
     );
 });
