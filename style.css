@@ -18,12 +18,127 @@ body {
     /* Nhanh hơn để thấy rõ sự thay đổi */
 }
 
-/* CHAMELEON MODES - HIGH CONTRAST */
-body.dark-mode {
-    background-color: #000000 !important;
-    /* Pitch Black */
-    color: #ffffff !important;
+/* ============================================
+   DARK MODE — CSS Variables System
+   ============================================ */
+:root {
+    --bg: #fdfbf7;
+    --bg-alt: #f5f3ef;
+    --surface: #ffffff;
+    --border: #e8e4de;
+    --text: #111111;
+    --text-muted: #888888;
+    --accent: #c8924a;
+    --transition-theme: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease;
 }
+
+body.dark-mode {
+    --bg: #0a0a0a;
+    --bg-alt: #111111;
+    --surface: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --text-muted: #666666;
+}
+
+/* Apply variables to key elements */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition: var(--transition-theme);
+}
+
+/* Sections backgrounds */
+body.dark-mode .categories-section,
+body.dark-mode .insta-section,
+body.dark-mode .stats-section,
+body.dark-mode .editorial-section,
+body.dark-mode .lookbook-container,
+body.dark-mode .cat-info {
+    background-color: var(--bg) !important;
+}
+
+body.dark-mode .autumn-feature__content {
+    background: var(--bg-alt) !important;
+    border-color: var(--border) !important;
+}
+
+body.dark-mode .autumn-feature__title {
+    color: var(--text) !important;
+}
+
+body.dark-mode .autumn-feature__desc {
+    color: var(--text-muted) !important;
+}
+
+/* Text colors */
+body.dark-mode .main-title,
+body.dark-mode .look-content h2,
+body.dark-mode .lb-main-title,
+body.dark-mode .stat-number,
+body.dark-mode .insta-title,
+body.dark-mode .cat-info h3 {
+    color: var(--text) !important;
+}
+
+body.dark-mode .sub-title,
+body.dark-mode .lb-overline,
+body.dark-mode .stat-label,
+body.dark-mode .collection-year,
+body.dark-mode .look-content p,
+body.dark-mode .insta-overline {
+    color: var(--text-muted) !important;
+}
+
+/* Borders */
+body.dark-mode .lookbook-header {
+    border-color: var(--border) !important;
+}
+
+body.dark-mode .stats-section {
+    border-color: var(--border) !important;
+}
+
+body.dark-mode .stat-divider {
+    background: var(--border) !important;
+}
+
+/* ---- THEME TOGGLE BUTTON ---- */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    opacity: 0.75;
+    transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+    transform: rotate(20deg);
+}
+
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+.theme-toggle .icon-moon {
+    display: block;
+}
+
+body.dark-mode .theme-toggle .icon-moon {
+    display: none;
+}
+
+body.dark-mode .theme-toggle .icon-sun {
+    display: block;
+}
+
+
 
 body.grey-mode {
     background-color: #333333 !important;
@@ -1006,9 +1121,99 @@ body.grey-mode {
 
 /* --- LOOKBOOK SECTION --- */
 .lookbook-container {
-    padding: 0 5% 120px;
+    padding: 0 0 0;
     background-color: #fdfbf7;
     overflow: hidden;
+}
+
+/* Horizontal scroll track */
+.lookbook-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+    cursor: grab;
+    padding: 0 5% 60px;
+    gap: 24px;
+}
+
+.lookbook-track::-webkit-scrollbar {
+    display: none;
+}
+
+.lookbook-track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+}
+
+/* Each lookbook card */
+.lookbook-track .lookbook-item {
+    flex: 0 0 72vw;
+    max-width: 900px;
+    scroll-snap-align: start;
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    align-items: center;
+    gap: 0 60px;
+    margin: 0;
+    /* override old margin-bottom */
+    direction: ltr !important;
+    /* override even-item RTL */
+}
+
+/* Scroll hint — fades out after first scroll */
+.lookbook-scroll-hint {
+    text-align: center;
+    padding-bottom: 32px;
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.lookbook-scroll-hint.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hint-arrow {
+    display: flex;
+    gap: 4px;
+}
+
+.hint-arrow span {
+    width: 20px;
+    height: 1px;
+    background: currentColor;
+    display: block;
+    animation: hintSlide 1.4s ease-in-out infinite;
+}
+
+.hint-arrow span:nth-child(2) {
+    animation-delay: 0.2s;
+    opacity: 0.5;
+}
+
+@keyframes hintSlide {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(6px);
+        opacity: 0.4;
+    }
 }
 
 /* Header cho lookbook */

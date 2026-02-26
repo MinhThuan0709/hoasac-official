@@ -311,7 +311,53 @@ document.addEventListener('DOMContentLoaded', () => {
         statItems.forEach(el => statsObserver.observe(el));
     }
 
-    /* --- 10. TREND POPUP --- */
+    /* --- 11. DARK MODE TOGGLE (Theme Toggle) --- */
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        // Apply saved preference on load
+        if (localStorage.getItem('hoa_sac_theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('hoa_sac_theme', isDark ? 'dark' : 'light');
+        });
+    }
+
+    /* --- 12. LOOKBOOK HORIZONTAL DRAG SCROLL --- */
+    const lbTrack = document.getElementById('lookbook-track');
+    const lbHint = document.getElementById('lookbook-hint');
+    if (lbTrack) {
+        let isDown = false, startX = 0, scrollLeft = 0;
+
+        const onDown = (x) => { isDown = true; startX = x - lbTrack.offsetLeft; scrollLeft = lbTrack.scrollLeft; lbTrack.classList.add('is-dragging'); };
+        const onUp = () => { isDown = false; lbTrack.classList.remove('is-dragging'); };
+        const onMove = (x) => {
+            if (!isDown) return;
+            const walk = (x - lbTrack.offsetLeft - startX) * 1.4;
+            lbTrack.scrollLeft = scrollLeft - walk;
+        };
+
+        // Mouse
+        lbTrack.addEventListener('mousedown', e => onDown(e.pageX));
+        lbTrack.addEventListener('mouseup', onUp);
+        lbTrack.addEventListener('mouseleave', onUp);
+        lbTrack.addEventListener('mousemove', e => { e.preventDefault(); onMove(e.pageX); });
+
+        // Touch
+        lbTrack.addEventListener('touchstart', e => onDown(e.touches[0].pageX), { passive: true });
+        lbTrack.addEventListener('touchend', onUp);
+        lbTrack.addEventListener('touchmove', e => onMove(e.touches[0].pageX), { passive: true });
+
+        // Hint: hide after first scroll
+        if (lbHint) {
+            lbTrack.addEventListener('scroll', () => lbHint.classList.add('hide'), { once: true });
+        }
+    }
+
+    /* --- 10b. TREND POPUP --- */
     if (!sessionStorage.getItem('hoa_sac_trend_closed')) {
         const ideas = [
             { img: 'assets/images/lookbook/look-01.jpg', title: 'Xu H&#432;&#7899;ng M&#7899;i', desc: 'Th&#7917; ph&#7889;i Monochrome &#273;&#7875; t&#244;n vinh s&#7921; t&#7889;i gi&#7843;n.' },
