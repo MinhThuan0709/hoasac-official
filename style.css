@@ -867,6 +867,143 @@ body.grey-mode {
     }
 }
 
+/* --- INSTAGRAM MASONRY GALLERY --- */
+.insta-section {
+    padding: 100px 4%;
+    background-color: #fff;
+}
+
+.insta-header {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.insta-overline {
+    font-size: 10px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #bbb;
+    font-family: 'Courier New', monospace;
+}
+
+.insta-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: #111;
+    margin: 0;
+}
+
+.insta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+    transition: color 0.3s, border-color 0.3s;
+    margin-top: 4px;
+}
+
+.insta-link:hover {
+    color: #111;
+    border-color: #111;
+}
+
+/* Grid Layout */
+.insta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tall item: spans 2 rows */
+.insta-item--tall {
+    grid-row: span 2;
+}
+
+/* Wide item: spans 2 cols (for bottom row) */
+.insta-item--wide {
+    grid-column: span 2;
+}
+
+/* Each item */
+.insta-item {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
+}
+
+.insta-item--tall {
+    aspect-ratio: unset;
+}
+
+.insta-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    filter: saturate(0.85);
+}
+
+.insta-item:hover img {
+    transform: scale(1.08);
+    filter: saturate(1) brightness(0.75);
+}
+
+/* Overlay */
+.insta-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.insta-item:hover .insta-overlay {
+    opacity: 1;
+}
+
+.insta-overlay svg {
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.insta-item:hover .insta-overlay svg {
+    transform: scale(1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .insta-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .insta-item--tall,
+    .insta-item--wide {
+        grid-row: unset;
+        grid-column: unset;
+        aspect-ratio: 1 / 1;
+    }
+}
+
 /* --- LOOKBOOK SECTION --- */
 .lookbook-container {
     padding: 0 5% 120px;

@@ -1,24 +1,50 @@
-# Dependencies
-node_modules/
+# ============================================
+# HOA SAC — .gitignore (Production Ready)
+# ============================================
 
-# Junk scripts (one-time utility scripts)
+# --- SECRETS (NEVER commit!) ---
+.env
+.env.local
+.env.*.local
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# --- Utility / one-time scripts (không deploy) ---
+download-pexels.js
+download-unsplash.js
+migrate-cloudinary.js
+tools/
+
+# --- Debug files ---
+debug_*.html
+test_*.html
+
+# --- Large local video assets (dùng Cloudinary URLs thay thế) ---
+assets/videos/*.mp4
+assets/videos/runway/
+assets/videos/pexels/
+
+# --- Junk scripts ---
 perf_patch*.js
 sync_*.js
 inject_*.js
 fix_*.js
 
-# OS files
+# --- OS files ---
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Logs
+# --- Logs ---
 *.log
-npm-debug.log*
 
-# Build output (if added later)
-dist/
-.next/
-
-# Editor
+# --- Editor ---
 .vscode/settings.json
 .idea/
+
+# --- Build output ---
+dist/
+.next/
