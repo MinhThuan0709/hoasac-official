@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phụ Kiện — HOA SAC Accessories</title>
+    <meta name="description"
+        content="Phụ kiện cao cấp HOA SAC: túi xách, đồng hồ, trang sức, kính mắt, thắt lưng. Crafted with precision.">
+    <link rel="icon"
+        href="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007504/hoasac/images/icons/icon-192.jpg"
+        type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,300;1,400&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* ── ACCESSORIES PAGE ── */
+        :root {
+            --gold: #c8924a;
+            --dark: #0a0a0a;
+            --cream: #f5f0ea;
+        }
+
+        /* HERO */
+        .acc-hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: clamp(40px, 8vw, 100px);
+        }
+
+        .acc-hero__bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
+            transform: scale(1.08);
+            transition: transform 8s ease;
+            will-change: transform;
+        }
+
+        .acc-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .75) 0%, rgba(0, 0, 0, .2) 60%, transparent 100%);
+        }
+
+        .acc-hero__content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 700px;
+        }
+
+        .acc-hero__tag {
+            display: inline-block;
+            font-size: 9px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 6px;
+        }
+
+        .acc-hero__title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-weight: 300;
+            line-height: .9;
+            letter-spacing: -.03em;
+            margin-bottom: 28px;
+        }
+
+        .acc-hero__title em {
+            font-style: italic;
+            color: var(--gold);
+            display: block;
+        }
+
+        .acc-hero__sub {
+            font-size: clamp(.85rem, 1.2vw, 1rem);
+            font-weight: 300;
+            opacity: .8;
+            max-width: 400px;
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+
+        .acc-hero__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border: 1px solid rgba(255, 255, 255, .5);
+            transition: background .4s, border-color .4s;
+        }
+
+        .acc-hero__cta:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .acc-hero__scroll {
+            position: absolute;
+            right: clamp(20px, 4vw, 60px);
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, .6);
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .acc-hero__scroll-line {
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, .4);
+            animation: scrollLine 2s ease infinite;
+        }
+
+        @keyframes scrollLine {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top
+            }
+
+            51% {
+                transform-origin: bottom
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom
+            }
+        }
+
+        /* CATEGORY TABS */
+        .acc-tabs-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg, #faf6f0);
+            border-bottom: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        [data-theme="dark"] .acc-tabs-wrap {
+            background: #111;
+            border-color: rgba(255, 255, 255, .08);
+        }
+
+        .acc-tabs {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 0 clamp(20px, 6vw, 100px);
+        }
+
+        .acc-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .acc-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            padding: 18px 28px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--text-secondary, #888);
+            transition: color .3s;
+            position: relative;
+            border-bottom: 2px solid transparent;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .acc-tab svg {
+            width: 16px;
+            height: 16px;
+            opacity: .6;
+            transition: opacity .3s;
+        }
+
+        .acc-tab.active,
+        .acc-tab:hover {
+            color: var(--text-primary, #1c1917);
+        }
+
+        .acc-tab.active svg {
+            opacity: 1;
+        }
+
+        .acc-tab.active {
+            border-bottom-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* PRODUCT GRID */
+        .acc-section {
+            padding: clamp(60px, 8vw, 120px) clamp(20px, 6vw, 100px);
+        }
+
+        .acc-section-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .acc-section-head h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 300;
+            letter-spacing: -.02em;
+        }
+
+        .acc-section-head h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .acc-count {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .acc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .acc-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--card-bg, #f0ebe3);
+            display: none;
+        }
+
+        .acc-card.visible {
+            display: block;
+        }
+
+        .acc-card--tall {
+            grid-row: span 2;
+        }
+
+        .acc-card--wide {
+            grid-column: span 2;
+        }
+
+        .acc-card__img {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+        }
+
+        .acc-card--tall .acc-card__img {
+            aspect-ratio: 3/5;
+        }
+
+        .acc-card--wide .acc-card__img {
+            aspect-ratio: 16/9;
+        }
+
+        .acc-card__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(.16, 1, .3, 1), filter .6s;
+            filter: brightness(.9) saturate(.85);
+        }
+
+        .acc-card:hover .acc-card__img img {
+            transform: scale(1.06);
+            filter: brightness(1) saturate(1);
+        }
+
+        .acc-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .6) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity .5s;
+        }
+
+        .acc-card:hover .acc-card__overlay {
+            opacity: 1;
+        }
+
+        .acc-card__info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            color: #fff;
+            transform: translateY(8px);
+            transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+            opacity: 0;
+        }
+
+        .acc-card:hover .acc-card__info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .acc-card__tag {
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .acc-card__name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .acc-card__price {
+            font-size: .85rem;
+            opacity: .85;
+            font-weight: 300;
+        }
+
+        .acc-card__static {
+            padding: 16px 0;
+        }
+
+        .acc-card__static-name {
+            font-size: .9rem;
+            font-weight: 400;
+            margin-bottom: 4px;
+            color: var(--text-primary, #1c1917);
+        }
+
+        .acc-card__static-price {
+            font-size: .82rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .acc-card__badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-size: 7px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: #fff;
+            padding: 4px 10px;
+            font-weight: 700;
+        }
+
+        .acc-card__quick {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, .3);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(.8);
+            transition: opacity .3s, transform .3s, background .3s;
+        }
+
+        .acc-card:hover .acc-card__quick {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .acc-card__quick:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        /* EDITORIAL STRIP */
+        .acc-editorial {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 70vh;
+            background: var(--dark);
+        }
+
+        .acc-editorial__text {
+            padding: clamp(60px, 8vw, 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .acc-editorial__label {
+            font-size: 8px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+            display: block;
+        }
+
+        .acc-editorial__quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.4;
+            letter-spacing: -.01em;
+            margin-bottom: 40px;
+            color: #f0ebe3;
+        }
+
+        .acc-editorial__quote em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .acc-editorial__body {
+            font-size: .9rem;
+            font-weight: 300;
+            opacity: .65;
+            line-height: 1.9;
+            max-width: 380px;
+        }
+
+        .acc-editorial__img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .acc-editorial__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(.8) saturate(.7);
+        }
+
+        /* LOOKBOOK STRIP */
+        .acc-lookbook {
+            padding: clamp(60px, 8vw, 100px) 0;
+            background: var(--bg, #faf6f0);
+            overflow: hidden;
+        }
+
+        .acc-lookbook__head {
+            padding: 0 clamp(20px, 6vw, 100px);
+            margin-bottom: 40px;
+        }
+
+        .acc-lookbook__head h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 4rem);
+            font-weight: 300;
+        }
+
+        .acc-lookbook__scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 0 clamp(20px, 6vw, 100px) 20px;
+            cursor: grab;
+        }
+
+        .acc-lookbook__scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .acc-lookbook__item {
+            flex-shrink: 0;
+            width: clamp(240px, 30vw, 380px);
+        }
+
+        .acc-lookbook__img {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 2/3;
+        }
+
+        .acc-lookbook__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .acc-lookbook__item:hover .acc-lookbook__img img {
+            transform: scale(1.05);
+        }
+
+        .acc-lookbook__caption {
+            padding: 12px 0;
+            font-size: .8rem;
+            font-weight: 300;
+            color: var(--text-secondary, #888);
+        }
+
+        /* BESPOKE CTA */
+        .acc-bespoke {
+            padding: clamp(80px, 10vw, 140px) clamp(20px, 6vw, 100px);
+            background: var(--dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .acc-bespoke::before {
+            content: 'BESPOKE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(80px, 18vw, 220px);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, .04);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .acc-bespoke__tag {
+            font-size: 8px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 24px;
+        }
+
+        .acc-bespoke__title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 6rem);
+            font-weight: 300;
+            color: #f0ebe3;
+            line-height: .95;
+            letter-spacing: -.03em;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .acc-bespoke__title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .acc-bespoke__desc {
+            font-size: .95rem;
+            font-weight: 300;
+            color: rgba(240, 235, 227, .6);
+            line-height: 1.9;
+            max-width: 520px;
+            margin: 0 auto 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .acc-bespoke__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--gold);
+            color: #fff;
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 18px 48px;
+            position: relative;
+            z-index: 1;
+            transition: background .3s, transform .3s;
+        }
+
+        .acc-bespoke__btn:hover {
+            background: #b07a38;
+            transform: translateY(-2px);
+        }
+
+        /* QUICK VIEW MODAL */
+        .acc-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .acc-modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .acc-modal {
+            background: var(--bg, #faf6f0);
+            max-width: 860px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transform: translateY(20px);
+            transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .acc-modal-overlay.active .acc-modal {
+            transform: translateY(0);
+        }
+
+        .acc-modal__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 400px;
+        }
+
+        .acc-modal__body {
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .acc-modal__cat {
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .acc-modal__name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .acc-modal__price {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .acc-modal__desc {
+            font-size: .85rem;
+            font-weight: 300;
+            line-height: 1.8;
+            opacity: .7;
+            margin-bottom: 32px;
+        }
+
+        .acc-modal__sizes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .acc-modal__size-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 0, 0, .15);
+            background: none;
+            font-size: 10px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .acc-modal__size-btn.active {
+            background: var(--dark);
+            color: #fff;
+            border-color: var(--dark);
+        }
+
+        .acc-modal__add {
+            width: 100%;
+            padding: 16px;
+            background: var(--dark);
+            color: #fff;
+            border: none;
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background .3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .acc-modal__add:hover {
+            background: var(--gold);
+        }
+
+        .acc-modal__close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-primary, #1c1917);
+            z-index: 2;
+            transition: transform .2s;
+        }
+
+        .acc-modal__close:hover {
+            transform: rotate(45deg);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .acc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .acc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .acc-card--tall {
+                grid-row: span 1;
+            }
+
+            .acc-card--wide {
+                grid-column: span 2;
+            }
+
+            .acc-editorial {
+                grid-template-columns: 1fr;
+            }
+
+            .acc-editorial__img {
+                min-height: 300px;
+            }
+
+            .acc-modal {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .acc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .acc-card--wide {
+                grid-column: span 1;
+            }
+
+            .acc-tabs {
+                gap: 0;
+            }
+
+            .acc-tab {
+                padding: 14px 16px;
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise-overlay"></div>
+    <div class="preloader">
+        <div class="preloader-content">
+            <h1 class="brand-name">HOA SAC</h1>
+            <div class="loading-line"></div>
+        </div>
+    </div>
+    <div class="custom-cursor"></div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">HOA SAC.</a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="women.html" class="nav-link">Nữ</a></li>
+                    <li class="nav-item"><a href="men.html" class="nav-link">Nam</a></li>
+                    <li class="nav-item"><a href="collections.html" class="nav-link">Bộ Sưu Tập</a></li>
+                    <li class="nav-item"><a href="accessories.html" class="nav-link"
+                            style="color:var(--gold,#c8924a)">Phụ Kiện</a></li>
+                    <li class="nav-item"><a href="stories.html" class="nav-link">Stories</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link nav-contact"><span class="text">Liên
+                                Hệ</span></a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+                    <span class="lang-opt" data-lang="vi">VI</span>
+                    <span class="lang-divider">/</span>
+                    <span class="lang-opt" data-lang="en">EN</span>
+                </button>
+                <a href="auth.html" class="account-btn">Tài Khoản</a>
+                <a href="cart.html" class="cart-btn">Giỏ hàng (0)</a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                    </svg>
+                </button>
+                <div class="hamburger-menu" id="hamburger" aria-label="Open menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAV OVERLAY -->
+    <div class="nav-overlay" id="nav-overlay">
+        <div class="ov-left">
+            <a href="index.html" class="ov-brand">HOA SAC.</a>
+            <nav class="ov-nav">
+                <div class="ov-section"
+                    data-img="https://res.cloudinary.com/dy7wqhut6/image/upload/f_auto,q_auto/v1772007501/hoasac/images/lookbook/look-01.jpg">
+                    <div class="ov-section-head"><span class="ov-num">01</span><span class="ov-label">TRANG CHÍNH</span>
+                    </div>
+                    <ul class="ov-items">
+                        <li class="ov-item"><a href="women.html">Thời Trang Nữ</a></li>
+                        <li class="ov-item"><a href="men.html">Thời Trang Nam</a></li>
+                        <li class="ov-item"><a href="accessories.html">Phụ Kiện</a></li>
+                        <li class="ov-item"><a href="collections.html">Bộ Sưu Tập</a></li>
+                        <li class="ov-item"><a href="stories.html">Stories</a></li>
+                        <li class="ov-item"><a href="about.html">Về Chúng Tôi</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="ov-quick">
+                <a href="auth.html" class="ov-quick-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.2">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg><span>Tài Khoản</span></a>
+                <a href="cart.html" class="ov-quick-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.2">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 01-8 0" />
+                    </svg><span>Giỏ Hàng</span></a>
+                <a href="contact.html" class="ov-quick-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.2">
+                        <polygon points="12 2 22 9 18 21 6 21 2 9 12 2" />
+                    </svg><span>Bespoke</span></a>
+            </div>
+            <div class="ov-foot">
+                <div class="ov-socials">
+                    <a href="https://instagram.com/hoasacfashion" class="ov-social">IG</a>
+                    <a href="https://facebook.com/hoasacfashion" class="ov-social">FB</a>
+                </div>
+                <span class="ov-clock" id="ov-clock">00:00</span>
+            </div>
+        </div>
+        <div class="ov-right">
+            <div class="ov-mood" id="ov-mood">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80"
+                    alt="Mood" id="ov-mood-img">
+                <div class="ov-mood-label"><span>Accessories 2025</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1: HERO -->
+    <section class="acc-hero">
+        <div class="acc-hero__bg" id="heroBg"></div>
+        <div class="acc-hero__overlay"></div>
+        <div class="acc-hero__content">
+            <span class="acc-hero__tag">FW 2025 · Accessories Collection</span>
+            <h1 class="acc-hero__title">The Detail<em>Is Everything.</em></h1>
+            <p class="acc-hero__sub">Phụ kiện không phải điểm kết thúc — chúng là ngôn ngữ của phong cách. Mỗi chi tiết
+                được chế tác để kể một câu chuyện.</p>
+            <a href="#acc-grid" class="acc-hero__cta">Khám Phá Ngay <svg width="14" height="14" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></a>
+        </div>
+        <div class="acc-hero__scroll">
+            <div class="acc-hero__scroll-line"></div><span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- SECTION 2: CATEGORY TABS -->
+    <div class="acc-tabs-wrap">
+        <div class="acc-tabs" id="accTabs">
+            <button class="acc-tab active" data-filter="all">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                </svg>
+                Tất Cả
+            </button>
+            <button class="acc-tab" data-filter="bags">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                </svg>
+                Túi Xách
+            </button>
+            <button class="acc-tab" data-filter="watches">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <circle cx="12" cy="12" r="7" />
+                    <polyline points="12 9 12 12 13.5 13.5" />
+                    <path
+                        d="M16.51 17.35l-.35 3.83a2 2 0 01-2 1.82H9.83a2 2 0 01-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 019.83 1h4.35a2 2 0 012 1.82l.35 3.83" />
+                </svg>
+                Đồng Hồ
+            </button>
+            <button class="acc-tab" data-filter="jewellery">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                Trang Sức
+            </button>
+            <button class="acc-tab" data-filter="scarves">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                Khăn & Mũ
+            </button>
+            <button class="acc-tab" data-filter="eyewear">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <circle cx="6" cy="12" r="4" />
+                    <circle cx="18" cy="12" r="4" />
+                    <path d="M14 12a2 2 0 00-4 0M2 12h.01M22 12h.01" />
+                </svg>
+                Kính Mắt
+            </button>
+            <button class="acc-tab" data-filter="belts">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <rect x="1" y="10" width="22" height="4" rx="2" />
+                    <path d="M8 12h2" />
+                </svg>
+                Thắt Lưng
+            </button>
+        </div>
+    </div>
+
+    <!-- SECTION 3: PRODUCT GRID -->
+    <section class="acc-section" id="acc-grid">
+        <div class="acc-section-head">
+            <h2>The <em>Archive</em></h2>
+            <span class="acc-count" id="accCount">18 Sản Phẩm</span>
+        </div>
+        <div class="acc-grid" id="accGrid"></div>
+    </section>
+
+    <!-- SECTION 4: EDITORIAL STRIP -->
+    <section class="acc-editorial">
+        <div class="acc-editorial__text">
+            <span class="acc-editorial__label">Triết Lý Thiết Kế · HOA SAC</span>
+            <blockquote class="acc-editorial__quote">
+                "Phụ kiện không phải là <em>điểm kết thúc</em> —<br>chúng là nơi bắt đầu của phong cách."
+            </blockquote>
+            <p class="acc-editorial__body">Mỗi phụ kiện HOA SAC được chế tác thủ công từ các nguyên liệu cao cấp được
+                tuyển chọn kỹ lưỡng từ những xưởng thủ công danh tiếng. Từ những đường chỉ khâu tay đến bề mặt da thuộc
+                Italian premium — sự hoàn hảo ẩn trong từng chi tiết.</p>
+        </div>
+        <div class="acc-editorial__img">
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=85"
+                alt="HOA SAC Atelier" loading="lazy">
+        </div>
+    </section>
+
+    <!-- SECTION 5: LOOKBOOK SCROLL -->
+    <section class="acc-lookbook">
+        <div class="acc-lookbook__head">
+            <h2>Styling <em style="font-style:italic;color:#c8924a">Lookbook</em></h2>
+        </div>
+        <div class="acc-lookbook__scroll" id="lookbookScroll">
+            <div class="acc-lookbook__item">
+                <div class="acc-lookbook__img"><img
+                        src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=500&q=80"
+                        alt="Look 01" loading="lazy"></div>
+                <p class="acc-lookbook__caption">Look 01 — Power Dressing</p>
+            </div>
+            <div class="acc-lookbook__item">
+                <div class="acc-lookbook__img"><img
+                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=500&q=80"
+                        alt="Look 02" loading="lazy"></div>
+                <p class="acc-lookbook__caption">Look 02 — Quiet Luxury</p>
+            </div>
+            <div class="acc-lookbook__item">
+                <div class="acc-lookbook__img"><img
+                        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80"
+                        alt="Look 03" loading="lazy"></div>
+                <p class="acc-lookbook__caption">Look 03 — Monochrome Edit</p>
+            </div>
+            <div class="acc-lookbook__item">
+                <div class="acc-lookbook__img"><img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=500&q=80"
+                        alt="Look 04" loading="lazy"></div>
+                <p class="acc-lookbook__caption">Look 04 — Evening Edition</p>
+            </div>
+            <div class="acc-lookbook__item">
+                <div class="acc-lookbook__img"><img
+                        src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=500&q=80"
+                        alt="Look 05" loading="lazy"></div>
+                <p class="acc-lookbook__caption">Look 05 — Urban Refined</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: BESPOKE CTA -->
+    <section class="acc-bespoke">
+        <span class="acc-bespoke__tag">Dịch Vụ Đặt Làm Riêng</span>
+        <h2 class="acc-bespoke__title">Custom <em>Accessories</em><br>Made For You.</h2>
+        <p class="acc-bespoke__desc">Mỗi phụ kiện bespoke là một tác phẩm độc bản — được thiết kế riêng theo yêu cầu của
+            bạn, từ chất liệu đến từng đường chỉ khâu tay cuối cùng.</p>
+        <a href="contact.html" class="acc-bespoke__btn">Liên Hệ Bespoke <svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></a>
+    </section>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="acc-modal-overlay" id="accModal" role="dialog">
+        <div class="acc-modal" style="position:relative">
+            <button class="acc-modal__close" id="accModalClose">&times;</button>
+            <div class="acc-modal__img"><img src="" alt="" id="accModalImg" loading="lazy"></div>
+            <div class="acc-modal__body">
+                <span class="acc-modal__cat" id="accModalCat">Category</span>
+                <h2 class="acc-modal__name" id="accModalName">Product Name</h2>
+                <span class="acc-modal__price" id="accModalPrice">$0.00</span>
+                <p class="acc-modal__desc">Chế tác thủ công từ nguyên liệu cao cấp nhập khẩu. Thiết kế tinh giản tôn
+                    vinh vẻ đẹp tự nhiên của chất liệu.</p>
+                <div class="acc-modal__sizes" id="accModalSizes"></div>
+                <button class="acc-modal__add" id="accModalAdd">Thêm Vào Giỏ</button>
+                <a href="contact.html"
+                    style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;text-align:center;display:block">Đặt
+                    Làm Riêng →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <h3 class="footer-logo">HOA SAC.</h3>
+                <p class="brand-desc">Định hình phong cách cho tương lai. Sự tối giản là đỉnh cao của sự tinh tế.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/hoasacfashion">IG</a>
+                    <a href="https://facebook.com/hoasacfashion">FB</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Khám Phá</h4>
+                <ul>
+                    <li><a href="women.html">Thời Trang Nữ</a></li>
+                    <li><a href="men.html">Thời Trang Nam</a></li>
+                    <li><a href="accessories.html">Phụ Kiện</a></li>
+                    <li><a href="collections.html">Bộ Sưu Tập</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hỗ Trợ</h4>
+                <ul>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                    <li><a href="contact.html">Bespoke Order</a></li>
+                    <li><a href="about.html">Về Chúng Tôi</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>Bản Tin</h4>
+                <p>Đăng ký nhận thông tin bộ sưu tập mới.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn..." required>
+                    <button type="submit">&#8594;</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> HOA SAC Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const PRODUCTS = [
+            { id: 'a-01', name: 'Calfskin Tote Noir', cat: 'bags', price: 2400, badge: 'SIGNATURE', size: ['XS', 'S', 'M'], img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80', type: 'tall' },
+            { id: 'a-02', name: 'Structured Saddle Bag', cat: 'bags', price: 3200, badge: 'NEW', size: ['One Size'], img: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-03', name: 'Chain Mini Bag', cat: 'bags', price: 1800, badge: 'LIMITED', size: ['One Size'], img: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-04', name: 'Minimalist Watch Steel', cat: 'watches', price: 2100, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80', type: 'wide' },
+            { id: 'a-05', name: 'Rose Gold Timepiece', cat: 'watches', price: 3800, badge: 'NEW', size: ['One Size'], img: 'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-06', name: 'Ceramic Chronograph', cat: 'watches', price: 4500, badge: 'SIGNATURE', size: ['One Size'], img: 'https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-07', name: 'Silk Scarf Noir', cat: 'scarves', price: 480, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-08', name: 'Cashmere Wrap', cat: 'scarves', price: 720, badge: 'NEW', size: ['One Size'], img: 'https://images.unsplash.com/photo-1609803384069-19f3f746e140?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-09', name: 'Leather Belt Signature', cat: 'belts', price: 420, badge: 'SIGNATURE', size: ['S', 'M', 'L', 'XL'], img: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80', type: 'wide' },
+            { id: 'a-10', name: 'Woven Canvas Belt', cat: 'belts', price: 280, badge: '', size: ['S', 'M', 'L'], img: 'https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-11', name: 'Diamond Ear Cuff', cat: 'jewellery', price: 1200, badge: 'LIMITED', size: ['One Size'], img: 'https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-12', name: 'Gold Chain Necklace', cat: 'jewellery', price: 980, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80', type: 'tall' },
+            { id: 'a-13', name: 'Pearl Ring', cat: 'jewellery', price: 650, badge: 'NEW', size: ['6', '7', '8'], img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-14', name: 'Aviator Sunglasses', cat: 'eyewear', price: 560, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-15', name: 'Round Frame Noir', cat: 'eyewear', price: 480, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-16', name: 'Oversize Cat Eye', cat: 'eyewear', price: 520, badge: 'NEW', size: ['One Size'], img: 'https://images.unsplash.com/photo-1504707748692-419802cf939d?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-17', name: 'Suede Clutch Ivory', cat: 'bags', price: 1100, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+            { id: 'a-18', name: 'Leather Passport Holder', cat: 'belts', price: 380, badge: '', size: ['One Size'], img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=600&q=80', type: 'normal' },
+        ];
+
+        const CAT_NAMES = { bags: 'Túi Xách', watches: 'Đồng Hồ', jewellery: 'Trang Sức', scarves: 'Khăn & Mũ', eyewear: 'Kính Mắt', belts: 'Thắt Lưng' };
+
+        function fmt(p) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(p); }
+
+        function renderGrid(filter = 'all') {
+            const grid = document.getElementById('accGrid');
+            const items = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+            document.getElementById('accCount').textContent = items.length + ' Sản Phẩm';
+            grid.innerHTML = '';
+            items.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = 'acc-card visible' + (p.type === 'tall' ? ' acc-card--tall' : p.type === 'wide' ? ' acc-card--wide' : '');
+                card.innerHTML = `
+            <div class="acc-card__img">
+                <img src="${p.img}" alt="${p.name}" loading="${i < 4 ? 'eager' : 'lazy'}">
+                <div class="acc-card__overlay"></div>
+                <div class="acc-card__info">
+                    <span class="acc-card__tag">${CAT_NAMES[p.cat] || p.cat}</span>
+                    <div class="acc-card__name">${p.name}</div>
+                    <div class="acc-card__price">${fmt(p.price)}</div>
+                </div>
+                ${p.badge ? `<span class="acc-card__badge">${p.badge}</span>` : ''}
+                <button class="acc-card__quick" data-id="${p.id}" aria-label="Quick view">+</button>
+            </div>
+            <div class="acc-card__static">
+                <div class="acc-card__static-name">${p.name}</div>
+                <div class="acc-card__static-price">${fmt(p.price)}</div>
+            </div>`;
+                grid.appendChild(card);
+                card.querySelector('.acc-card__quick').addEventListener('click', e => { e.stopPropagation(); openModal(p); });
+            });
+        }
+
+        function openModal(p) {
+            document.getElementById('accModalImg').src = p.img;
+            document.getElementById('accModalImg').alt = p.name;
+            document.getElementById('accModalCat').textContent = CAT_NAMES[p.cat] || p.cat;
+            document.getElementById('accModalName').textContent = p.name;
+            document.getElementById('accModalPrice').textContent = fmt(p.price);
+            const sizesEl = document.getElementById('accModalSizes');
+            sizesEl.innerHTML = '';
+            p.size.forEach((s, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'acc-modal__size-btn' + (i === 0 ? ' active' : '');
+                btn.textContent = s;
+                btn.onclick = () => { document.querySelectorAll('.acc-modal__size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); };
+                sizesEl.appendChild(btn);
+            });
+            document.getElementById('accModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('accModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Tabs
+        document.querySelectorAll('.acc-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.acc-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                renderGrid(tab.dataset.filter);
+            });
+        });
+
+        // Modal
+        document.getElementById('accModalClose').onclick = closeModal;
+        document.getElementById('accModal').addEventListener('click', e => { if (e.target === document.getElementById('accModal')) closeModal(); });
+        document.getElementById('accModalAdd').onclick = () => {
+            const p = PRODUCTS.find(p => p.name === document.getElementById('accModalName').textContent);
+            const active = document.querySelector('.acc-modal__size-btn.active');
+            if (p && window.addToCart) window.addToCart({ name: p.name, price: p.price, image: p.img, size: active ? active.textContent : 'One Size' });
+            closeModal();
+        };
+
+        // Hero parallax
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            const s = window.pageYOffset;
+            if (s < window.innerHeight) heroBg.style.transform = `scale(1.08) translateY(${s * 0.3}px)`;
+        }, { passive: true });
+
+        // Lookbook drag scroll
+        const lb = document.getElementById('lookbookScroll');
+        let isDown = false, startX, scrollLeft;
+        lb.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - lb.offsetLeft; scrollLeft = lb.scrollLeft; });
+        lb.addEventListener('mouseleave', () => isDown = false);
+        lb.addEventListener('mouseup', () => isDown = false);
+        lb.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - lb.offsetLeft; lb.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Init
+        renderGrid();
+
+        // Preloader
+        setTimeout(() => { const pl = document.querySelector('.preloader'); if (pl) { pl.classList.add('hide-loader'); pl.style.transform = 'translateY(-100%)'; pl.style.pointerEvents = 'none'; } document.body.style.overflow = ''; }, 2500);
+    </script>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/auth-state.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="main.js"></script>
+    <script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('service-worker.js').catch(() => { }); }); }</script>
+</body>
+
+</html>

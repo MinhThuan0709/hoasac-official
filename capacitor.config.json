@@ -1,0 +1,21 @@
+{
+    "appId": "com.hoasac.app",
+    "appName": "HOA SAC",
+    "webDir": "www",
+    "server": {
+        "androidScheme": "https"
+    },
+    "android": {
+        "buildOptions": {
+            "releaseType": "APK"
+        }
+    },
+    "plugins": {
+        "SplashScreen": {
+            "launchShowDuration": 2500,
+            "backgroundColor": "#0a0a0a",
+            "showSpinner": false,
+            "launchAutoHide": true
+        }
+    }
+}
